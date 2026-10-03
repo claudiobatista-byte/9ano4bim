@@ -1,0 +1,1544 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="format-detection" content="telephone=no">
+<meta name="theme-color" content="#1f4a28">
+<title>Cidadania no Brasil | CERO</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<style>
+  :root{
+    --bg:#f1f5ee;
+    --bg-alt:#e0ead8;
+    --paper:#fcfdfa;
+    --ink:#1b2a1c;
+    --ink-soft:#55684f;
+    --teal:#2f6b3a;
+    --teal-dark:#1f4a28;
+    --teal-2:#5a9a55;
+    --cobre:#b5832a;
+    --cobre-light:#ecd9a8;
+    --line:#d3e0c8;
+    --shadow:0 10px 30px rgba(31,74,40,.16);
+    --radius:14px;
+    --font-title:'Playfair Display', serif;
+    --font-body:'Source Serif 4', serif;
+    --font-mono:'JetBrains Mono', monospace;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--font-body);
+    line-height:1.7;
+    -webkit-touch-callout:none;
+    -webkit-user-select:none;
+    user-select:none;
+    -webkit-text-size-adjust:100%;
+    text-size-adjust:100%;
+    -webkit-tap-highlight-color:transparent;
+    overflow-wrap:break-word;
+  }
+  .selecionavel, main{-webkit-user-select:text;user-select:text;}
+  /* iOS Safari exige -webkit-user-select:text para digitar em campos */
+  input, textarea, .campo-resposta{-webkit-user-select:text;user-select:text;-webkit-touch-callout:default;}
+
+  /* ===== CAPA / GATE ===== */
+  #capa{
+    min-height:100vh;
+    min-height:100dvh;
+    display:flex; align-items:center; justify-content:center;
+    position:relative;
+    overflow:hidden;
+    background:linear-gradient(rgba(7,25,14,.48), rgba(7,25,14,.62)), url('img/capa.webp') center center / cover no-repeat;
+    padding:24px;
+  }
+  #capa .grade-centralizada{
+    position:absolute;
+    top:0; bottom:0; left:50%;
+    transform:translateX(-50%);
+    width:100%;
+    max-width:896px;
+    pointer-events:none;
+    z-index:0;
+    opacity:.08;
+    background:
+      repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(255,255,255,.5) 39px, rgba(255,255,255,.5) 40px),
+      repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(255,255,255,.5) 39px, rgba(255,255,255,.5) 40px);
+    background-size:40px 40px;
+  }
+  .capa-card{
+    position:relative;
+    z-index:1;
+    background:var(--paper);
+    border-radius:var(--radius);
+    box-shadow:var(--shadow);
+    max-width:480px;
+    width:100%;
+    padding:36px 32px;
+    text-align:center;
+  }
+  .capa-card .tag{
+    display:inline-block; font-family:var(--font-mono); font-size:.7rem;
+    letter-spacing:.1em; text-transform:uppercase; color:var(--teal-dark);
+    background:rgba(47,107,58,.1); padding:5px 12px; border-radius:999px; margin-bottom:14px;
+  }
+  .capa-card h1{font-family:var(--font-title); font-size:1.6rem; margin:0 0 10px; color:var(--teal-dark);}
+  .capa-card p.desc{color:var(--ink-soft); font-size:.94rem; margin:0 0 22px;}
+  .capa-card input{
+    width:100%; padding:12px 14px; border:1px solid var(--line); border-radius:8px;
+    font-family:var(--font-body); font-size:1rem; margin-bottom:14px;
+  }
+  .capa-card button{
+    width:100%; padding:13px; border:none; border-radius:8px;
+    background:var(--teal); color:#fff; font-weight:600; font-size:1rem; cursor:pointer;
+    font-family:var(--font-body); transition:filter .15s ease;
+  }
+  .capa-card button:hover{filter:brightness(1.08);}
+  .capa-aviso{font-size:.78rem; color:#a33; margin-top:8px; display:none;}
+
+  /* ===== APP ===== */
+  #app{display:none;}
+  .sticky-header{
+    position:sticky; top:0; z-index:50;
+    background:var(--teal-dark); color:#eef8ea;
+    padding:12px 20px; display:flex; align-items:center; justify-content:space-between;
+    flex-wrap:wrap; gap:8px;
+    font-family:var(--font-mono); font-size:.82rem;
+  }
+  .sticky-header .aluno{font-family:var(--font-body); font-weight:600; font-size:.92rem;}
+  .barra-progresso-trilho{
+    flex:1; min-width:120px; height:8px; background:rgba(255,255,255,.2); border-radius:6px; overflow:hidden; margin:0 14px;
+  }
+  .barra-progresso-fill{height:100%; background:var(--cobre); width:0%; transition:width .3s ease;}
+
+  .wrap{max-width:800px; margin:0 auto; padding:32px 24px 60px;}
+
+  header.topo{margin-bottom:28px;}
+  header.topo .hero-tag{
+    display:inline-block; font-family:var(--font-mono); font-size:.72rem;
+    letter-spacing:.1em; text-transform:uppercase; color:var(--teal-dark);
+    background:rgba(47,107,58,.1); padding:5px 12px; border-radius:999px; margin-bottom:12px;
+  }
+  header.topo h1{font-family:var(--font-title); font-size:clamp(1.5rem,4vw,2rem); margin:0 0 8px; color:var(--ink);}
+  header.topo p.sub{color:var(--ink-soft); margin:0; font-size:.98rem;}
+  .descritor-bar{
+    font-family:var(--font-mono); font-size:.76rem; color:var(--ink-soft);
+    background:var(--paper); border:1px solid var(--line); border-radius:8px;
+    padding:8px 14px; margin-bottom:14px; display:inline-block;
+  }
+  .ficha-id{
+    display:flex; flex-wrap:wrap; gap:10px 26px;
+    background:var(--paper); border:1px solid var(--line); border-radius:10px;
+    padding:12px 16px; margin-top:12px; font-family:var(--font-mono); font-size:.84rem; color:var(--ink);
+  }
+  .ficha-id span b{color:var(--teal-dark);}
+
+  /* ===== TEXTO DE APOIO ===== */
+  .texto-apoio{
+    background:var(--paper); border:1px solid var(--line); border-radius:var(--radius);
+    box-shadow:var(--shadow); padding:28px 30px; margin-bottom:30px;
+  }
+  .texto-apoio h2{font-family:var(--font-title); font-size:1.25rem; color:var(--teal-dark); margin:0 0 4px;}
+  .texto-apoio .fonte-tag{font-family:var(--font-mono); font-size:.72rem; color:var(--ink-soft); margin-bottom:16px; display:block;}
+  .texto-apoio p{margin:0 0 14px; color:var(--ink);}
+  .texto-apoio p:last-of-type{margin-bottom:0;}
+  .texto-apoio::after{content:'';display:block;clear:both;}
+
+  .conceito-box{
+    background:var(--bg-alt); border-left:3px solid var(--teal-2); border-radius:0 8px 8px 0;
+    padding:14px 18px; margin:0 0 16px;
+  }
+  .conceito-box .rot{
+    font-family:var(--font-mono); font-size:.7rem; text-transform:uppercase; letter-spacing:.08em;
+    color:var(--teal-dark); display:block; margin-bottom:6px;
+  }
+  .conceito-box p{margin:0; font-size:.94rem;}
+
+  .referencia-box{
+    margin-top:20px; padding:14px 16px;
+    background:var(--bg-alt); border-left:3px solid var(--cobre); border-radius:0 8px 8px 0;
+  }
+  .referencia-box .rot{
+    font-family:var(--font-mono); font-size:.7rem; text-transform:uppercase; letter-spacing:.08em;
+    color:var(--teal-dark); display:block; margin-bottom:6px;
+  }
+  .referencia-box p{margin:0 0 6px; font-size:.86rem; color:var(--ink-soft); font-family:var(--font-mono); line-height:1.6;}
+  .referencia-box p:last-child{margin-bottom:0;}
+
+  /* ===== TABELA COMPARATIVA ===== */
+  .tabela-wrap{overflow-x:auto; margin-top:6px;}
+  table.comparativa{
+    width:100%; border-collapse:collapse; font-size:.92rem; min-width:480px;
+  }
+  table.comparativa thead th{
+    background:var(--teal-dark); color:#eafafa; font-family:var(--font-title);
+    font-size:1rem; padding:11px 14px; text-align:left; border:1px solid var(--teal-dark);
+  }
+  table.comparativa tbody td{
+    border:1px solid var(--line); padding:10px 14px; vertical-align:top; color:var(--ink);
+  }
+  table.comparativa tbody tr:nth-child(even) td{background:var(--bg-alt);}
+  table.comparativa tbody td:first-child{border-left:3px solid var(--teal-2);}
+  table.comparativa tbody td:last-child{border-left:3px solid var(--cobre);}
+
+  /* ===== QUESTOES ===== */
+  .questoes-titulo{
+    font-family:var(--font-title); font-size:1.2rem; color:var(--teal-dark);
+    margin:0 0 18px; display:flex; align-items:center; gap:10px;
+  }
+  .questao{
+    background:var(--paper); border:1px solid var(--line); border-radius:12px;
+    padding:20px 22px; margin-bottom:18px;
+  }
+  .questao .num-q{
+    display:inline-flex; align-items:center; justify-content:center;
+    width:26px; height:26px; border-radius:50%; background:var(--teal);
+    color:#fff; font-family:var(--font-mono); font-size:.78rem; margin-right:8px; flex-shrink:0;
+  }
+  .questao .enunciado{font-weight:600; color:var(--ink); margin-bottom:12px; display:flex; align-items:flex-start;}
+  .questao textarea{
+    width:100%; min-height:100px; padding:12px 14px; border:1px solid var(--line); border-radius:8px;
+    font-family:var(--font-body); font-size:.96rem; resize:vertical; color:var(--ink);
+  }
+  .questao textarea:focus{outline:2px solid var(--teal-2); outline-offset:1px;}
+  .contador-chars{font-family:var(--font-mono); font-size:.72rem; color:var(--ink-soft); margin-top:6px; text-align:right;}
+
+  .comentario-prof{
+    display:none; margin-top:14px; padding:14px 16px;
+    background:#fbf3dc; border:1px solid #ecd9a8; border-radius:8px; font-size:.9rem; color:#5e4310;
+  }
+  .comentario-prof.show{display:block;}
+  .comentario-prof b{display:block; margin-bottom:4px; font-family:var(--font-title); font-size:.92rem;}
+
+  /* ===== ALERTA / FINALIZAR ===== */
+  .alerta-incompleto{
+    display:none; background:#fdf3e2; border:1px solid #f1d9a6; color:#8a5a10;
+    padding:12px 16px; border-radius:8px; font-size:.9rem; margin-bottom:16px;
+  }
+  .alerta-incompleto.show{display:block;}
+
+  .acoes-finais{display:flex; gap:12px; flex-wrap:wrap; margin-top:10px;}
+  .btn{
+    font-family:var(--font-body); font-weight:600; font-size:.94rem; padding:12px 22px;
+    border-radius:8px; border:none; cursor:pointer; transition:filter .15s ease;
+  }
+  .btn:hover{filter:brightness(1.08);}
+  .btn-primario{background:var(--teal); color:#fff;}
+  .btn-secundario{background:transparent; color:var(--ink); border:1px solid var(--line);}
+  .btn-pdf{background:var(--cobre); color:#fff;}
+  .btn[disabled]{opacity:.5; cursor:not-allowed;}
+
+  /* ===== POPUP ===== */
+  .popup-overlay{
+    display:none; position:fixed; inset:0; background:rgba(17,48,26,.6);
+    align-items:center; justify-content:center; z-index:200; padding:20px;
+  }
+  .popup-overlay.show{display:flex;}
+  .popup-card{
+    background:var(--paper); border-radius:var(--radius); box-shadow:var(--shadow);
+    max-width:420px; width:100%; padding:32px 28px; text-align:center;
+  }
+  .popup-card .emoji{font-size:2.4rem; margin-bottom:10px;}
+  .popup-card h3{font-family:var(--font-title); margin:0 0 8px; color:var(--teal-dark);}
+  .popup-card p{color:var(--ink-soft); font-size:.94rem; margin:0 0 20px;}
+
+  footer.rodape{text-align:center; padding:24px; color:var(--ink-soft); font-family:var(--font-mono); font-size:.8rem;}
+
+  @media (max-width:600px){
+    .wrap{padding:24px 16px 50px;}
+    .texto-apoio, .questao{padding:18px 18px;}
+  }
+
+  /* ===== IMAGEM DE APOIO · TEXTO 1 ===== */
+  .imagem-atv1-box{
+    float:right;
+    width:185px;
+    margin:0 0 16px 22px;
+    padding:8px;
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:12px;
+    box-shadow:0 5px 16px rgba(0,0,0,.10);
+    text-align:center;
+  }
+  .imagem-atv1-trigger{
+    display:block;
+    width:100%;
+    padding:0;
+    border:0;
+    background:transparent;
+    cursor:zoom-in;
+  }
+  .imagem-atv1-trigger img{
+    display:block;
+    width:100%;
+    height:auto;
+    border-radius:8px;
+  }
+  .imagem-atv1-legenda{
+    margin:7px 2px 0 !important;
+    font-family:var(--font-mono);
+    font-size:.66rem !important;
+    line-height:1.35;
+    color:var(--ink-soft) !important;
+  }
+  .imagem-atv1-modal{
+    display:none;
+    position:fixed;
+    inset:0;
+    z-index:1000;
+    background:rgba(8,20,15,.82);
+    align-items:center;
+    justify-content:center;
+    padding:18px;
+  }
+  .imagem-atv1-modal.show{display:flex;}
+  .imagem-atv1-modal-card{
+    position:relative;
+    width:min(1100px,96vw);
+    height:min(92vh,900px);
+    background:#101614;
+    border-radius:16px;
+    box-shadow:0 20px 60px rgba(0,0,0,.45);
+    display:flex;
+    flex-direction:column;
+    overflow:hidden;
+  }
+  .imagem-atv1-controls{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    padding:10px 58px 10px 12px;
+    background:#17231e;
+    color:#fff;
+    font-family:var(--font-mono);
+    flex-wrap:wrap;
+  }
+  .imagem-atv1-controls button{
+    border:1px solid rgba(255,255,255,.22);
+    background:#26372f;
+    color:#fff;
+    border-radius:7px;
+    padding:7px 12px;
+    cursor:pointer;
+    font-weight:700;
+  }
+  .imagem-atv1-controls button:hover{background:#345044;}
+  #atv1ZoomNivel{min-width:58px;text-align:center;}
+  .imagem-atv1-close{
+    position:absolute;
+    top:7px;
+    right:9px;
+    z-index:3;
+    width:40px;
+    height:40px;
+    border:0;
+    border-radius:50%;
+    background:#fff;
+    color:#17231e;
+    font-size:28px;
+    line-height:1;
+    cursor:pointer;
+    box-shadow:0 2px 8px rgba(0,0,0,.25);
+  }
+  .imagem-atv1-area{
+    flex:1;
+    overflow:auto;
+    display:flex;
+    align-items:flex-start;
+    justify-content:center;
+    padding:18px;
+    cursor:grab;
+  }
+  .imagem-atv1-area:active{cursor:grabbing;}
+  #atv1ImagemGrande{
+    width:auto;
+    max-width:none;
+    height:auto;
+    min-width:0;
+    transform-origin:top center;
+    transition:transform .18s ease;
+    user-select:none;
+    -webkit-user-drag:none;
+  }
+  .imagem-atv1-hint{
+    padding:8px 12px;
+    text-align:center;
+    color:#cbd8d1;
+    background:#111a17;
+    font-family:var(--font-mono);
+    font-size:.68rem;
+  }
+  @media(max-width:700px){
+    .imagem-atv1-box{width:145px;margin-left:14px;}
+    .imagem-atv1-modal{padding:8px;}
+    .imagem-atv1-modal-card{width:100%;height:94vh;border-radius:10px;}
+  }
+
+
+  /* ===== TEXTO 2 · IMAGEM AO LADO DE "A ORDEM DOS DIREITOS NA INGLATERRA" ===== */
+  .ordem-direitos-com-imagem{
+    display:flex;
+    align-items:flex-start;
+    gap:18px;
+    margin-top:16px;
+  }
+  .ordem-direitos-texto{flex:1; min-width:0;}
+  .ordem-direitos-texto .conceito-box{margin:0;}
+  .ordem-direitos-com-imagem .imagem-atv1-box{
+    float:none;
+    flex:0 0 185px;
+    width:185px;
+    margin:0;
+  }
+  @media(max-width:700px){
+    .ordem-direitos-com-imagem{align-items:flex-start;gap:12px;}
+    .ordem-direitos-com-imagem .imagem-atv1-box{flex-basis:145px;width:145px;}
+  }
+
+
+  /* ===== TEXTO 6 · IMAGEM AO LADO DO BOX DE REFERÊNCIAS ===== */
+  .referencias-com-imagem{
+    display:flex;
+    align-items:flex-start;
+    gap:18px;
+    margin-top:16px;
+  }
+  .referencias-texto{flex:1; min-width:0;}
+  .referencias-com-imagem .imagem-atv1-box{
+    float:none;
+    flex:0 0 185px;
+    width:185px;
+    margin:0;
+  }
+  @media(max-width:700px){
+    .referencias-com-imagem{gap:12px;}
+    .referencias-com-imagem .imagem-atv1-box{
+      flex-basis:145px;
+      width:145px;
+    }
+  }
+
+
+  /* ===== AJUSTE DE ALINHAMENTO DOS TEXTOS ===== */
+  .texto-apoio > p,
+  .texto-apoio .conceito-box p,
+  .texto-apoio .contexto-box p,
+  .texto-apoio .referencias-texto p,
+  .texto-apoio .ordem-direitos-texto p{
+    text-align:justify;
+    text-justify:inter-word;
+    hyphens:auto;
+    -webkit-hyphens:auto;
+    line-height:1.7;
+  }
+
+  /* Mantém elementos curtos e legendas sem espaçamento artificial */
+  .texto-apoio .imagem-atv1-legenda,
+  .texto-apoio .fonte-tag{
+    text-align:left;
+    hyphens:none;
+  }
+
+  @media(max-width:700px){
+    .texto-apoio > p,
+    .texto-apoio .conceito-box p,
+    .texto-apoio .contexto-box p,
+    .texto-apoio .referencias-texto p,
+    .texto-apoio .ordem-direitos-texto p{
+      text-align:left;
+      hyphens:none;
+    }
+  }
+
+
+  /* ===== CONTINUIDADE: CIDADANIA NO BRASIL (2000–2026) ===== */
+  .continuidade-box{
+    background:linear-gradient(180deg,#f7fbf4 0%,#eef5e9 100%);
+    border:1px solid var(--line);
+    border-left:5px solid var(--cobre);
+    border-radius:12px;
+    box-shadow:var(--shadow);
+    padding:24px 26px;
+    margin:26px 0 24px;
+  }
+  .continuidade-box .continuidade-tag{
+    display:inline-block;
+    font-family:var(--font-mono);
+    font-size:.7rem;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:var(--teal-dark);
+    background:#ecd9a8;
+    padding:5px 10px;
+    border-radius:999px;
+    margin-bottom:10px;
+  }
+  .continuidade-box h2{
+    font-family:var(--font-title);
+    color:var(--teal-dark);
+    font-size:1.3rem;
+    margin:0 0 14px;
+  }
+  .continuidade-box h3{
+    font-family:var(--font-title);
+    color:var(--teal-dark);
+    font-size:1.05rem;
+    margin:20px 0 8px;
+  }
+  .continuidade-box p{
+    margin:0 0 13px;
+    text-align:justify;
+    text-justify:inter-word;
+    hyphens:auto;
+  }
+  .continuidade-box .balanco{
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:9px;
+    padding:14px 16px;
+    margin:14px 0;
+  }
+  .continuidade-box ol{
+    margin:10px 0 0 22px;
+    padding:0;
+  }
+  .continuidade-box li{margin:8px 0;}
+  .continuidade-box .tarefa-pesquisa{
+    margin-top:18px;
+    padding:15px 17px;
+    background:#fbf3dc;
+    border:1px solid #ecd9a8;
+    border-radius:9px;
+  }
+
+  /* ===== OTIMIZAÇÃO MOBILE (Android / iOS) ===== */
+  input, textarea, button{font-family:inherit;}
+  .capa-card input, .questao textarea{font-size:16px !important; -webkit-appearance:none; appearance:none;} /* 16px evita zoom automático no iOS */
+  .questao textarea{line-height:1.5; min-height:140px; touch-action:manipulation;}
+  .btn, .capa-card button, .imagem-atv1-controls button{touch-action:manipulation; min-height:44px;}
+  .tabela-wrap{-webkit-overflow-scrolling:touch; max-width:100%;}
+  .texto-apoio img{max-width:100%; height:auto;}
+  .sticky-header{padding-top:max(12px, env(safe-area-inset-top)); padding-left:max(20px, env(safe-area-inset-left)); padding-right:max(20px, env(safe-area-inset-right));}
+  .wrap{padding-left:max(24px, env(safe-area-inset-left)); padding-right:max(24px, env(safe-area-inset-right)); padding-bottom:max(60px, calc(env(safe-area-inset-bottom) + 40px));}
+  .popup-overlay{padding:max(20px, env(safe-area-inset-top)) max(20px, env(safe-area-inset-right)) max(20px, env(safe-area-inset-bottom)) max(20px, env(safe-area-inset-left));}
+  .imagem-atv1-modal-card{height:min(92vh,900px); height:min(92dvh,900px);}
+
+  @media (max-width:700px){
+    .sticky-header{padding-bottom:10px; gap:6px 10px; font-size:.76rem;}
+    .sticky-header .aluno{font-size:.86rem; max-width:100%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
+    .barra-progresso-trilho{order:3; flex-basis:100%; margin:0; min-width:0;}
+    .descritor-bar{display:block; font-size:.72rem;}
+    .ficha-id{gap:6px 16px; font-size:.78rem;}
+    .texto-apoio p, .conceito-box p{font-size:1rem;}
+    .conceito-box p{font-size:.95rem;}
+    .questao .enunciado{font-size:1rem;}
+    .acoes-finais{flex-direction:column; gap:10px;}
+    .acoes-finais .btn{width:100%; padding:14px 18px; font-size:1rem;}
+    .continuidade-box{padding:18px 16px;}
+    .continuidade-box p{text-align:left; hyphens:none;}
+    .referencia-box p{overflow-wrap:anywhere;}
+    table.comparativa{min-width:520px; font-size:.86rem;}
+    .tabela-wrap{margin-right:-4px; padding-bottom:4px;}
+    .popup-card{padding:26px 20px;}
+  }
+  @media (max-width:420px){
+    .capa-card{padding:28px 20px;}
+    .capa-card h1{font-size:1.35rem;}
+    .wrap{padding-top:22px;}
+    .texto-apoio, .questao{padding:16px 14px;}
+    .imagem-atv1-box{width:120px; margin-left:12px;}
+    .ordem-direitos-com-imagem, .referencias-com-imagem{flex-direction:column;}
+    .ordem-direitos-com-imagem .imagem-atv1-box, .referencias-com-imagem .imagem-atv1-box{flex-basis:auto; width:min(220px,100%); margin:0 auto;}
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== CAPA ===== -->
+<div id="capa">
+  <div class="grade-centralizada"></div>
+  <div class="capa-card">
+    <span class="tag">9º ano · História · CERO</span>
+    <h1>Cidadania no Brasil: um longo caminho</h1>
+    <p class="desc">Leitura adaptada de José Murilo de Carvalho: o que é cidadania, como ela foi sendo conquistada no Brasil e como estamos hoje. Preencha os dados para começar.</p>
+    <input type="text" id="nome-aluno" placeholder="Seu nome completo">
+    <input type="text" id="turma-aluno" placeholder="Turma (ex.: 9º A)">
+    <button onclick="iniciarAtividade()">Iniciar atividade</button>
+    <div class="capa-aviso" id="capa-aviso">Por favor, digite seu nome para continuar.</div>
+  </div>
+</div>
+
+<!-- ===== APP ===== -->
+<div id="app">
+  <div class="sticky-header">
+    <span class="aluno" id="header-nome"></span>
+    <div class="barra-progresso-trilho"><div class="barra-progresso-fill" id="barra-fill"></div></div>
+    <span id="contador-geral">Respondidas: 0/9</span>
+  </div>
+
+  <div class="wrap">
+    <header class="topo selecionavel">
+      <span class="descritor-bar">História / 9º Ano do Ensino Fundamental &nbsp;|&nbsp; (EF09HI23) – Direitos civis, políticos e sociais e a noção de cidadania</span>
+      <span class="hero-tag" style="display:block; margin-top:10px;">Leitura e análise</span>
+      <h1>Cidadania no Brasil: um longo caminho</h1>
+      <p class="sub">Leia os textos e os quadros com atenção. Depois de cada leitura, responda à questão correspondente. São nove questões ao todo.</p>
+      <div class="ficha-id" id="ficha-id">
+        <span><b>NOME:</b> <span id="ficha-nome"></span></span>
+        <span><b>DATA:</b> <span id="ficha-data"></span></span>
+        <span><b>TURMA:</b> <span id="ficha-turma"></span></span>
+      </div>
+    </header>
+
+    <main>
+
+      <!-- ========== PARTE 1: O CONCEITO ========== -->
+      <section class="texto-apoio selecionavel" data-titulo="O que é cidadania?">
+        <h2>O que é cidadania?</h2>
+        <span class="fonte-tag">Parte 1 · O conceito, segundo José Murilo de Carvalho</span>
+
+        <div class="imagem-atv1-box">
+          <button class="imagem-atv1-trigger" type="button" onclick="window.open('imgatv/atv1/atv1-1.webp', '_blank', 'noopener,noreferrer')" aria-label="Abrir imagem em nova aba: O que é cidadania?">
+            <img src="imgatv/atv1/atv1-1.webp" alt="Infográfico: O que é cidadania? — Parte 1, segundo José Murilo de Carvalho">
+          </button>
+          <p class="imagem-atv1-legenda"><strong>Clique na imagem</strong><br>para abrir em nova aba</p>
+        </div>
+
+        <div class="conceito-box">
+          <span class="rot">Definição</span>
+          <p>Para o historiador José Murilo de Carvalho, cidadania é um fenômeno complexo e histórico, formado por várias dimensões: os direitos civis, os direitos políticos e os direitos sociais. O cidadão pleno é aquele que possui os três.</p>
+        </div>
+
+        <p>Depois que a ditadura militar acabou, em 1985, a palavra “cidadania” “caiu na boca do povo”: políticos, jornalistas, líderes sindicais e pessoas comuns passaram a usá-la o tempo todo. A Constituição de 1988 chegou a ser chamada de <b>Constituição Cidadã</b>.</p>
+
+        <p>O autor lembra, porém, que havia certa ingenuidade nesse entusiasmo. Muita gente acreditava que, ao reconquistar o direito de escolher prefeitos, governadores e presidente, o país logo teria liberdade, segurança, emprego e justiça social. A liberdade e a participação de fato vieram. Mas problemas como a violência, o desemprego, o analfabetismo, a qualidade da educação, da saúde e do saneamento e as grandes desigualdades sociais continuaram sem solução ou melhoraram muito devagar.</p>
+
+        <p>Isso mostra que a cidadania tem várias dimensões e que uma pode existir sem as outras. Exercer o voto, por exemplo, não garante automaticamente emprego ou segurança. A <b>cidadania plena</b>, que combina liberdade, participação e igualdade para todos, é um ideal que talvez nunca seja totalmente alcançado, mas serve de medida para avaliar a qualidade da cidadania em cada país e em cada época.</p>
+      </section>
+
+      <div class="questao" data-questao="1">
+        <div class="enunciado"><span class="num-q">1</span> Segundo o texto, ter o direito de votar não garante, por si só, que a pessoa tenha também segurança, emprego e justiça social. Explique com suas palavras o que isso mostra sobre o conceito de cidadania.</div>
+        <textarea id="resp-1" class="campo-resposta dissertativa" data-min="140" placeholder="Escreva sua resposta aqui..."></textarea>
+        <div class="contador-chars">0 caracteres (mínimo 140)</div>
+        <div class="comentario-prof">
+          <b>Comentário do professor</b>
+          Mostra que a cidadania não é uma coisa só: ela tem várias dimensões (civil, política e social) e uma pode estar presente sem as outras. Votar é um direito político; segurança, emprego e justiça social dependem de outros direitos, que não chegam automaticamente com o voto. Por isso o autor fala em “cidadania plena” como um ideal: liberdade, participação e igualdade para todos, juntas.
+        </div>
+      </div>
+
+      <section class="texto-apoio selecionavel" data-titulo="Os três tipos de direitos">
+        <h2>Os três tipos de direitos</h2>
+        <span class="fonte-tag">Quadro explicativo</span>
+<p>Carvalho explica que a cidadania costuma ser dividida em três tipos de direitos. Observe o quadro.</p>
+
+        <div class="tabela-wrap">
+          <table class="comparativa">
+            <thead>
+              <tr><th>Direitos</th><th>O que garantem</th><th>Exemplos</th><th>Ideia central</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><b>Civis</b></td>
+                <td>A vida em sociedade e a liberdade de cada pessoa</td>
+                <td>Direito à vida, à liberdade e à propriedade; igualdade perante a lei; ir e vir; expressar o pensamento; organizar-se; não ser preso sem respeitar a lei nem condenado sem processo regular</td>
+                <td>Liberdade individual (depende de uma justiça independente, eficiente e acessível a todos)</td>
+              </tr>
+              <tr>
+                <td><b>Políticos</b></td>
+                <td>A participação no governo da sociedade</td>
+                <td>Votar e ser votado; organizar partidos; fazer manifestações políticas</td>
+                <td>Autogoverno (partidos e parlamento livre e representativo)</td>
+              </tr>
+              <tr>
+                <td><b>Sociais</b></td>
+                <td>A participação na riqueza coletiva</td>
+                <td>Educação, trabalho, salário justo, saúde e aposentadoria</td>
+                <td>Justiça social (depende de um Poder Executivo que funcione bem)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p style="margin-top:16px;">Os três direitos se apoiam uns nos outros. Sem direitos civis, sobretudo a liberdade de opinião e de organização, o voto pode existir no papel, mas fica “esvaziado”: serve mais para justificar governos do que para representar os cidadãos. Já os direitos sociais ajudam a reduzir os excessos de desigualdade e a garantir um mínimo de bem-estar para todos.</p>
+
+        
+        <div class="ordem-direitos-com-imagem">
+          <div class="ordem-direitos-texto">
+<div class="conceito-box">
+          <span class="rot">A ordem dos direitos na Inglaterra</span>
+          <p>O estudioso T. H. Marshall observou que, na Inglaterra, primeiro vieram os direitos civis (século XVIII), depois os políticos (século XIX) e por fim os sociais (século XX). Com as liberdades civis, os ingleses lutaram pelo voto e, com o voto, elegeram representantes que criaram os direitos sociais. A única exceção é a <b>educação</b>: ela é um direito social, mas é também um pré-requisito para os outros, porque ensina as pessoas a conhecer seus direitos e a se organizar para lutar por eles.</p>
+        </div>
+          </div>
+          <div class="imagem-atv1-box">
+          <button class="imagem-atv1-trigger" type="button"
+            onclick="window.open('imgatv/atv1/atv1-2.webp', '_blank', 'noopener,noreferrer')"
+            aria-label="Abrir imagem em nova aba: Os três tipos de direitos">
+            <img src="imgatv/atv1/atv1-2.webp" alt="Infográfico: Os três tipos de direitos">
+          </button>
+          <p class="imagem-atv1-legenda"><strong>Clique na imagem</strong><br>para abrir em nova aba</p>
+        </div>
+        </div>
+      </section>
+
+      <div class="questao" data-questao="2">
+        <div class="enunciado"><span class="num-q">2</span> Dê um exemplo de direito civil, um de direito político e um de direito social. Em seguida, explique por que, segundo o texto, o voto pode perder o sentido quando faltam os direitos civis.</div>
+        <textarea id="resp-2" class="campo-resposta dissertativa" data-min="140" placeholder="Escreva sua resposta aqui..."></textarea>
+        <div class="contador-chars">0 caracteres (mínimo 140)</div>
+        <div class="comentario-prof">
+          <b>Comentário do professor</b>
+          Exemplos possíveis: civil (liberdade de expressão, ir e vir, igualdade perante a lei, não ser preso sem processo regular); político (votar, ser votado, organizar partidos); social (educação, saúde, trabalho, aposentadoria, salário justo). Sem direitos civis, principalmente a liberdade de opinião e de organização, as pessoas não podem debater nem se reunir livremente; assim o voto existe apenas formalmente e serve para justificar governos, em vez de representar de verdade os cidadãos.
+        </div>
+      </div>
+
+      <!-- ========== PARTE 2: HISTÓRIA ========== -->
+      <section class="texto-apoio selecionavel" data-titulo="Os primeiros passos: da colônia a 1930">
+        <h2>Os primeiros passos: da colônia a 1930</h2>
+        <span class="fonte-tag">Parte 2 · A cidadania na história do Brasil (1500–1930)</span>
+
+        <div class="imagem-atv1-box">
+          <button class="imagem-atv1-trigger" type="button"
+            onclick="window.open('imgatv/atv1/atv1-3.webp', '_blank', 'noopener,noreferrer')"
+            aria-label="Abrir imagem em nova aba: Os primeiros passos: da colônia a 1930">
+            <img src="imgatv/atv1/atv1-3.webp" alt="Infográfico: Os primeiros passos: da colônia a 1930">
+          </button>
+          <p class="imagem-atv1-legenda"><strong>Clique na imagem</strong><br>para abrir em nova aba</p>
+        </div>
+
+
+        <p>Quando o Brasil se tornou independente, em 1822, a herança dos três séculos de colonização portuguesa não ajudava a formar cidadãos. O país tinha uma população analfabeta, uma sociedade escravista, uma economia baseada em grandes propriedades de terra voltadas para um só produto e um Estado absolutista. Nas palavras do autor, nessa época “não havia cidadãos brasileiros, nem pátria brasileira”. Pessoas escravizadas não tinham direitos, e os povos indígenas foram dominados e, em grande parte, exterminados pela guerra, pela escravização e pelas doenças.</p>
+
+        <p>Os <b>direitos políticos</b> saíram na frente. A Constituição de 1824 permitia que boa parte dos homens livres votasse. Em 1872, cerca de 13% da população livre votava, um número alto para a época: em 1870, a participação eleitoral era de cerca de 7% na Inglaterra e de 2% na Itália. As mulheres e os escravizados, no entanto, ficavam de fora.</p>
+
+        <p>Em 1881, uma nova lei acabou com essa vantagem ao proibir o voto dos analfabetos. Como só cerca de 15% da população sabia ler e escrever, a maioria foi excluída. O número de eleitores caiu de mais de 1 milhão (1872) para pouco mais de 100 mil (1886), um corte de quase 90%. O autor chama esse episódio de “tropeço”, pois o Brasil andou para trás enquanto os países europeus ampliavam o direito de voto.</p>
+
+        <p>A abolição da escravidão, em 1888, levou os ex-escravizados aos direitos civis, mas mais no papel do que na vida real. A proclamação da República, em 1889, mudou pouco: os analfabetos e as mulheres continuaram sem votar. Na última eleição presidencial da Primeira República, em 1930, votaram apenas 5,6% da população.</p>
+      </section>
+
+      <div class="questao" data-questao="3">
+        <div class="enunciado"><span class="num-q">3</span> Compare o número de eleitores no Brasil em 1872 e em 1886. Qual mudança na lei explica essa diferença e por que o autor considera que ela foi um retrocesso?</div>
+        <textarea id="resp-3" class="campo-resposta dissertativa" data-min="140" placeholder="Escreva sua resposta aqui..."></textarea>
+        <div class="contador-chars">0 caracteres (mínimo 140)</div>
+        <div class="comentario-prof">
+          <b>Comentário do professor</b>
+          Em 1872 havia mais de 1 milhão de votantes (cerca de 13% da população livre); em 1886 votaram pouco mais de 100 mil pessoas (0,8% da população), um corte de quase 90%. A causa foi a lei de 1881, que proibiu o voto dos analfabetos num país em que só cerca de 15% das pessoas sabiam ler. Foi um retrocesso porque, na mesma época, os países europeus ampliavam o direito de voto, e o Brasil perdeu a vantagem que tinha desde a Constituição de 1824.
+        </div>
+      </div>
+
+      <section class="texto-apoio selecionavel" data-titulo="Direitos sociais na frente: de 1930 a 1985">
+        <h2>Direitos sociais na frente: de 1930 a 1985</h2>
+        <span class="fonte-tag">Parte 2 · A cidadania na história do Brasil (1930–1985)</span>
+
+        <div class="imagem-atv1-box">
+          <button class="imagem-atv1-trigger" type="button"
+            onclick="window.open('imgatv/atv1/atv1-4.webp', '_blank', 'noopener,noreferrer')"
+            aria-label="Abrir imagem em nova aba: Direitos sociais na frente: de 1930 a 1985">
+            <img src="imgatv/atv1/atv1-4.webp" alt="Infográfico: Direitos sociais na frente: de 1930 a 1985">
+          </button>
+          <p class="imagem-atv1-legenda"><strong>Clique na imagem</strong><br>para abrir em nova aba</p>
+        </div>
+
+
+        <p>O ano de 1930 foi um divisor de águas. Getúlio Vargas chegou ao poder e uma de suas primeiras medidas foi criar o Ministério do Trabalho. Vieram então muitas leis trabalhistas e de previdência, como a carteira de trabalho (1932) e a Consolidação das Leis do Trabalho, a CLT (1943). Entre 1930 e 1945 foi a grande era dos <b>direitos sociais</b>.</p>
+
+        <p>Os direitos políticos tiveram um caminho mais irregular. No início dos anos 1930 foram criados o voto secreto e a Justiça Eleitoral e, pela primeira vez, as mulheres ganharam o direito de votar. Mas em 1937 Vargas deu um golpe e implantou uma ditadura (o Estado Novo), que durou até 1945 e restringiu as liberdades. Entre 1945 e 1964 o país viveu sua primeira experiência que se pode chamar de democrática, e o voto popular passou a pesar: os votantes subiram de 5,6% da população em 1930 para 18% em 1960.</p>
+
+        <p>Em 1964, os militares tomaram o poder. O Ato Institucional nº 2 (1965) acabou com a eleição direta para presidente e com os partidos existentes. O Ato Institucional nº 5 (1968) fechou o Congresso, suspendeu o <i>habeas corpus</i> para crimes contra a segurança nacional e deu ao governo poderes quase ilimitados. Direitos civis e políticos foram restringidos pela violência, embora os direitos sociais tenham sido estendidos aos trabalhadores rurais. A partir de 1974 começou a abertura política: em 1978 o AI-5 foi revogado, acabou a censura prévia e voltaram os primeiros exilados. A ditadura terminou em 1985.</p>
+
+        <p>Carvalho conclui que, no Brasil, a ordem dos direitos foi diferente da inglesa. Veja o quadro.</p>
+
+        <div class="tabela-wrap">
+          <table class="comparativa">
+            <thead>
+              <tr><th>Inglaterra (modelo de Marshall)</th><th>Brasil</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1º — Direitos civis (século XVIII)</td>
+                <td>1º — Direitos sociais (1930–1945), implantados durante uma ditadura</td>
+              </tr>
+              <tr>
+                <td>2º — Direitos políticos (século XIX)</td>
+                <td>2º — Direitos políticos, ampliados aos poucos e interrompidos pelas ditaduras de 1937 e de 1964</td>
+              </tr>
+              <tr>
+                <td>3º — Direitos sociais (século XX)</td>
+                <td>3º — Direitos civis, que ainda hoje não chegam a grande parte da população</td>
+              </tr>
+              <tr>
+                <td>Sequência com uma lógica que reforçava a convicção democrática</td>
+                <td>“Pirâmide dos direitos de cabeça para baixo”</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="conceito-box" style="margin-top:16px;">
+          <span class="rot">Consequências da inversão</span>
+          <p>Como os direitos sociais vieram por decisão do governo, e não por luta no Congresso, muita gente passou a achar que o Poder Executivo é o mais importante e a esperar a solução dos problemas de um “salvador da pátria”. O autor chama de <b>estadania</b> essa cultura de esperar tudo do Estado, em vez de contar com a representação e com os direitos de cada um.</p>
+        </div>
+      </section>
+
+      <div class="questao" data-questao="4">
+        <div class="enunciado"><span class="num-q">4</span> O autor diz que, no Brasil, a “pirâmide dos direitos” foi colocada “de cabeça para baixo”. Explique o que ele quer dizer com essa expressão, usando o exemplo do período de 1930 a 1945.</div>
+        <textarea id="resp-4" class="campo-resposta dissertativa" data-min="140" placeholder="Escreva sua resposta aqui..."></textarea>
+        <div class="contador-chars">0 caracteres (mínimo 140)</div>
+        <div class="comentario-prof">
+          <b>Comentário do professor</b>
+          Na Inglaterra a ordem foi: direitos civis, depois políticos, depois sociais; cada etapa apoiava a seguinte. No Brasil, os direitos sociais vieram primeiro, na era Vargas (1930–1945), com a criação do Ministério do Trabalho, da carteira de trabalho e da CLT, num período em que os direitos políticos e civis eram restringidos, sobretudo no Estado Novo. Os direitos civis, que deveriam ser a base, ainda são os mais frágeis. Por isso o autor diz que a pirâmide está invertida: a base ficou no topo, e isso afeta a qualidade da democracia.
+        </div>
+      </div>
+
+      <!-- ========== PARTE 3: HOJE ========== -->
+      <section class="texto-apoio selecionavel" data-titulo="A Constituição Cidadã e os avanços">
+        <h2>A Constituição Cidadã e os avanços</h2>
+        <span class="fonte-tag">Parte 3 · A cidadania hoje: conquistas</span>
+
+        <div class="imagem-atv1-box">
+          <button class="imagem-atv1-trigger" type="button"
+            onclick="window.open('imgatv/atv1/atv1-5.webp', '_blank', 'noopener,noreferrer')"
+            aria-label="Abrir imagem em nova aba: A Constituição Cidadã e os avanços">
+            <img src="imgatv/atv1/atv1-5.webp" alt="Infográfico: A Constituição Cidadã e os avanços">
+          </button>
+          <p class="imagem-atv1-legenda"><strong>Clique na imagem</strong><br>para abrir em nova aba</p>
+        </div>
+
+
+        <p>Depois de 1985, os direitos políticos chegaram a uma amplitude que o país nunca tinha visto. A Constituição de 1988, que o autor considera a mais liberal e democrática que o Brasil já teve, tornou o voto <b>facultativo para os analfabetos</b> e permitiu o voto <b>facultativo aos 16 e 17 anos</b> (obrigatório a partir dos 18). Em 1989 houve a primeira eleição direta para presidente desde 1960. Em 1998, 83,4 milhões de pessoas votaram, o equivalente a 51% da população, porcentagem jamais alcançada antes.</p>
+
+        <p>Houve também avanços na prática democrática. Em 1992, a população foi às ruas pedir o afastamento do presidente Fernando Collor, acusado de corrupção, e o impeachment foi concluído dentro da lei, algo raro na história da América Latina. Para o autor, isso deu aos cidadãos a sensação de que podiam controlar seus governantes. Outro exemplo é o Movimento dos Trabalhadores Rurais Sem Terra (MST), que usou o direito de se organizar para colocar na política uma parte da população tradicionalmente excluída.</p>
+
+        <p>A Constituição ampliou ainda os direitos sociais e civis. Fixou o salário mínimo como piso das aposentadorias, garantiu pensão a idosos e pessoas com deficiência, criou a licença-paternidade e definiu o racismo como crime inafiançável e imprescritível e a tortura como crime inafiançável. Criou também o <i>habeas data</i> (direito de saber o que os registros públicos guardam sobre você) e, em 1990, veio a Lei de Defesa do Consumidor.</p>
+      </section>
+
+      <div class="questao" data-questao="5">
+        <div class="enunciado"><span class="num-q">5</span> Cite dois avanços da Constituição de 1988 ou do período que veio depois dela que ampliaram os direitos políticos e um avanço nos direitos sociais ou civis. Explique por que cada um deles é importante.</div>
+        <textarea id="resp-5" class="campo-resposta dissertativa" data-min="140" placeholder="Escreva sua resposta aqui..."></textarea>
+        <div class="contador-chars">0 caracteres (mínimo 140)</div>
+        <div class="comentario-prof">
+          <b>Comentário do professor</b>
+          Políticos, entre outros: voto facultativo para analfabetos (acaba com uma exclusão que vinha de 1881); voto facultativo aos 16 e 17 anos; eleição direta para presidente em 1989; impeachment concluído dentro da lei em 1992; 51% da população votando em 1998. Sociais ou civis, entre outros: aposentadoria de pelo menos um salário mínimo, pensão para idosos e pessoas com deficiência, licença-paternidade, racismo como crime inafiançável e imprescritível, tortura como crime inafiançável, <i>habeas data</i>, Lei de Defesa do Consumidor. Vale que o aluno explique o motivo, por exemplo: mais gente passa a participar das decisões do país ou fica mais protegida pela lei.
+        </div>
+      </div>
+
+      <section class="texto-apoio selecionavel" data-titulo="O que ainda falta">
+        <h2>O que ainda falta</h2>
+        <span class="fonte-tag">Parte 3 · A cidadania hoje: desafios</span>
+<div class="conceito-box">
+          <span class="rot">Atenção aos números</span>
+          <p>Os dados abaixo são do período em que o livro foi escrito (final dos anos 1990, edição de 2002). Eles ajudam a entender o raciocínio do autor, mas não mostram a situação atual do país. Para dados atualizados, consulte fontes como o IBGE.</p>
+        </div>
+
+        <div class="tabela-wrap">
+          <table class="comparativa">
+            <thead>
+              <tr><th>O que avançou</th><th>O que ainda faltava</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Mortalidade infantil caiu de 73 por mil nascidos vivos (1980) para 39,4 (1999)</td>
+                <td>O Brasil era o 8º país do mundo em riqueza total (PIB), mas só o 34º em renda por pessoa</td>
+              </tr>
+              <tr>
+                <td>Analfabetismo (15 anos ou mais) caiu de 25,4% (1980) para 14,7% (1996)</td>
+                <td>Em 1997, 32% da população adulta era de analfabetos funcionais (menos de quatro anos de estudo)</td>
+              </tr>
+              <tr>
+                <td>Crianças de 7 a 14 anos na escola subiram de 80% (1980) para 97% (2000)</td>
+                <td>Desigualdade regional e racial: analfabetismo de 9% entre brancos e 22% entre negros e pardos (1997)</td>
+              </tr>
+              <tr>
+                <td>Direitos civis garantidos em lei: habeas data, juizados especiais, combate ao racismo</td>
+                <td>Direitos civis ainda frágeis: violência, insegurança e justiça lenta e cara</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p style="margin-top:16px;">O autor aponta que, entre os três tipos de direitos, os <b>civis</b> são os que ainda apresentam as maiores deficiências. Em uma pesquisa feita no Rio de Janeiro em 1997, 57% das pessoas não conseguiram citar um único direito. E o fator que mais pesava para conhecer os direitos era a <b>educação</b>: o desconhecimento era de 64% entre quem tinha estudado até a 4ª série e de 30% entre quem tinha chegado ao ensino superior, mesmo incompleto.</p>
+
+        <p>Carvalho descreve ainda, entre aspas, “cidadãos de primeira, de segunda e de terceira classe”: os que, por dinheiro e prestígio, ficam acima da lei; a maioria, que tem direitos mas nem sempre consegue fazê-los valer; e os mais pobres, que têm seus direitos sistematicamente desrespeitados. É uma crítica à desigualdade diante da lei.</p>
+
+        <p>Por isso ele termina dizendo que a cidadania brasileira está “na encruzilhada”: os progressos são inegáveis, mas foram lentos e ainda falta muito caminho. Ele convida cada leitor a fazer a viagem pelo caminho da cidadania e lembra que, ao refletir sobre ele, o leitor já está exercendo a sua cidadania.</p>
+
+        
+        <div class="referencias-com-imagem">
+          <div class="referencias-texto">
+<div class="referencia-box">
+          <span class="rot">Referências (texto adaptado a partir de) — ABNT NBR 6023</span>
+          <p>CARVALHO, José Murilo de. Cidadania no Brasil: o longo caminho. 3. ed. Rio de Janeiro: Civilização Brasileira, 2002.</p>
+          <p>BRASIL. Ministério da Educação. Base Nacional Comum Curricular. Brasília: MEC, 2018. (habilidade EF09HI23)</p>
+        </div>
+          </div>
+          <div class="imagem-atv1-box">
+          <button class="imagem-atv1-trigger" type="button"
+            onclick="window.open('imgatv/atv1/atv1-6.webp', '_blank', 'noopener,noreferrer')"
+            aria-label="Abrir imagem em nova aba: O que ainda falta">
+            <img src="imgatv/atv1/atv1-6.webp" alt="Infográfico: O que ainda falta">
+          </button>
+          <p class="imagem-atv1-legenda"><strong>Clique na imagem</strong><br>para abrir em nova aba</p>
+        </div>
+        </div>
+      </section>
+
+      <div class="questao" data-questao="6">
+        <div class="enunciado"><span class="num-q">6</span> De acordo com a pesquisa citada no texto, qual é o fator que mais influencia o conhecimento dos direitos? Por que o autor considera a educação tão importante para a cidadania?</div>
+        <textarea id="resp-6" class="campo-resposta dissertativa" data-min="140" placeholder="Escreva sua resposta aqui..."></textarea>
+        <div class="contador-chars">0 caracteres (mínimo 140)</div>
+        <div class="comentario-prof">
+          <b>Comentário do professor</b>
+          O fator é a educação: o desconhecimento dos direitos era de 64% entre quem tinha estudado até a 4ª série e de 30% entre quem chegou ao ensino superior. Para o autor, a educação permite que as pessoas conheçam seus direitos e se organizem para lutar por eles, por isso a falta de uma população educada sempre foi um dos principais obstáculos à construção da cidadania.
+        </div>
+      </div>
+
+      <section class="continuidade-box selecionavel" data-titulo="Cidadania no Brasil: de 2000 a 2026">
+        <span class="continuidade-tag">Continuação histórica · pesquisa orientada</span>
+        <h2>Cidadania no Brasil: de 2000 a 2026</h2>
+
+        <p>Entre 2000 e 2026, o Brasil ampliou direitos para grupos que antes ficavam de fora, como os mais pobres, as mulheres, os negros e os povos indígenas. Ao mesmo tempo, a democracia passou por momentos de forte tensão, como o impeachment de 2016 e os ataques de 8 de janeiro de 2023, e o país continuou marcado pela desigualdade e pela violência.</p>
+
+        <p>Esta atividade continua a história contada pelo historiador José Murilo de Carvalho em <i>Cidadania no Brasil</i> (2002), que termina nos anos 2000. Agora, o trabalho é seu: você vai pesquisar o que mudou entre 2000 e 2026 e o que permaneceu igual.</p>
+
+        <h3>De onde partimos: o que Carvalho deixou em aberto</h3>
+
+        <p>Para entender o texto, lembre os três tipos de direitos: os <b>civis</b> (liberdade, vida, igualdade perante a lei), os <b>políticos</b> (votar e ser votado) e os <b>sociais</b> (educação, saúde, trabalho, aposentadoria). Na Inglaterra, que serviu de modelo, eles chegaram nessa ordem: primeiro os civis, depois os políticos e por fim os sociais.</p>
+
+        <p>Carvalho mostra que no Brasil foi diferente e chama isso de <b>pirâmide invertida</b>. Os direitos sociais vieram primeiro, na ditadura do Estado Novo (1937–1945), de Getúlio Vargas. Os políticos vieram depois, mas em períodos em que o Congresso tinha pouco poder. E os civis, que deveriam ser a base, “continuam inacessíveis à maioria da população”. Por isso, diz ele, muita gente passou a esperar tudo do governo e de um presidente forte, e não da participação da população e dos seus representantes. Ele chama isso de “estadania”, em contraste com a cidadania. Isso alimenta a esperança em um “messias político”, um salvador da pátria.</p>
+
+        <div class="balanco">
+          <p><b>O balanço de Carvalho para o início dos anos 2000 tem pontos bons e ruins.</b></p>
+          <p><b>Os pontos bons:</b> o impeachment do presidente Collor (1992) foi feito dentro da lei, e os cidadãos sentiram, pela primeira vez, que podiam controlar quem governa. A mortalidade infantil caiu de 73 para 39,4 mortes por mil crianças nascidas vivas entre 1980 e 1999. E 97% das crianças de 7 a 14 anos estavam na escola em 2000.</p>
+          <p><b>Os pontos ruins:</b> o Brasil tinha a 8ª maior economia do mundo, mas só a 34ª em renda por pessoa, e era um dos países mais desiguais do planeta. Em 1997, 32% dos adultos eram analfabetos funcionais, isto é, tinham menos de quatro anos de estudo. E os direitos civis ainda eram muito desiguais.</p>
+        </div>
+
+        <h3>Três perguntas vão guiar a nossa leitura de 2000 a 2026. Cada uma será também uma pesquisa:</h3>
+        <ol>
+          <li>Os direitos sociais chegaram a quem estava de fora?</li>
+          <li>Os direitos civis (segurança, justiça, igualdade perante a lei) melhoraram?</li>
+          <li>As instituições da democracia, como o Congresso, a Justiça e as eleições, resistiram à tentação do “salvador da pátria”?</li>
+        </ol>
+
+        <div class="tarefa-pesquisa">
+          <b>Sua tarefa:</b>Busque pelo menos duas fontes confiáveis (como IBGE, IPEA, Atlas da Violência, TSE, jornais ou artigos acadêmicos), reúna ao menos um dado ou fato concreto de períodos diferentes entre 2000 e 2026 e escreva um parágrafo com a sua resposta, dizendo quais evidências a sustentam e o que ainda ficou em aberto.
+        </div>
+      </section>
+
+      <div class="questao questao-pesquisa" data-questao="7">
+        <div class="enunciado"><span class="num-q">7</span> Os direitos sociais chegaram a quem estava de fora?</div>
+        <textarea id="resp-7" class="campo-resposta dissertativa" data-min="140" placeholder="Pesquise e escreva sua resposta com evidências de pelo menos dois períodos diferentes..."></textarea>
+        <div class="contador-chars">0 caracteres (mínimo 140)</div>
+      </div>
+
+      <div class="questao questao-pesquisa" data-questao="8">
+        <div class="enunciado"><span class="num-q">8</span> Os direitos civis (segurança, justiça, igualdade perante a lei) melhoraram?</div>
+        <textarea id="resp-8" class="campo-resposta dissertativa" data-min="140" placeholder="Pesquise e escreva sua resposta com evidências de pelo menos dois períodos diferentes..."></textarea>
+        <div class="contador-chars">0 caracteres (mínimo 140)</div>
+      </div>
+
+      <div class="questao questao-pesquisa" data-questao="9">
+        <div class="enunciado"><span class="num-q">9</span> As instituições da democracia, como o Congresso, a Justiça e as eleições, resistiram à tentação do “salvador da pátria”?</div>
+        <textarea id="resp-9" class="campo-resposta dissertativa" data-min="140" placeholder="Pesquise e escreva sua resposta com evidências de pelo menos dois períodos diferentes..."></textarea>
+        <div class="contador-chars">0 caracteres (mínimo 140)</div>
+      </div>
+
+      <div class="alerta-incompleto" id="alerta-incompleto">
+        ⚠️ Ainda há questões incompletas. Todas as respostas devem ter no mínimo 140 caracteres.
+      </div>
+
+      <div class="acoes-finais">
+        <button class="btn btn-primario" onclick="finalizarAtividade()">Ver comentários do professor</button>
+        <button class="btn btn-secundario" onclick="refazerAtividade()">Refazer</button>
+        <button class="btn btn-pdf" onclick="exportarPDF()">Exportar em PDF</button>
+      </div>
+    </main>
+  </div>
+
+  <footer class="rodape">Colégio Estadual Rodolfo de Oliveira · CERO · 2026</footer>
+</div>
+
+<!-- ===== POPUP ===== -->
+<div class="popup-overlay" id="popup-overlay">
+  <div class="popup-card">
+    <div class="emoji">🎉</div>
+    <h3>Atividade concluída!</h3>
+    <p>Suas nove respostas foram registradas. Os comentários do professor estão disponíveis nas questões 1 a 6 para você comparar com o que escreveu.</p>
+    <button class="btn btn-primario" onclick="fecharPopup()">Continuar</button>
+  </div>
+</div>
+
+<script>
+/* ===== GATE DE NOME ===== */
+function iniciarAtividade(){
+  const nome = document.getElementById('nome-aluno').value.trim();
+  const turma = document.getElementById('turma-aluno').value.trim();
+  const aviso = document.getElementById('capa-aviso');
+  if(!nome){
+    aviso.style.display = 'block';
+    return;
+  }
+  aviso.style.display = 'none';
+  const hoje = new Date();
+  const dataFormatada = String(hoje.getDate()).padStart(2,'0') + '/' + String(hoje.getMonth()+1).padStart(2,'0') + '/' + hoje.getFullYear();
+  document.getElementById('header-nome').textContent = nome;
+  document.getElementById('ficha-nome').textContent = nome;
+  document.getElementById('ficha-data').textContent = dataFormatada;
+  document.getElementById('ficha-turma').textContent = turma || '—';
+  document.getElementById('capa').style.display = 'none';
+  document.getElementById('app').style.display = 'block';
+  window.scrollTo(0,0);
+}
+
+/* ===== CONTADOR DE CARACTERES E PROGRESSO ===== */
+const textareas = document.querySelectorAll('textarea.dissertativa');
+const TOTAL = textareas.length;
+
+function atualizarProgresso(){
+  let respondidas = 0;
+  textareas.forEach(function(t){
+    const min = parseInt(t.dataset.min, 10);
+    if(t.value.trim().length >= min) respondidas++;
+  });
+  document.getElementById('contador-geral').textContent = 'Respondidas: ' + respondidas + '/' + TOTAL;
+  document.getElementById('barra-fill').style.width = (respondidas / TOTAL * 100) + '%';
+}
+
+textareas.forEach(function(t){
+  const contadorEl = t.parentElement.querySelector('.contador-chars');
+  const min = parseInt(t.dataset.min, 10);
+  t.addEventListener('input', function(){
+    contadorEl.textContent = t.value.length + ' caracteres (mínimo ' + min + ')';
+    atualizarProgresso();
+  });
+});
+
+/* ===== FINALIZAR ===== */
+function finalizarAtividade(){
+  let completo = true;
+  textareas.forEach(function(t){
+    const min = parseInt(t.dataset.min, 10);
+    if(t.value.trim().length < min) completo = false;
+  });
+
+  const alerta = document.getElementById('alerta-incompleto');
+  if(!completo){
+    alerta.classList.add('show');
+    alerta.scrollIntoView({behavior:'smooth', block:'center'});
+    return;
+  }
+  alerta.classList.remove('show');
+
+  document.querySelectorAll('.questao[data-questao="1"] .comentario-prof, .questao[data-questao="2"] .comentario-prof, .questao[data-questao="3"] .comentario-prof, .questao[data-questao="4"] .comentario-prof, .questao[data-questao="5"] .comentario-prof, .questao[data-questao="6"] .comentario-prof').forEach(function(c){
+    c.classList.add('show');
+  });
+
+  document.getElementById('popup-overlay').classList.add('show');
+}
+
+function fecharPopup(){
+  document.getElementById('popup-overlay').classList.remove('show');
+}
+
+function refazerAtividade(){
+  textareas.forEach(function(t){
+    t.value = '';
+    t.parentElement.querySelector('.contador-chars').textContent = '0 caracteres (mínimo ' + t.dataset.min + ')';
+  });
+  document.querySelectorAll('.comentario-prof').forEach(function(c){
+    c.classList.remove('show');
+  });
+  document.getElementById('alerta-incompleto').classList.remove('show');
+  atualizarProgresso();
+  window.scrollTo(0,0);
+}
+
+/* ===== EXPORTAR PDF ===== */
+function sleep(ms){ return new Promise(function(r){ setTimeout(r, ms); }); }
+
+function esc(str){
+  const d = document.createElement('div');
+  d.textContent = str || '';
+  return d.innerHTML.replace(/\n/g, '<br>');
+}
+
+async function exportarPDF(){
+  let completo = true;
+  textareas.forEach(function(t){
+    const min = parseInt(t.dataset.min, 10);
+    if(t.value.trim().length < min) completo = false;
+  });
+  if(!completo){
+    const alerta = document.getElementById('alerta-incompleto');
+    alerta.classList.add('show');
+    alerta.textContent = '⚠️ Para exportar o PDF, responda todas as 9 questões com no mínimo 140 caracteres em cada resposta.';
+    alerta.scrollIntoView({behavior:'smooth', block:'center'});
+    return;
+  }
+  document.getElementById('alerta-incompleto').classList.remove('show');
+
+  const overlay = document.createElement('div');
+  overlay.id = 'pdf-overlay';
+  overlay.style.cssText = 'position:fixed;inset:0;background:rgba(17,48,26,.6);display:flex;align-items:center;justify-content:center;z-index:999;';
+  overlay.innerHTML =
+    '<div style="background:#fff;border-radius:14px;padding:32px 36px;text-align:center;max-width:300px;box-shadow:0 10px 30px rgba(31,74,40,.3);font-family:\'Source Serif 4\',serif;">' +
+      '<div style="font-size:2rem;margin-bottom:8px;">📄</div>' +
+      '<h4 style="margin:0 0 4px;color:#1f4a28;font-family:\'Playfair Display\',serif;">Gerando PDF…</h4>' +
+      '<p style="margin:0 0 14px;color:#55684f;font-size:.86rem;">Aguarde alguns instantes.</p>' +
+      '<div style="background:#e0ead8;border-radius:6px;overflow:hidden;height:8px;">' +
+        '<div id="pdf-prog" style="height:100%;width:0%;background:#2f6b3a;transition:width .2s ease;"></div>' +
+      '</div>' +
+      '<div id="pdf-prog-txt" style="margin-top:8px;font-family:\'JetBrains Mono\',monospace;font-size:.74rem;color:#55684f;">0%</div>' +
+    '</div>';
+  document.body.appendChild(overlay);
+  await sleep(80);
+  function setP(pct, msg){
+    const pp = document.getElementById('pdf-prog'), pt = document.getElementById('pdf-prog-txt');
+    if(pp) pp.style.width = pct + '%';
+    if(pt) pt.textContent = msg || (pct + '%');
+  }
+
+  try{
+    const { jsPDF } = window.jspdf;
+    const pdf = new jsPDF({orientation:'portrait', unit:'pt', format:'a4', compress:true});
+    const PW = pdf.internal.pageSize.getWidth(), PH = pdf.internal.pageSize.getHeight();
+    const ML = 32, CW = PW - ML*2;
+    const RW = 760; /* largura (px) em que os blocos da página são renderizados */
+    let y = ML;
+
+    /* Renderiza o bloco; se o navegador "contaminar" o canvas (imagens locais/file:// ou de outro domínio),
+       refaz o bloco sem as imagens para o PDF nunca falhar. */
+    function canvasLimpo(c){
+      try{ c.getContext('2d').getImageData(0,0,1,1); c.toDataURL('image/jpeg', .1); return true; }
+      catch(e){ return false; }
+    }
+    async function renderSeguro(el, scale){
+      const base = {scale:scale, useCORS:true, allowTaint:false, logging:false, backgroundColor:'#ffffff', scrollX:0, scrollY:0, windowWidth:RW};
+      let c = null;
+      try{ c = await html2canvas(el, base); } catch(e){ c = null; }
+      if(c && canvasLimpo(c)) return c;
+      if(c){ c.width = c.height = 0; }
+      console.warn('Imagens bloqueadas pelo navegador (canvas contaminado); exportando o bloco sem elas.');
+      c = await html2canvas(el, Object.assign({}, base, {
+        onclone: function(doc){
+          doc.querySelectorAll('.imagem-atv1-box').forEach(function(n){ n.style.display = 'none'; });
+          doc.querySelectorAll('img').forEach(function(n){ n.style.display = 'none'; });
+        }
+      }));
+      return c;
+    }
+
+    /* Procura, perto de 'alvo', uma linha de pixels em branco para cortar o bloco sem partir texto ao meio */
+    function acharCorte(canvas, alvo, minimo){
+      const ctx = canvas.getContext('2d');
+      const w = canvas.width;
+      const alcance = Math.min(alvo - minimo, Math.round(canvas.width * 0.5));
+      if(alcance <= 4) return alvo;
+      const y0 = alvo - alcance;
+      let dados;
+      try{ dados = ctx.getImageData(0, y0, w, alcance).data; } catch(e){ return alvo; }
+      const x0 = Math.round(w*0.05), x1 = Math.round(w*0.95), xMeio = Math.round(w*0.6);
+      function linhaLivre(r, xFim){
+        const o = r*w*4;
+        const r0 = dados[o+x0*4], g0 = dados[o+x0*4+1], b0 = dados[o+x0*4+2];
+        for(let x=x0; x<xFim; x+=2){
+          const i = o + x*4;
+          if(Math.abs(dados[i]-r0)>14 || Math.abs(dados[i+1]-g0)>14 || Math.abs(dados[i+2]-b0)>14) return false;
+        }
+        return true;
+      }
+      /* 1) linha livre na largura toda; 2) só na coluna de texto (ignora imagens ao lado) */
+      for(const xFim of [x1, xMeio]){
+        for(let r=alcance-1; r>=0; r--){
+          if(linhaLivre(r, xFim)){
+            /* centraliza o corte no vão entre linhas */
+            let r2 = r; while(r2>0 && linhaLivre(r2-1, xFim)) r2--;
+            return y0 + Math.round((r2 + r)/2);
+          }
+        }
+      }
+      return alvo;
+    }
+
+    async function addImg(el){
+      /* limita a área do canvas (iOS/Android têm limite de memória) */
+      const altCss = Math.max(el.offsetHeight || el.scrollHeight || 1, 1);
+      let scale = 2;
+      const MAX_AREA = 12e6;
+      if(RW*altCss*scale*scale > MAX_AREA) scale = Math.max(1, Math.sqrt(MAX_AREA/(RW*altCss)));
+      const canvas = await renderSeguro(el, scale);
+      const imgW = CW, imgH = (canvas.height / canvas.width) * imgW;
+      const pxPerPt = canvas.width / imgW;
+      const avail = PH - ML*2;
+      /* blocos grandes que não cabem no resto da página são fatiados em linhas em branco (sem deixar meia página vazia) */
+      const restante = PH - ML - y;
+      const fatiar = imgH > avail*0.35 && y + imgH > PH - ML && restante > avail*0.4;
+      if(imgH <= avail && !fatiar){
+        if(y + imgH > PH - ML){ pdf.addPage(); y = ML; }
+        pdf.addImage(canvas.toDataURL('image/jpeg', .9), 'JPEG', ML, y, imgW, imgH, undefined, 'FAST');
+        y += imgH + 8;
+      } else {
+        let srcY = 0;
+        if(y > PH - ML - 120){ pdf.addPage(); y = ML; }
+        while(srcY < canvas.height){
+          const availPt = PH - ML - y;
+          let fatia = Math.min(Math.floor(availPt * pxPerPt), canvas.height - srcY);
+          if(srcY + fatia < canvas.height){
+            const corte = acharCorte(canvas, srcY + fatia, srcY + Math.round(fatia*0.5));
+            fatia = Math.max(corte - srcY, 1);
+          }
+          const tmp = document.createElement('canvas');
+          tmp.width = canvas.width; tmp.height = fatia;
+          const tctx = tmp.getContext('2d');
+          tctx.fillStyle = '#ffffff'; tctx.fillRect(0,0,tmp.width,tmp.height);
+          tctx.drawImage(canvas, 0, srcY, canvas.width, fatia, 0, 0, canvas.width, fatia);
+          const slicePt = fatia / pxPerPt;
+          pdf.addImage(tmp.toDataURL('image/jpeg', .9), 'JPEG', ML, y, imgW, slicePt, undefined, 'FAST');
+          tmp.width = tmp.height = 0;
+          srcY += fatia; y += slicePt;
+          if(srcY < canvas.height){ pdf.addPage(); y = ML; }
+        }
+        y += 8;
+      }
+      canvas.width = canvas.height = 0;
+    }
+
+    function bandaHTML(tag, txt){
+      return '<div style="font-family:Arial,sans-serif;margin-bottom:10px"><div style="background:linear-gradient(90deg,#2f6b3a,#1f4a28);border-radius:8px;padding:12px 22px;display:flex;align-items:center;gap:12px">' +
+        '<span style="background:rgba(255,255,255,.2);color:#fff;font-weight:700;font-size:12px;letter-spacing:1px;border-radius:20px;padding:3px 12px">' + tag + '</span>' +
+        '<span style="color:#fff;font-size:15px;font-weight:700">' + esc(txt) + '</span></div></div>';
+    }
+
+    /* Título + texto no mesmo bloco: o título nunca fica sozinho no fim da página */
+    async function addTextoComTitulo(sec, titulo){
+      const clone = sec.cloneNode(true);
+      const h2 = clone.querySelector('h2'); if(h2) h2.remove();
+      clone.style.cssText = 'margin:0;box-shadow:none;border-radius:10px;-webkit-user-select:text;user-select:text;';
+      const wrap = document.createElement('div');
+      wrap.style.cssText = 'width:'+RW+'px;position:absolute;left:-9999px;top:0;background:#fff;';
+      wrap.innerHTML = bandaHTML('TEXTO', titulo);
+      wrap.appendChild(clone);
+      document.body.appendChild(wrap);
+      await sleep(40);
+      try{ await addImg(wrap); } finally { document.body.removeChild(wrap); }
+    }
+
+    const nome = document.getElementById('header-nome').textContent || 'Aluno(a)';
+    const turma = document.getElementById('ficha-turma').textContent || '—';
+    const now = new Date();
+    const dtStr = now.toLocaleDateString('pt-BR') + ' às ' + now.toLocaleTimeString('pt-BR', {hour:'2-digit', minute:'2-digit'});
+
+    setP(5, 'Preparando capa…'); await sleep(40);
+    const coverEl = document.createElement('div');
+    coverEl.style.cssText = 'width:'+RW+'px;font-family:Arial,sans-serif;overflow:hidden;position:absolute;left:-9999px;top:0';
+    coverEl.innerHTML =
+      '<div style="background:linear-gradient(135deg,#11301a 0%,#2f6b3a 60%,#5a9a55 100%);padding:32px 48px 28px;color:white">' +
+        '<div style="font-size:10px;letter-spacing:3px;text-transform:uppercase;opacity:.7;font-weight:700;margin-bottom:6px">História · 9º Ano do Ensino Fundamental · EF09HI23</div>' +
+        '<div style="font-size:26px;font-weight:900;line-height:1.2;margin-bottom:5px">Cidadania no Brasil: um longo caminho</div>' +
+        '<div style="font-size:13px;opacity:.8;font-style:italic">Textos adaptados de José Murilo de Carvalho · ' + TOTAL + ' questões dissertativas</div>' +
+      '</div>' +
+      '<div style="background:#f1f5ee;padding:22px 48px 26px;border-bottom:3px solid #ecd9a8">' +
+        '<div style="font-size:9px;text-transform:uppercase;letter-spacing:2px;color:#2f6b3a;font-weight:700;margin-bottom:5px">Aluno(a)</div>' +
+        '<div style="font-size:20px;font-weight:700;color:#1b2a1c;border-bottom:2.5px solid #2f6b3a;padding-bottom:6px;display:inline-block;margin-bottom:16px">' + esc(nome) + '</div>' +
+        '<div style="display:flex;gap:12px;flex-wrap:wrap">' +
+          '<div style="background:white;border-radius:8px;padding:12px 18px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,.07);min-width:84px">' +
+            '<div style="font-size:22px;font-weight:900;color:#2f6b3a">' + esc(turma) + '</div>' +
+            '<div style="font-size:9px;text-transform:uppercase;letter-spacing:1px;color:#888;margin-top:2px">Turma</div></div>' +
+          '<div style="background:white;border-radius:8px;padding:12px 18px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,.07);min-width:84px">' +
+            '<div style="font-size:22px;font-weight:900;color:#b5832a">' + TOTAL + '</div>' +
+            '<div style="font-size:9px;text-transform:uppercase;letter-spacing:1px;color:#888;margin-top:2px">Dissertativas</div></div>' +
+          '<div style="background:white;border-radius:8px;padding:12px 18px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,.07);min-width:140px">' +
+            '<div style="font-size:13px;font-weight:700;color:#333">' + dtStr + '</div>' +
+            '<div style="font-size:9px;text-transform:uppercase;letter-spacing:1px;color:#888;margin-top:2px">Gerado em</div></div>' +
+        '</div>' +
+        '<div style="font-size:9px;color:#bbb;margin-top:14px">Colégio Estadual Rodolfo de Oliveira · Goiás · 2026</div>' +
+      '</div>';
+    document.body.appendChild(coverEl); await sleep(60); await addImg(coverEl); document.body.removeChild(coverEl);
+
+    /* Percorre a página na ordem: textos e questões intercalados */
+    const itens = Array.from(document.querySelectorAll('main > .texto-apoio, main > .questao'));
+    for(let i=0; i<itens.length; i++){
+      const el = itens[i];
+      setP(8 + Math.round(i/itens.length*84), 'Preparando bloco ' + (i+1) + '/' + itens.length + '…');
+      await sleep(12);
+
+      if(el.classList.contains('texto-apoio')){
+        await addTextoComTitulo(el, el.dataset.titulo || el.querySelector('h2').textContent);
+      } else {
+        const num = el.dataset.questao;
+        const enunc = el.querySelector('.enunciado').textContent.replace(/^\s*\d+\s*/, '').replace(/\s+/g, ' ').trim();
+        const ta = el.querySelector('textarea');
+        const valor = ta ? ta.value : '';
+        const comentarioEl = el.querySelector('.comentario-prof');
+        const coment = comentarioEl ? comentarioEl.textContent.replace('Comentário do professor','').replace(/\s+/g, ' ').trim() : '';
+        /* Questão em texto nativo no PDF: evita corte/estouro de respostas longas */
+        /* Texto nativo: remove emojis/símbolos que a fonte padrão do PDF não desenha (evita caracteres embaralhados) */
+        function limparTexto(t){
+          return String(t || '')
+            .replace(/[\u2018\u2019\u201A]/g, "'").replace(/[\u201C\u201D\u201E]/g, '"')
+            .replace(/\u00A0/g, ' ').replace(/\t/g, '    ')
+            .replace(/[^\n\x20-\x7E\u00A1-\u00FF\u2013\u2014\u2026\u2022]/g, '');
+        }
+        function garantirEspaco(altura){
+          if(y + altura > PH - ML - 18){
+            pdf.addPage();
+            y = ML;
+          }
+        }
+
+        /* Quebra robusta: inclusive sequências sem espaços, URLs e palavras muito longas */
+        function quebrarTextoSeguro(texto, largura){
+          texto = limparTexto(texto).replace(/\r\n/g, '\n').replace(/\r/g, '\n');
+          const resultado = [];
+
+          texto.split('\n').forEach(function(paragrafo){
+            if(paragrafo === ''){
+              resultado.push('');
+              return;
+            }
+
+            const palavras = paragrafo.split(/\s+/);
+            let linha = '';
+
+            palavras.forEach(function(palavra){
+              /* Fragmenta qualquer palavra que, sozinha, ultrapasse a largura */
+              const pedacos = [];
+              let restante = palavra;
+
+              while(restante && pdf.getTextWidth(restante) > largura){
+                let lo = 1, hi = restante.length, melhor = 1;
+                while(lo <= hi){
+                  const mid = Math.floor((lo + hi) / 2);
+                  if(pdf.getTextWidth(restante.slice(0, mid)) <= largura){
+                    melhor = mid;
+                    lo = mid + 1;
+                  } else {
+                    hi = mid - 1;
+                  }
+                }
+                pedacos.push(restante.slice(0, melhor));
+                restante = restante.slice(melhor);
+              }
+              if(restante) pedacos.push(restante);
+
+              pedacos.forEach(function(pedaco){
+                const candidato = linha ? linha + ' ' + pedaco : pedaco;
+                if(pdf.getTextWidth(candidato) <= largura){
+                  linha = candidato;
+                } else {
+                  if(linha) resultado.push(linha);
+                  linha = pedaco;
+                }
+              });
+            });
+
+            if(linha) resultado.push(linha);
+          });
+
+          return resultado;
+        }
+
+        function escreverBlocoTexto(texto, opts){
+          opts = opts || {};
+          const fontSize = opts.fontSize || 11;
+          const lineHeight = opts.lineHeight || 1.45;
+          const indent = opts.indent || 0;
+          const maxW = CW - indent;
+          pdf.setFont('helvetica', opts.bold ? 'bold' : 'normal');
+          pdf.setFontSize(fontSize);
+          pdf.setTextColor.apply(pdf, opts.color || [27,42,28]);
+
+          const linhas = quebrarTextoSeguro(texto || '', maxW);
+          const lh = fontSize * lineHeight;
+
+          linhas.forEach(function(linha){
+            garantirEspaco(lh + 3);
+            pdf.text(linha, ML + indent, y);
+            y += lh;
+          });
+          y += opts.after || 5;
+        }
+
+        /* Cabeçalho da questão */
+        garantirEspaco(130); /* cabeçalho + enunciado + início da resposta ficam juntos */
+        pdf.setFillColor(47,107,58);
+        pdf.roundedRect(ML, y, CW, 24, 5, 5, 'F');
+        pdf.setFont('helvetica','bold');
+        pdf.setFontSize(11);
+        pdf.setTextColor(255,255,255);
+        pdf.text('QUESTÃO ' + num, ML + 12, y + 16);
+        y += 24 + 18;
+
+        /* Enunciado */
+        escreverBlocoTexto(enunc, {fontSize:11, bold:true, lineHeight:1.42, after:8});
+
+        /* Resposta */
+        garantirEspaco(56);
+        pdf.setFont('helvetica','bold');
+        pdf.setFontSize(9);
+        pdf.setTextColor(47,107,58);
+        pdf.text('RESPOSTA DO ALUNO(A)', ML, y);
+        y += 15;
+
+        const resposta = valor || '(sem resposta)';
+        pdf.setFont('helvetica','normal'); pdf.setFontSize(11); /* mede com a mesma fonte usada para desenhar */
+        const respLinhas = quebrarTextoSeguro(resposta, CW - 24);
+        const respLH = 11 * 1.55;
+
+        respLinhas.forEach(function(linha, idx){
+          garantirEspaco(respLH + 8);
+          /* fundo suave por linha para manter o aspecto de box sem cortar conteúdo */
+          pdf.setFillColor(234,243,228);
+          pdf.rect(ML, y - 11, CW, respLH + 0.5, 'F');
+          pdf.setFont('helvetica','normal');
+          pdf.setFontSize(11);
+          pdf.setTextColor(27,42,28);
+          pdf.text(linha, ML + 10, y);
+          y += respLH;
+        });
+        y += 8;
+
+        /* Comentários apenas quando existirem (questões 1–6) */
+        if(coment){
+          garantirEspaco(56);
+          pdf.setFont('helvetica','bold');
+          pdf.setFontSize(9);
+          pdf.setTextColor(122,90,20);
+          pdf.text('COMENTÁRIO DO PROFESSOR', ML, y);
+          y += 15;
+
+          pdf.setFont('helvetica','normal'); pdf.setFontSize(10.5);
+          const comLinhas = quebrarTextoSeguro(coment, CW - 24);
+          const comLH = 10.5 * 1.55;
+          comLinhas.forEach(function(linha){
+            garantirEspaco(comLH + 8);
+            pdf.setFillColor(251,243,220);
+            pdf.rect(ML, y - 10, CW, comLH + 0.5, 'F');
+            pdf.setFont('helvetica','normal');
+            pdf.setFontSize(10.5);
+            pdf.setTextColor(94,67,16);
+            pdf.text(linha, ML + 10, y);
+            y += comLH;
+          });
+          y += 8;
+        }
+
+        /* separação entre questões */
+        garantirEspaco(12);
+        pdf.setDrawColor(211,224,200);
+        pdf.line(ML, y, ML + CW, y);
+        y += 12;
+      }
+    }
+
+    /* Rodapé em todas as páginas */
+    setP(94, 'Finalizando…'); await sleep(30);
+    const totalPages = pdf.getNumberOfPages();
+    for(let p=1; p<=totalPages; p++){
+      pdf.setPage(p);
+      const fEl = document.createElement('div');
+      fEl.style.cssText = 'width:' + Math.round(CW) + 'px;height:22px;background:#f1f5ee;display:flex;align-items:center;justify-content:space-between;padding:0 28px;font-size:10px;color:#888;font-family:Arial,sans-serif;position:absolute;left:-9999px;top:0';
+      fEl.innerHTML = '<span>Cidadania no Brasil · ' + esc(nome) + '</span><span>Página ' + p + ' de ' + totalPages + '</span>';
+      document.body.appendChild(fEl);
+      const fc = await html2canvas(fEl, {scale:2, logging:false, backgroundColor:'#f1f5ee'});
+      document.body.removeChild(fEl);
+      const fUrl = fc.toDataURL('image/jpeg', .9), fH = (fc.height / fc.width) * CW;
+      pdf.setFillColor(241,245,238); pdf.rect(ML, PH-fH, CW, fH, 'F');
+      pdf.addImage(fUrl, 'JPEG', ML, PH-fH, CW, fH);
+    }
+
+    setP(100, 'Salvando…'); await sleep(200);
+    const safeName = nome.replace(/[^a-zA-Z0-9_\-]/g, '_');
+    const nomeArq = 'Cidadania_no_Brasil_' + safeName + '.pdf';
+    const ehIOS = /iP(hone|ad|od)/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+    if(ehIOS && navigator.canShare){
+      /* iPhone/iPad: abre a folha de compartilhamento (Salvar em Arquivos) — mais confiável que download direto */
+      const blob = pdf.output('blob');
+      const arq = new File([blob], nomeArq, {type:'application/pdf'});
+      if(navigator.canShare({files:[arq]})){
+        try{ await navigator.share({files:[arq], title:'Cidadania no Brasil'}); }
+        catch(e){ if(e && e.name !== 'AbortError') pdf.save(nomeArq); }
+      } else { pdf.save(nomeArq); }
+    } else {
+      pdf.save(nomeArq);
+    }
+
+  } catch(err){
+    console.error(err);
+    alert('Erro ao gerar PDF: ' + err.message);
+  } finally {
+    const ov = document.getElementById('pdf-overlay');
+    if(ov) document.body.removeChild(ov);
+  }
+}
+
+/* ===== PROTEÇÃO ANTI-COLA ===== */
+(function () {
+  const CAMPOS_PROTEGIDOS = document.querySelectorAll('textarea.dissertativa, .campo-resposta');
+  const LIMITE_BLOCO = 25;
+
+  function bloquear(e) {
+    e.preventDefault();
+    mostrarToast('Colar não permitido nesta atividade.');
+  }
+
+  CAMPOS_PROTEGIDOS.forEach(function (campo) {
+    ['paste', 'copy', 'cut', 'drop', 'dragover', 'contextmenu'].forEach(function (evt) {
+      campo.addEventListener(evt, bloquear);
+    });
+
+    campo.addEventListener('beforeinput', function (e) {
+      if (e.inputType === 'insertFromPaste' || e.inputType === 'insertFromDrop') {
+        e.preventDefault();
+        mostrarToast('Colar não permitido nesta atividade.');
+      }
+    });
+
+    let valorAnterior = campo.value;
+    campo.addEventListener('input', function (e) {
+      const diferenca = campo.value.length - valorAnterior.length;
+      /* Em celulares, ditado por voz, autocorreção e teclado deslizante inserem várias palavras de uma vez
+         (inputType = insertText/insertCompositionText/insertReplacementText...). Só bloqueia quando o navegador
+         não informa o tipo ou indica colar/arrastar — colar já é barrado no beforeinput/paste acima. */
+      const tipo = e.inputType || '';
+      const suspeito = (tipo === '' || tipo === 'insertFromPaste' || tipo === 'insertFromDrop' || tipo === 'insertFromYank');
+      if (diferenca >= LIMITE_BLOCO && suspeito) {
+        campo.value = valorAnterior;
+        mostrarToast('Colar não permitido nesta atividade.');
+      } else {
+        valorAnterior = campo.value;
+      }
+    });
+  });
+
+  function mostrarToast(mensagem) {
+    let toast = document.getElementById('anti-cola-toast');
+    if (!toast) {
+      toast = document.createElement('div');
+      toast.id = 'anti-cola-toast';
+      toast.style.cssText =
+        'position:fixed;bottom:24px;left:50%;transform:translateX(-50%);' +
+        'background:#333;color:#fff;padding:10px 20px;border-radius:8px;' +
+        'font-size:14px;z-index:9999;opacity:0;transition:opacity .3s;';
+      document.body.appendChild(toast);
+    }
+    toast.textContent = mensagem;
+    toast.style.opacity = '1';
+    clearTimeout(toast._timeout);
+    toast._timeout = setTimeout(function () {
+      toast.style.opacity = '0';
+    }, 2500);
+  }
+})();
+</script>
+
+
+
+
+</body>
+</html>

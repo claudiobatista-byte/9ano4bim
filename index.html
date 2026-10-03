@@ -1,0 +1,1023 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Cidadania, Direitos e Lutas Sociais no Brasil — História 9º ano</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700;9..144,800&family=Inter:wght@400;500;600;700;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#12304a;--navy2:#1c4a6b;--teal:#1f6f78;--teal-bg:#e6f1f1;
+  --gold:#b8842b;--gold-bg:#f8efdc;--terra:#a8472a;--terra-bg:#f7e8e2;
+  --green:#2f6b52;--green-bg:#e5f0ea;
+  --ink:#1d2731;--muted:#5d6a74;--line:#dcd6c8;--paper:#fcfbf7;--stone:#efece4;
+  --serif:"Source Serif 4",Georgia,"Times New Roman",serif;
+  --display:"Fraunces",Georgia,serif;
+  --sans:"Inter",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
+  --side:292px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:24px}
+body{margin:0;background:var(--stone);color:var(--ink);font-family:var(--serif);font-size:18px;line-height:1.7;-webkit-font-smoothing:antialiased}
+a{color:var(--teal)}
+.skip{position:absolute;left:-999px;top:8px;background:#fff;padding:8px 12px;border-radius:6px;z-index:100}
+.skip:focus{left:8px}
+#progress{position:fixed;top:0;left:0;height:4px;width:0;background:linear-gradient(90deg,var(--gold),#e3b45a);z-index:60}
+
+/* ---------- sumário (gaveta à direita) ---------- */
+.toc-tab{position:fixed;right:0;top:50%;transform:translateY(-50%);z-index:60;background:var(--navy);color:#fff;border:0;border-radius:12px 0 0 12px;padding:14px 11px;cursor:pointer;font:700 12px var(--sans);letter-spacing:.14em;text-transform:uppercase;writing-mode:vertical-rl;box-shadow:-4px 4px 18px #0004;display:flex;align-items:center;gap:8px}
+.toc-tab:hover{background:var(--navy2)}
+.toc-tab b{font-size:16px;writing-mode:horizontal-tb;color:#e3b45a}
+.toc-ov{position:fixed;inset:0;background:#0b1a2988;opacity:0;pointer-events:none;transition:opacity .25s;z-index:70}
+.toc-ov.open{opacity:1;pointer-events:auto}
+.drawer{position:fixed;top:0;right:0;bottom:0;width:min(400px,92vw);background:var(--navy);color:#e9eef2;z-index:80;transform:translateX(102%);transition:transform .28s ease;display:flex;flex-direction:column;font-family:var(--sans);box-shadow:-10px 0 40px #0006}
+.drawer.open{transform:none}
+.dr-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;padding:22px 22px 14px;border-bottom:1px solid #ffffff1f}
+.dr-head .k{font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:#e3b45a;font-weight:700}
+.dr-head .t{font-family:var(--display);font-weight:700;font-size:19px;line-height:1.2;margin-top:5px;color:#fff}
+.dr-close{background:#ffffff14;border:1px solid #ffffff33;color:#fff;width:36px;height:36px;border-radius:9px;font-size:20px;cursor:pointer;flex:none}
+.dr-prog{padding:12px 22px 0;font-size:12px;color:#b6c6d3}
+.dr-prog i{display:block;height:5px;border-radius:3px;background:#ffffff1f;margin-top:7px;overflow:hidden}
+.dr-prog i span{display:block;height:100%;width:0;background:#e3b45a;transition:width .2s}
+.dr-body{flex:1;overflow:auto;padding:10px 12px 24px}
+.dr-link{display:block;padding:9px 12px;border-radius:8px;color:#cfd9e1;text-decoration:none;font-size:14px;line-height:1.35}
+.dr-link:hover{background:#ffffff12;color:#fff}
+.dr-link.on{background:#ffffff1c;color:#fff}
+.acc{border-top:1px solid #ffffff14;margin-top:6px}
+.acc>button{width:100%;display:flex;justify-content:space-between;align-items:center;gap:10px;background:none;border:0;color:#fff;font:700 11px var(--sans);letter-spacing:.16em;text-transform:uppercase;padding:14px 12px 8px;cursor:pointer;text-align:left}
+.acc>button:after{content:"";width:8px;height:8px;border-right:2px solid #e3b45a;border-bottom:2px solid #e3b45a;transform:rotate(45deg);transition:transform .2s;flex:none;margin-right:4px}
+.acc.open>button:after{transform:rotate(-135deg)}
+.acc>.panel{display:none}.acc.open>.panel{display:block}
+.item>.row{display:flex;align-items:center}
+.item>.row a{flex:1;display:flex;gap:11px;align-items:baseline;padding:9px 12px;border-radius:8px;color:#e1e9ef;text-decoration:none;font-size:14.5px;line-height:1.3}
+.item>.row a b{color:#e3b45a;min-width:16px;font-variant-numeric:tabular-nums}
+.item>.row a:hover{background:#ffffff12}
+.item>.row a.on{background:#ffffff1c;color:#fff}
+.item .row>button{background:none;border:0;cursor:pointer;padding:10px 14px;display:flex;align-items:center;justify-content:center;color:#e3b45a;font-size:14px;line-height:1}
+.item .row>button:after{content:"▾";width:auto;height:auto;border:0;transform:none;margin:0}
+.item.open .row>button:after{transform:rotate(180deg)}
+.item>.subs{display:none;margin:0 0 6px 38px;border-left:2px solid #ffffff22}
+.item.open>.subs{display:block}
+.subs a{display:block;padding:6px 12px;color:#aebfcc;text-decoration:none;font-size:13px;line-height:1.35}
+.subs a:hover{color:#fff}
+
+/* ---------- conteúdo ---------- */
+main{margin-left:0}
+.wrap{max-width:860px;margin:0 auto;padding:0 40px}
+.sheet{background:var(--paper);box-shadow:0 1px 0 #0000000d,0 18px 44px -24px #1d27314d;margin:0 auto;max-width:980px}
+
+/* capa */
+.cover{background:var(--navy);margin:0;padding:0;line-height:0}
+.cover img{display:block;width:100%;height:auto}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* bloco de abertura / seções */
+section.chapter{background:var(--paper);margin:28px auto;max-width:980px;box-shadow:0 1px 0 #0000000d,0 18px 44px -26px #1d27314d}
+.ch-head{display:grid;grid-template-columns:auto 1fr;gap:26px;align-items:end;padding:54px 64px 30px;border-bottom:1px solid var(--line);background:linear-gradient(180deg,#f4f1e8,var(--paper))}
+.ch-num{font-family:var(--display);font-weight:800;font-size:96px;line-height:.8;color:var(--navy);opacity:.14;letter-spacing:-.04em}
+.eyebrow{font:700 11.5px var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--teal);margin:0 0 8px}
+h2{font-family:var(--display);font-weight:700;font-size:clamp(30px,4vw,42px);line-height:1.1;color:var(--navy);margin:0;letter-spacing:-.01em}
+.deck{font-size:19px;color:var(--muted);margin:12px 0 0;line-height:1.5}
+.body{padding:34px 64px 50px}
+.body>p:first-of-type:not(.nodrop)::first-letter{font-family:var(--display);font-weight:800;font-size:3.6em;float:left;line-height:.82;padding:6px 10px 0 0;color:var(--navy)}
+h3{font-family:var(--display);font-weight:700;font-size:25px;line-height:1.2;color:var(--navy);margin:38px 0 8px}
+h4{font:700 13px var(--sans);letter-spacing:.1em;text-transform:uppercase;color:var(--teal);margin:26px 0 6px}
+p{margin:12px 0}
+.lead{font-size:20.5px;line-height:1.6;color:#2a3744}
+ul,ol{padding-left:1.3em}li{margin:6px 0}
+strong,b{font-weight:600}
+.chips{display:flex;flex-wrap:wrap;gap:7px;margin:0 0 4px}
+.chip{font:700 11px var(--sans);letter-spacing:.04em;padding:5px 10px;border-radius:99px;background:var(--teal-bg);color:#14565d}
+.chip.g{background:var(--gold-bg);color:#7a5614}
+
+/* caixas */
+.callout{border-radius:12px;padding:18px 22px;margin:26px 0;border:1px solid var(--line);background:#fff;font-size:17px;line-height:1.6}
+.callout .lab{font:800 10.5px var(--sans);letter-spacing:.16em;text-transform:uppercase;display:block;margin-bottom:6px}
+.callout p{margin:6px 0}
+.callout.concept{background:var(--gold-bg);border-color:#ecd9ac}.callout.concept .lab{color:#8a5f12}
+.callout.teal{background:var(--teal-bg);border-color:#c4dede}.callout.teal .lab{color:#14565d}
+.callout.warn{background:var(--terra-bg);border-color:#ecc9bd}.callout.warn .lab{color:var(--terra)}
+.callout.green{background:var(--green-bg);border-color:#c5dccf}.callout.green .lab{color:var(--green)}
+.think{margin:30px 0;padding:22px 26px;border-radius:14px;background:var(--navy);color:#fff;font-family:var(--display);font-size:22px;line-height:1.35;font-weight:500}
+.think small{display:block;font:700 10.5px var(--sans);letter-spacing:.16em;text-transform:uppercase;color:#e3b45a;margin-bottom:8px}
+
+/* texto de apoio */
+.support{margin:34px 0;border:1px solid var(--line);border-radius:14px;background:#fff;overflow:hidden}
+.support>header{display:flex;align-items:center;gap:10px;padding:10px 20px;background:var(--navy);color:#fff;font:700 11px var(--sans);letter-spacing:.16em;text-transform:uppercase}
+.support>header i{width:8px;height:8px;border-radius:50%;background:#e3b45a;display:block}
+.support .in{padding:6px 24px 4px;font-size:17px;line-height:1.65}
+.support h5{font:700 17px var(--display);color:var(--navy);margin:16px 0 0}
+.support .src{font:500 12.5px/1.5 var(--sans);color:var(--muted);background:#f5f2ea;border-top:1px solid var(--line);padding:11px 24px}
+.support .src b{color:var(--ink);font-weight:700}
+
+/* fonte histórica */
+figure.doc{margin:30px 0;padding:6px 0 6px 26px;border-left:5px solid var(--gold)}
+figure.doc blockquote{margin:0;font-style:italic;font-size:19.5px;line-height:1.55;color:#2e3b47}
+figure.doc figcaption{font:500 12.5px/1.5 var(--sans);color:var(--muted);margin-top:10px}
+figure.doc figcaption b{font-weight:700;color:var(--ink)}
+
+/* números em destaque */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:28px 0}
+.stat{background:#fff;border:1px solid var(--line);border-top:4px solid var(--terra);border-radius:10px;padding:14px 16px}
+.stat b{display:block;font-family:var(--display);font-weight:800;font-size:34px;line-height:1;color:var(--terra)}
+.stat span{display:block;font:500 12.5px/1.35 var(--sans);color:var(--muted);margin-top:7px}
+
+/* cartões e comparativos */
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin:24px 0}
+.card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px 18px}
+.card .n{font:800 11px var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--teal)}
+.card h6{font:700 18px var(--display);color:var(--navy);margin:4px 0 4px}
+.card p{font-size:15.5px;line-height:1.5;margin:4px 0}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:24px 0}
+.two .callout{margin:0}
+
+/* linha do tempo */
+.tl{list-style:none;padding:0;margin:30px 0;position:relative}
+.tl:before{content:"";position:absolute;left:96px;top:6px;bottom:6px;width:3px;background:linear-gradient(var(--gold),var(--teal));border-radius:2px}
+.tl li{display:grid;grid-template-columns:96px 1fr;gap:0 26px;margin:0 0 20px;position:relative}
+.tl li:before{content:"";position:absolute;left:90px;top:8px;width:15px;height:15px;border-radius:50%;background:var(--paper);border:4px solid var(--navy)}
+.tl .y{font:800 14px var(--sans);color:var(--navy);text-align:right;padding-top:3px;padding-right:22px;font-variant-numeric:tabular-nums}
+.tl .t{padding-left:12px}
+.tl .t b{display:block;font:700 18px var(--display);color:var(--navy)}
+.tl .t span{font-size:16px;color:#3d4a55;line-height:1.5;display:block}
+.tl li.hl:before{background:var(--terra);border-color:var(--terra)}
+.tl li.hl .y{color:var(--terra)}
+
+/* fluxo */
+.flow{display:grid;grid-template-columns:repeat(5,1fr);gap:0;margin:26px 0;counter-reset:f}
+.flow div{position:relative;background:#fff;border:1px solid var(--line);padding:14px 14px 14px;margin-right:-1px;counter-increment:f}
+.flow div:first-child{border-radius:12px 0 0 12px}.flow div:last-child{border-radius:0 12px 12px 0}
+.flow div:before{content:counter(f);display:block;font:800 11px var(--sans);color:#fff;background:var(--teal);width:22px;height:22px;border-radius:50%;text-align:center;line-height:22px;margin-bottom:8px}
+.flow b{display:block;font:700 16px var(--display);color:var(--navy)}
+.flow span{font-size:14px;line-height:1.4;color:var(--muted);display:block;margin-top:3px}
+
+/* tabelas */
+table.tb{width:100%;border-collapse:collapse;margin:22px 0;font:400 15px/1.5 var(--sans);background:#fff;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.tb th{background:var(--navy);color:#fff;text-align:left;padding:11px 14px;font-weight:700;font-size:13px}
+.tb td{padding:11px 14px;border-top:1px solid var(--line);vertical-align:top}
+.tb tr:nth-child(even) td{background:#faf8f2}
+.tb td.fill{height:48px}
+.scroll{overflow-x:auto}
+
+/* atividades */
+.act{margin:34px 0;border:2px solid var(--gold);border-radius:14px;background:#fffdf6;padding:0;overflow:hidden}
+.act>header{background:var(--gold);color:#fff;padding:9px 22px;font:800 11px var(--sans);letter-spacing:.16em;text-transform:uppercase}
+.act .in{padding:16px 24px 20px;font-size:17px}
+.act h3{margin:6px 0 4px;font-size:22px}
+.lines{margin:12px 0}.lines i{display:block;border-bottom:1px solid #b9b5a6;height:30px}
+.act ol{margin:8px 0}
+.act li::marker{font-weight:700;color:var(--gold)}
+
+/* figura */
+figure.fig{margin:28px 0;background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px}
+figure.fig figcaption{font:500 12.5px/1.5 var(--sans);color:var(--muted);margin-top:8px}
+.ch-end{display:flex;justify-content:space-between;gap:12px;padding:16px 64px;background:#f4f1e8;border-top:1px solid var(--line);font:600 12.5px var(--sans);color:var(--muted)}
+
+/* glossário */
+.gl{columns:2;column-gap:36px}
+.gl dt{font:700 17px var(--display);color:var(--navy);break-after:avoid;margin-top:14px}
+.gl dd{margin:2px 0 0;font-size:16px;line-height:1.55;break-inside:avoid}
+
+/* bibliografia */
+.refs{list-style:none;padding:0;counter-reset:r}
+.refs li{counter-increment:r;position:relative;padding-left:38px;margin:0 0 14px;font:400 14.5px/1.55 var(--sans)}
+.refs li:before{content:counter(r);position:absolute;left:0;top:0;width:26px;height:26px;border-radius:50%;background:var(--teal-bg);color:#14565d;font:800 12px/26px var(--sans);text-align:center}
+.refs em{font-style:italic}
+details.prof{margin:18px 0;border:1px solid var(--line);border-radius:12px;background:#fff}
+details.prof summary{cursor:pointer;padding:14px 20px;font:700 14px var(--sans);color:var(--navy)}
+details.prof .in{padding:0 22px 16px;font-size:16px}
+.colophon{text-align:center;font:500 12px var(--sans);color:var(--muted);padding:26px 0 60px}
+
+
+/* cidadania: imagem + explicação */
+.cid{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:22px;margin:30px 0;align-items:start}
+.cid-fig{margin:0}
+.cid-thumb{position:relative;display:block;width:100%;padding:0;border:2px solid var(--line);border-radius:14px;overflow:hidden;background:#fff;cursor:zoom-in;box-shadow:0 10px 28px -16px #1d273180}
+.cid-thumb img{display:block;width:100%;height:auto}
+.cid-hint{position:absolute;left:50%;bottom:12px;transform:translateX(-50%);background:var(--navy);color:#fff;font:700 12px var(--sans);padding:8px 14px;border-radius:99px;white-space:nowrap;box-shadow:0 4px 14px #0005}
+.cid-thumb:hover .cid-hint,.cid-thumb:focus-visible .cid-hint{background:var(--gold)}
+.cid-thumb:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.cid-fig figcaption b{color:var(--ink)}
+.cid-fig figcaption{font:500 12.5px/1.5 var(--sans);color:var(--muted);margin-top:8px}
+.cid-txt{background:var(--teal-bg);border:1px solid #c4dede;border-radius:14px;padding:20px 24px;font-size:17px;line-height:1.6}
+.cid-txt .lab{font:800 10.5px var(--sans);letter-spacing:.16em;text-transform:uppercase;color:#14565d}
+.cid-txt h3{margin:4px 0 8px;font-size:26px}
+.cid-txt p{margin:8px 0}.cid-txt ul{margin:8px 0;padding-left:1.2em}.cid-txt li{margin:6px 0}
+.cid-key{background:#fff;border-left:5px solid var(--gold);border-radius:8px;padding:10px 14px}
+.cid-src{font:500 12px/1.5 var(--sans);color:var(--muted)}
+.cid-link{display:flex;gap:12px;align-items:flex-start;margin-top:12px;padding:12px 14px;border:1px solid var(--line);border-radius:12px;background:#fff;text-decoration:none;color:var(--ink);font-family:var(--sans);transition:border-color .15s,box-shadow .15s}
+.cid-link:hover,.cid-link:focus-visible{border-color:var(--gold);box-shadow:0 6px 18px -10px #1d273190}
+.cid-link .ic{flex:none;width:34px;height:34px;border-radius:50%;background:var(--navy);color:#e3b45a;display:grid;place-items:center;font-size:13px}
+.cid-link .tx{display:block;font-size:12.5px;line-height:1.45;color:var(--muted)}
+.cid-link b{display:block;font-size:13.5px;color:var(--navy);margin-bottom:2px}
+.cid-link em{display:block;font-style:normal;font-weight:700;color:var(--teal);margin-top:4px}
+@media(max-width:760px){.cid{grid-template-columns:1fr}}
+.atv-box{display:flex;align-items:center;gap:18px;margin:0 0 26px;padding:18px 24px;border-radius:14px;background:linear-gradient(100deg,var(--navy),var(--navy2));color:#fff;text-decoration:none;box-shadow:0 12px 28px -16px #12304acc;transition:transform .15s,box-shadow .15s;font-family:var(--sans)}
+.atv-box:hover,.atv-box:focus-visible{transform:translateY(-2px);box-shadow:0 16px 32px -14px #12304a}
+.atv-box:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+.atv-ic{flex:none;width:52px;height:52px;border-radius:14px;background:#ffffff1c;border:1px solid #ffffff40;display:grid;place-items:center;font-size:24px;color:#e3b45a}
+.atv-tx{flex:1;display:block;min-width:0}
+.atv-k{display:block;font:800 10.5px var(--sans);letter-spacing:.16em;text-transform:uppercase;color:#e3b45a}
+.atv-tx b{display:block;font:700 21px/1.25 var(--display);margin:3px 0 4px}
+.atv-d{display:block;font-size:13.5px;line-height:1.5;color:#d3dee7}
+.atv-go{flex:none;background:#e3b45a;color:var(--navy);font:800 13px var(--sans);padding:11px 18px;border-radius:99px;white-space:nowrap}
+.atv-box:hover .atv-go{background:#fff}
+@media(max-width:640px){.atv-box{flex-wrap:wrap;padding:16px}.atv-go{width:100%;text-align:center}}
+/* carrossel */
+.car{position:relative;outline:none}
+.car:focus-visible .car-view{outline:3px solid var(--gold);outline-offset:2px}
+.car-view{overflow:hidden;border-radius:14px}
+.car-track{display:flex;transition:transform .35s ease;touch-action:pan-y}
+.car-slide{flex:0 0 100%;min-width:0}
+.car-slide .cid-thumb{border-radius:14px}
+.car-nav{position:absolute;top:calc(50% - 22px);width:40px;height:40px;border-radius:50%;border:1px solid #ffffff80;background:#12304acc;color:#fff;font:700 24px/1 var(--sans);cursor:pointer;display:grid;place-items:center;padding:0 0 3px;z-index:2;box-shadow:0 4px 14px #0004}
+.car-nav:hover{background:var(--gold)}
+.car-nav.prev{left:8px}.car-nav.next{right:8px}
+.car-dots{display:flex;justify-content:center;gap:8px;margin-top:10px}
+.car-dot{width:10px;height:10px;border-radius:50%;border:0;padding:0;background:#c9c1ac;cursor:pointer}
+.car-dot.on{background:var(--navy);width:26px;border-radius:6px}
+@media(prefers-reduced-motion:reduce){.car-track{transition:none}}
+/* lightbox */
+.lb{position:fixed;inset:0;z-index:100;background:#08121cf8;display:none;flex-direction:column}
+.lb.open{display:flex}
+.lb-bar{display:flex;gap:8px;align-items:center;justify-content:space-between;padding:10px 14px;color:#fff;font:600 13px var(--sans)}
+.lb-bar .grp{display:flex;gap:8px;align-items:center}
+.lb-bar button{background:#ffffff1a;border:1px solid #ffffff44;color:#fff;border-radius:9px;min-width:40px;height:40px;font:700 18px var(--sans);cursor:pointer;padding:0 12px}
+.lb-bar button:hover{background:#ffffff33}
+.lb-bar .pct{min-width:52px;text-align:center}
+.lb-stage{flex:1;overflow:auto;display:flex;padding:8px;cursor:grab;-webkit-overflow-scrolling:touch}
+.lb-stage.drag{cursor:grabbing}
+.lb-stage img{margin:auto;max-width:none;flex:none;user-select:none;-webkit-user-drag:none;background:#fff;border-radius:6px}
+.lb-help{text-align:center;color:#9fb3c3;font:500 12px var(--sans);padding:6px 10px 12px}
+
+/* responsivo */
+@media(max-width:1000px){
+  section.chapter,.cover{margin:14px 0;max-width:none}
+  
+  .ch-head{padding:56px 24px 22px;grid-template-columns:1fr;gap:6px}.ch-num{font-size:64px}
+  .body{padding:24px 22px 38px}.ch-end{padding:14px 22px}
+}
+@media(max-width:640px){
+  body{font-size:17px}
+  .two,.gl{grid-template-columns:1fr;columns:1}
+  .flow{grid-template-columns:1fr}.flow div,.flow div:first-child,.flow div:last-child{border-radius:0;margin:0 0 -1px}
+  .tl:before{left:14px}.tl li{grid-template-columns:1fr;padding-left:40px}.tl li:before{left:7px}.tl .y{text-align:left;padding:0}.tl .t{padding:0}
+}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.drawer{transition:none}}
+@media print{
+  @page{size:A4;margin:16mm 14mm}
+  body{background:#fff;font-size:11.5pt}
+  .toc-tab,.drawer,.toc-ov,#progress,.skip{display:none!important}
+  main{margin:0}
+  section.chapter,.cover{box-shadow:none;margin:0;max-width:none;page-break-after:always}
+  .cover img{max-height:none}
+  .ch-head{padding:0 0 14px;background:none}.body{padding:14px 0}.ch-end{display:none}
+  .callout,.support,.act,figure,.card,.stat,.tl li{break-inside:avoid}
+  .think,.support>header,.act>header,.tb th,.stat,.callout{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  details.prof{display:none}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#conteudo">Ir para o conteúdo</a>
+<div id="progress" aria-hidden="true"></div>
+
+
+<main id="conteudo">
+<section class="cover" id="capa">
+  <h1 class="sr">Cidadania, direitos e lutas sociais no Brasil — História, 9º ano</h1>
+  <img src="img/capa.webp" alt="Capa do livro digital: Cidadania, direitos e lutas sociais no Brasil. Manifestantes com cartazes “Democracia se faz com participação” e “Direitos para todos”, mão erguendo a Constituição de 1988, o Congresso Nacional e a estátua da Justiça.">
+</section>
+
+<section class="chapter" id="habilidades">
+  <header class="ch-head"><div class="ch-num">✓</div><div>
+    <p class="eyebrow">Antes de começar</p><h2>Habilidades e objetivos</h2>
+    <p class="deck">O que você vai desenvolver e aprender ao longo do livro.</p></div></header>
+  <div class="body">
+    <h3 style="margin-top:0">Habilidades em foco</h3>
+    <p class="nodrop" style="color:var(--muted);font-size:15px;margin-top:-2px">DC-GO Ampliado e Matriz de Habilidades Essenciais</p>
+    <div class="scroll"><table class="tb">
+      <thead><tr><th style="width:50%">DC-GO — Ampliado</th><th>Matriz de Habilidades Essenciais</th></tr></thead>
+      <tbody>
+        <tr><td><b>(EF09HI23)</b> Identificar direitos civis, políticos e sociais expressos na Constituição de 1988 e relacioná-los à noção de cidadania e ao pacto da sociedade brasileira de combate a diversas formas de preconceito, como o racismo.</td>
+            <td><b>Compreender</b> os diferentes direitos previstos na Constituição de 1988, conectando-os à prática da cidadania e à participação social. <b>Entender</b> o termo “Constituição Cidadã” e refletir criticamente sobre os desafios na efetivação desses direitos atualmente.</td></tr>
+        <tr><td><b>(GO-EF09HI22-C)</b> Conhecer e analisar o acidente com o Césio-137 em Goiânia e sua relação com a promoção da cidadania individual e coletiva, bem como as suas repercussões no contexto local, nacional e internacional.</td>
+            <td><b>Identificar</b> as causas e o contexto histórico do acidente com o Césio-137 em Goiânia, analisando as consequências sociais, ambientais, sanitárias e econômicas.</td></tr>
+        <tr><td><b>(GO-EF09HI26-A)</b> Conhecer e problematizar as lutas por igualdade de direito de populações marginalizadas, suas especificidades, discutindo as políticas públicas afirmativas que visam erradicar todo e qualquer tipo de violência contra negros, indígenas, mulheres, homossexuais, diversidades sexuais, povos da terra, das águas, das florestas, camponeses, sem terra e teto, ciganos, deficientes e outras minorias.</td>
+            <td><b>Analisar</b> os movimentos sociais e as estratégias de resistência e organização desses grupos, avaliando o conceito de políticas públicas afirmativas e seus objetivos na promoção da igualdade e da justiça social.</td></tr>
+      </tbody></table></div>
+    <div class="callout teal"><span class="lab">Neste livro você vai aprender</span>
+      <ul>
+        <li>como a redemocratização ampliou os espaços de participação política;</li>
+        <li>por que a Constituição de 1988 ficou conhecida como “Constituição Cidadã”;</li>
+        <li>como direitos civis, políticos e sociais se relacionam com a cidadania;</li>
+        <li>por que o acidente com o Césio-137 em Goiânia pode ser estudado sob a perspectiva da cidadania;</li>
+        <li>como diferentes grupos sociais organizaram lutas por direitos;</li>
+        <li>o que são políticas públicas, equidade e ações afirmativas.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="chapter" id="abertura">
+  <header class="ch-head"><div class="ch-num">0</div><div>
+    <p class="eyebrow">Para começar</p><h2>Por que estudar cidadania?</h2>
+    <p class="deck">Direitos não nascem prontos: são escritos, disputados, ampliados — e, muitas vezes, ainda precisam ser conquistados na prática.</p></div></header>
+  <div class="body">
+    <p class="lead">A cidadania não se resume ao direito de votar. Ela envolve direitos, deveres, participação social e a possibilidade de cada pessoa atuar na sociedade. No Brasil, sua construção foi marcada por avanços, conflitos, desigualdades e mobilizações coletivas.</p>
+    <p>Nas últimas décadas do século XX, a sociedade brasileira viveu um processo de redemocratização que alterou profundamente a vida política do país. As campanhas pela anistia, o movimento pelas eleições diretas e a participação popular na elaboração da Constituição de 1988 fizeram parte dessa história. É nesse mesmo contexto — setembro de 1987 — que Goiânia viveu o maior acidente radiológico do mundo, um episódio que também nos obriga a perguntar o que significa ter direito à informação, à saúde e à proteção do Estado.</p>
+    <div class="cid">
+      <figure class="cid-fig">
+        <div class="car" id="car" role="region" aria-roledescription="carrossel" aria-label="Infográficos sobre cidadania" tabindex="0">
+          <div class="car-view"><div class="car-track">
+          <div class="car-slide" role="group" aria-roledescription="slide" aria-label="1 de 3" data-cap="Resumo da obra <em>Cidadania no Brasil: o longo caminho</em>, de José Murilo de Carvalho.">
+            <button type="button" class="cid-thumb" data-zoom="img/cidadania.webp" data-gal="cid" data-alt="Infográfico-resumo do livro Cidadania no Brasil: o longo caminho, de José Murilo de Carvalho: o que é cidadania, as quatro etapas do livro, os tipos de direitos e as ideias importantes." aria-label="Ampliar o infográfico 1 de 3">
+              <img src="img/cidadania.webp" alt="Infográfico-resumo do livro Cidadania no Brasil: o longo caminho, de José Murilo de Carvalho: o que é cidadania, as quatro etapas do livro, os tipos de direitos e as ideias importantes." loading="eager">
+              <span class="cid-hint">🔍 Clique para ampliar</span>
+            </button>
+          </div>
+          <div class="car-slide" role="group" aria-roledescription="slide" aria-label="2 de 3" data-cap="Cidadania no Brasil: conceito, raízes históricas, principais momentos, conquistas e desafios de hoje.">
+            <button type="button" class="cid-thumb" data-zoom="img/cidadania2.webp" data-gal="cid" data-alt="Infográfico Cidadania no Brasil: direitos, lutas e caminhos para uma sociedade mais justa, com o conceito de cidadania, raízes históricas, linha do tempo, conquistas, desafios de hoje e formas de exercer a cidadania." aria-label="Ampliar o infográfico 2 de 3">
+              <img src="img/cidadania2.webp" alt="Infográfico Cidadania no Brasil: direitos, lutas e caminhos para uma sociedade mais justa, com o conceito de cidadania, raízes históricas, linha do tempo, conquistas, desafios de hoje e formas de exercer a cidadania." loading="lazy">
+              <span class="cid-hint">🔍 Clique para ampliar</span>
+            </button>
+          </div>
+          <div class="car-slide" role="group" aria-roledescription="slide" aria-label="3 de 3" data-cap="Cidadania como uma construção em camadas: participação, direitos sociais, civis e políticos, exclusões históricas e a base na Constituição de 1988.">
+            <button type="button" class="cid-thumb" data-zoom="img/cidadania3.webp" data-gal="cid" data-alt="Infográfico Cidadania no Brasil: uma construção em camadas, mostrando participação política, direitos sociais, direitos civis, direitos políticos, exclusões históricas e a Constituição de 1988 como base." aria-label="Ampliar o infográfico 3 de 3">
+              <img src="img/cidadania3.webp" alt="Infográfico Cidadania no Brasil: uma construção em camadas, mostrando participação política, direitos sociais, direitos civis, direitos políticos, exclusões históricas e a Constituição de 1988 como base." loading="lazy">
+              <span class="cid-hint">🔍 Clique para ampliar</span>
+            </button>
+          </div>
+          </div></div>
+          <button type="button" class="car-nav prev" aria-label="Infográfico anterior">‹</button>
+          <button type="button" class="car-nav next" aria-label="Próximo infográfico">›</button>
+        </div>
+        <div class="car-dots"><button type="button" class="car-dot" aria-label="Ir para o infográfico 1"></button><button type="button" class="car-dot" aria-label="Ir para o infográfico 2"></button><button type="button" class="car-dot" aria-label="Ir para o infográfico 3"></button></div>
+        <figcaption id="carCap" aria-live="polite"></figcaption>
+        <a class="cid-link" href="https://www.instagram.com/reel/Dd1kMOega9_/" target="_blank" rel="noopener noreferrer">
+          <span class="ic" aria-hidden="true">▶</span>
+          <span class="tx"><b>Veja e participe</b><span>Vídeo da Assembleia Legislativa de Goiás (@assembleiago): “Cidadania é participar da sociedade e exercer direitos e também deveres.” Na sua opinião, o que é cidadania?</span><em>Abrir no Instagram ↗</em></span>
+        </a>
+      </figure>
+      <div class="cid-txt">
+        <span class="lab">Em poucas palavras</span>
+        <h3>O que é cidadania?</h3>
+        <p><b>Cidadania</b> é o conjunto de direitos e deveres que permite a uma pessoa participar da vida em sociedade com liberdade, igualdade e respeito.</p>
+        <p>O historiador José Murilo de Carvalho explica que ela tem <b>três dimensões</b>:</p>
+        <ul>
+          <li><b>Direitos civis:</b> a vida, a liberdade, a igualdade perante a lei, o direito de ir e vir, de pensar e de se expressar.</li>
+          <li><b>Direitos políticos:</b> participar do governo da sociedade — votar, ser votado, organizar partidos e manifestações.</li>
+          <li><b>Direitos sociais:</b> participar da riqueza coletiva — educação, trabalho, saúde e aposentadoria.</li>
+        </ul>
+        <p>Quem tem os três é um cidadão <b>pleno</b>; quem tem apenas alguns é um cidadão <b>incompleto</b>.</p>
+        <p class="cid-key"><b>Ideia-chave:</b> ter um direito não garante os outros. Poder votar, por exemplo, não garante emprego, saúde ou segurança. Por isso a cidadania se constrói aos poucos, com leis, educação e muita participação.</p>
+        <p class="cid-src">Fonte: CARVALHO, José Murilo de. <em>Cidadania no Brasil: o longo caminho</em>. 3. ed. Rio de Janeiro: Civilização Brasileira, 2002, introdução, p. 7–11 (adaptado). Ver bibliografia.</p>
+      </div>
+    </div>
+
+    <a class="atv-box" href="atv/atv1-cidadania.html" target="_blank" rel="noopener">
+      <span class="atv-ic" aria-hidden="true">✎</span>
+      <span class="atv-tx">
+        <span class="atv-k">Atividade 1 · EF09HI23</span>
+        <b>Cidadania no Brasil: um longo caminho</b>
+        <span class="atv-d">Leitura e análise de textos adaptados de José Murilo de Carvalho, com sete questões dissertativas sobre os direitos civis, políticos e sociais e a história da cidadania no Brasil.</span>
+      </span>
+      <span class="atv-go">Abrir atividade ↗</span>
+    </a>
+  </div>
+</section>
+
+<!-- ======================= CAPÍTULO 1 ======================= -->
+<section class="chapter" id="redemocratizacao">
+  <header class="ch-head"><div class="ch-num">1</div><div>
+    <p class="eyebrow">Brasil contemporâneo · 1974–1985</p><h2>Da abertura política à redemocratização</h2>
+    <p class="deck">Como a sociedade civil, as ruas e as urnas transformaram o fim da ditadura em um processo político.</p></div></header>
+  <div class="body">
+    <div class="chips"><span class="chip">EF09HI22</span><span class="chip g">Anistia · Diretas Já · Nova República</span></div>
+    <p>Em 1974, ao assumir a Presidência, o general Ernesto Geisel anunciou uma política de abertura “lenta, gradual e segura”. A distensão era controlada pelo próprio regime, mas encontrou uma sociedade cada vez mais disposta a reivindicar mudanças: sindicatos, estudantes, artistas, setores da Igreja, jornalistas e profissionais liberais ampliaram suas vozes. A abertura foi um processo de disputa entre grupos que queriam prolongar o regime autoritário e setores que defendiam a democratização.</p>
+
+    <h3>A luta pela anistia</h3>
+    <p>A partir de 1975 — com o Movimento Feminino pela Anistia — e, sobretudo, de 1978, com o Comitê Brasileiro pela Anistia (CBA), cresceu a campanha por uma <b>anistia “ampla, geral e irrestrita”</b>. Pedia-se a libertação dos presos políticos e a volta dos exilados. O governo, porém, resistia a anistiar os que haviam participado da luta armada.</p>
+    <p>Em agosto de 1979 foi aprovada a Lei da Anistia (Lei nº 6.683). Ela permitiu o retorno de milhares de exilados e a libertação de presos políticos, mas foi muito criticada por seus limites: a lei também beneficiou agentes das forças de segurança envolvidos em tortura e violações de direitos humanos. O debate sobre esses limites continua na sociedade brasileira.</p>
+    <div class="callout concept"><span class="lab">Conceito-chave</span><b>Anistia:</b> medida jurídica que perdoa determinados crimes ou infrações, produzindo os efeitos definidos pela própria lei. No Brasil, a anistia de 1979 esteve ligada às reivindicações pelo retorno dos exilados e pela libertação dos presos políticos — mas também gerou controvérsia por alcançar agentes do Estado.</div>
+
+    <aside class="support"><header><i></i>Texto de apoio · Memória e justiça</header>
+      <div class="in">
+        <h5>O fim do bipartidarismo e a pressão popular</h5>
+        <p>O fim do bipartidarismo (em 1979) e as manifestações populares fortaleceram a luta pela redemocratização e provocaram reações violentas de setores conservadores. A lei aprovada em 1979 garantiu anistia também aos torturadores a serviço das forças de segurança. Somente em 2011 o Estado brasileiro assumiu o compromisso de instituir uma comissão para investigar as violações ocorridas durante a ditadura: a Comissão Nacional da Verdade.</p>
+        <p>O debate sobre <b>memória e justiça</b> inclui o trabalho dessa Comissão, criada para investigar violações de direitos humanos cometidas durante o período autoritário.</p>
+      </div>
+      <div class="src"><b>Fontes:</b> AZEVEDO; CALBENTE; SERIACOPI, <em>A Conquista: História 9</em>, cap. 8 (orientações ao professor); BRAICK; BARRETO, <em>Se liga na História 9</em>, unidade sobre a ditadura (“Memória e justiça”). Síntese e adaptação didática. Ver bibliografia.</div>
+    </aside>
+
+    <h3>Diretas Já</h3>
+    <p>Com a crise econômica do início dos anos 1980 — inflação alta e dívida externa —, a insatisfação com o regime cresceu. Em 1983, partidos de oposição, sindicatos, entidades civis e artistas lançaram a campanha pelas <b>eleições diretas para presidente</b>. Em 25 de janeiro de 1984, na Praça da Sé, em São Paulo, um grande comício deu início a uma sequência de manifestações. No Rio de Janeiro, o comício da Candelária (10 de abril de 1984) chegou a ser descrito como a maior manifestação político-popular da história do país até então.</p>
+
+    <figure class="doc"><blockquote>“Um, dois, três, quatro, cinco, mil, queremos eleger o presidente do Brasil.”</blockquote>
+      <figcaption><b>Refrão dos comícios das Diretas Já</b>, 1984. Registrado em obras de História do 9º ano (ver bibliografia).<br>Observe: o que o uso da bandeira, do hino e das cores nacionais nos comícios revela sobre a mensagem da campanha?</figcaption></figure>
+
+    <p>Em 25 de abril de 1984, a Câmara dos Deputados votou a Emenda Dante de Oliveira, que restabeleceria as eleições diretas. A emenda <b>não obteve os votos necessários</b> e foi rejeitada. A eleição presidencial ocorreu, em janeiro de 1985, de forma indireta, pelo Colégio Eleitoral: Tancredo Neves venceu, mas adoeceu na véspera da posse e morreu em 21 de abril. José Sarney, vice-presidente eleito, assumiu a Presidência e inaugurou a chamada “Nova República”.</p>
+    <aside class="support"><header><i></i>Texto de apoio · O que mudou com Sarney</header>
+      <div class="in"><p>A posse de Sarney decepcionou muitos brasileiros, pois ele havia apoiado a ditadura e, como líder do PDS, ajudou a derrotar a emenda das Diretas. Mesmo assim, o governo aprovou medidas redemocratizantes, como eleições diretas em dois turnos para a Presidência e para as prefeituras, e maior liberdade para a criação e a legalização de partidos — o que permitiu, por exemplo, que o Partido Comunista Brasileiro voltasse à legalidade. Foi também no início de seu governo que se convocou a Assembleia Nacional Constituinte.</p></div>
+      <div class="src"><b>Fonte:</b> COTRIM; RODRIGUES, <em>Historiar 9</em> (PNLD 2020), seção sobre o governo Sarney. Síntese didática.</div>
+    </aside>
+
+    <ul class="tl">
+      <li><div class="y">1974</div><div class="t"><b>Início da “abertura lenta, gradual e segura”</b><span>Governo Geisel; avanço da oposição nas eleições legislativas de 1974.</span></div></li>
+      <li><div class="y">1979</div><div class="t"><b>Lei da Anistia</b><span>Retorno de exilados e libertação de presos políticos, com limites criticados.</span></div></li>
+      <li><div class="y">1983–84</div><div class="t"><b>Campanha das Diretas Já</b><span>Comícios multitudinários; derrota da Emenda Dante de Oliveira (abril de 1984).</span></div></li>
+      <li><div class="y">1985</div><div class="t"><b>Eleição indireta e Nova República</b><span>Tancredo é eleito pelo Colégio Eleitoral; Sarney assume a Presidência.</span></div></li>
+    </ul>
+
+    <div class="act"><header>Atividade · Leia, pense e responda</header><div class="in">
+      <ol><li>Por que os movimentos sociais foram importantes para a redemocratização?</li>
+      <li>Qual era a principal reivindicação das Diretas Já? Ela foi atendida? Justifique.</li>
+      <li>Explique por que a campanha das Diretas Já é um exemplo de participação social, mesmo sem ter conseguido aprovar a emenda.</li>
+      <li>Por que a Lei da Anistia de 1979 é considerada, ao mesmo tempo, uma conquista e um tema de controvérsia?</li></ol></div></div>
+  </div>
+  <div class="ch-end"><span>Capítulo 1 de 8</span><span>Próximo: A Constituição de 1988 →</span></div>
+</section>
+
+<!-- ======================= CAPÍTULO 2 ======================= -->
+<section class="chapter" id="constituicao">
+  <header class="ch-head"><div class="ch-num">2</div><div>
+    <p class="eyebrow">1987–1988</p><h2>A Constituição de 1988</h2>
+    <p class="deck">Uma Constituição escrita em meio a debates, emendas populares e disputas — e chamada de “Cidadã”.</p></div></header>
+  <div class="body">
+    <div class="chips"><span class="chip">EF09HI23</span><span class="chip g">Constituinte · direitos · participação popular</span></div>
+    <p>A Assembleia Nacional Constituinte foi instalada em 1987, com deputados e senadores eleitos em novembro de 1986, para elaborar uma nova Constituição. Esperava-se completar, com ela, a transição democrática. Pela primeira vez na história constitucional brasileira, a população pôde apresentar <b>emendas populares</b>: as propostas precisavam de pelo menos 30 mil assinaturas e deviam ser apresentadas por alguma entidade — sindicatos, partidos, associações, entidades religiosas. Assim, grupos à direita e à esquerda mobilizaram-se, coletaram assinaturas e levaram suas reivindicações ao Congresso.</p>
+    <p>Em 5 de outubro de 1988 foi promulgada a nova Constituição Federal. Por ampliar os direitos civis, políticos e sociais e por ter contado com participação popular, ficou conhecida como <b>Constituição Cidadã</b> — expressão associada a Ulysses Guimarães, presidente da Assembleia Constituinte.</p>
+
+    <div class="callout teal"><span class="lab">Constituição Cidadã</span><p>A expressão destaca a ampliação das garantias individuais e sociais e a retomada dos direitos políticos depois de anos de autoritarismo. “Cidadã” não significa que todos os direitos já eram plenamente exercidos em 1988, mas que o texto os reconheceu e abriu caminhos para cobrá-los.</p></div>
+
+    <h3>O que a Constituição passou a garantir</h3>
+    <div class="cards">
+      <div class="card"><div class="n">Liberdades</div><h6>Expressão, crença e associação</h6><p>Liberdade de pensamento, de culto, de reunião e de manifestação, sem censura prévia.</p></div>
+      <div class="card"><div class="n">Participação</div><h6>Voto ampliado</h6><p>Direito de voto aos analfabetos e voto facultativo para jovens de 16 e 17 anos e para pessoas com mais de 70 anos.</p></div>
+      <div class="card"><div class="n">Igualdade</div><h6>Contra a discriminação</h6><p>Igualdade perante a lei; o racismo e a tortura passam a ser crimes.</p></div>
+      <div class="card"><div class="n">Trabalho</div><h6>Direitos sociais</h6><p>Direito de greve, liberdade sindical, jornada de 44 horas, licença-maternidade e paternidade, seguro-desemprego e 13º salário.</p></div>
+    </div>
+
+    <aside class="support"><header><i></i>Texto de apoio · Princípios fundamentais</header>
+      <div class="in">
+        <p>Veja alguns princípios fundamentais da Constituição de 1988:</p>
+        <ul>
+          <li><b>Igualdade jurídica:</b> todos são iguais perante a lei, e garantem-se aos brasileiros e aos estrangeiros residentes o direito à vida, à liberdade, à igualdade, à segurança e à propriedade.</li>
+          <li><b>Subordinação de todos à lei:</b> ninguém será obrigado a fazer ou deixar de fazer algo senão em virtude de lei; o limite à liberdade é definido pelas normas jurídicas, não pelo arbítrio de alguém.</li>
+          <li><b>Liberdade de pensamento, crença, expressão, locomoção e associação:</b> independentemente de censura ou licença.</li>
+        </ul>
+        <p>Entre as conquistas sociais e de reconhecimento, destacam-se a criminalização da tortura e do racismo, o voto dos analfabetos, o resguardo dos direitos indígenas e quilombolas e a extensão de direitos trabalhistas aos empregados domésticos.</p>
+      </div>
+      <div class="src"><b>Fontes:</b> COTRIM; RODRIGUES, <em>Historiar 9</em>, “Constituição cidadã”; BRAICK; BARRETO, <em>Se liga na História 9</em>, “A Constituição de 1988”; COTRIM; RODRIGUES, <em>Expedições da História 9</em>, “Constituição Cidadã”. Síntese e adaptação.</div>
+    </aside>
+
+    <figure class="doc"><blockquote>“São reconhecidos aos índios sua organização social, costumes, línguas, crenças e tradições, e os direitos originários sobre as terras que tradicionalmente ocupam, competindo à União demarcá-las, proteger e fazer respeitar todos os seus bens.”</blockquote>
+      <figcaption><b>Constituição Federal de 1988, art. 231 (caput).</b> Transcrito em <em>Expedições da História 9</em>.<br>Antes de 1988, a política oficial tratava os indígenas como grupos a serem “integrados”. O que muda quando a Constituição reconhece seu <em>direito à diferença</em>?</figcaption></figure>
+
+    <div class="scroll"><table class="tb">
+      <tr><th>Direito</th><th>O que podemos compreender?</th><th>Exemplo cotidiano</th></tr>
+      <tr><td>Educação</td><td>Direito social e responsabilidade pública.</td><td>Matrícula gratuita na escola pública.</td></tr>
+      <tr><td>Saúde</td><td>Integra o conjunto de direitos sociais garantidos constitucionalmente.</td><td>Atendimento em unidades de saúde do SUS.</td></tr>
+      <tr><td>Liberdade</td><td>Liberdades individuais e coletivas recebem proteção jurídica.</td><td>Expressar opiniões e professar uma religião.</td></tr>
+      <tr><td>Igualdade</td><td>A lei estabelece a igualdade e combate práticas discriminatórias.</td><td>Racismo é crime inafiançável e imprescritível.</td></tr>
+      <tr><td>Participação política</td><td>O sistema democrático reconhece o voto e outros mecanismos de cidadania.</td><td>Votar, participar de conselhos e de associações.</td></tr>
+    </table></div>
+
+    <div class="act"><header>Atividade · Direito, significado e cotidiano</header><div class="in">
+      <p>Escolha três direitos apresentados acima e complete:</p>
+      <table class="tb"><tr><th>Direito</th><th>Como aparece na vida cotidiana?</th><th>Que desafio pode dificultar sua efetivação?</th></tr>
+      <tr><td class="fill"></td><td></td><td></td></tr><tr><td class="fill"></td><td></td><td></td></tr><tr><td class="fill"></td><td></td><td></td></tr></table></div></div>
+  </div>
+  <div class="ch-end"><span>Capítulo 2 de 8</span><span>Próximo: Direitos e cidadania →</span></div>
+</section>
+
+<!-- ======================= CAPÍTULO 3 ======================= -->
+<section class="chapter" id="direitos">
+  <header class="ch-head"><div class="ch-num">3</div><div>
+    <p class="eyebrow">Cidadania</p><h2>Direitos garantidos e desafios de efetivação</h2>
+    <p class="deck">Entre o que está escrito na lei e o que se vive na prática existe uma distância que a História ajuda a explicar.</p></div></header>
+  <div class="body">
+    <div class="chips"><span class="chip">EF09HI23</span><span class="chip g">Direitos civis · políticos · sociais</span></div>
+    <p>A Constituição estabelece direitos, mas a história mostra que existe uma diferença entre <b>reconhecer</b> um direito e <b>garantir</b> que ele seja efetivamente exercido por toda a população. Desigualdades econômicas, sociais, territoriais e formas de preconceito podem limitar o acesso a direitos.</p>
+
+    <h3>Três dimensões da cidadania</h3>
+    <div class="cards">
+      <div class="card"><div class="n">Direitos civis</div><h6>Liberdade e igualdade perante a lei</h6><p>Liberdades individuais, igualdade jurídica e proteção da pessoa (vida, expressão, propriedade, ir e vir).</p></div>
+      <div class="card"><div class="n">Direitos políticos</div><h6>Participação na vida pública</h6><p>Votar, ser votado, organizar partidos, sindicatos e associações.</p></div>
+      <div class="card"><div class="n">Direitos sociais</div><h6>Condições para uma vida digna</h6><p>Educação, saúde, trabalho, moradia, previdência — dependem de políticas públicas.</p></div>
+    </div>
+
+    <div class="callout warn"><span class="lab">Atenção</span><p>Reconhecer desigualdades não significa afirmar que todos os grupos tenham exatamente a mesma experiência. A análise histórica procura identificar como diferentes condições sociais produzem diferentes possibilidades de acesso a direitos.</p></div>
+
+    <h3>Cidadania e combate ao preconceito</h3>
+    <p>Os materiais didáticos relacionam a cidadania ao enfrentamento de preconceitos e à proteção de grupos que historicamente sofreram exclusão, como populações negras, indígenas, mulheres, pessoas LGBTQIA+, pessoas com deficiência, camponeses e populações pobres.</p>
+
+    <aside class="support"><header><i></i>Texto de apoio · Leis que ampliam a cidadania</header>
+      <div class="in">
+        <h5>O caminho da criminalização do racismo</h5>
+        <p>Na década de 1940, a militância negra — como a de Abdias do Nascimento, diretor do jornal <em>Quilombo</em> (1948) — propôs incluir na Constituição de 1946 um dispositivo que proibisse o racismo; a proposta não foi aprovada. Em 1951, por pressão dos movimentos negros, aprovou-se uma lei que tornava a prática do racismo uma contravenção penal. Só com a Constituição de 1988 o racismo passou a ser <b>crime</b>, sujeito à pena de prisão. Hoje, o racismo é inafiançável e imprescritível, e o Estatuto da Igualdade Racial (2010) estabelece políticas públicas de valorização da população negra.</p>
+        <h5>Direitos de grupos específicos</h5>
+        <p>Outras leis específicas, como o Estatuto da Pessoa com Deficiência (2015) e o Estatuto do Idoso, detalham o princípio geral da igualdade e as obrigações do Estado para que todas as pessoas exerçam plenamente a cidadania.</p>
+      </div>
+      <div class="src"><b>Fontes:</b> AZEVEDO; CALBENTE; SERIACOPI, <em>A Conquista: História 9</em>; COTRIM; RODRIGUES, <em>Historiar 9</em>, “Outras histórias”. Síntese e adaptação. Ver bibliografia.</div>
+    </aside>
+
+    <div class="act"><header>Atividade · Analise uma situação</header><div class="in">
+      <p><b>Situação:</b> uma comunidade possui o direito legal a determinado serviço público, mas encontra dificuldades para acessá-lo.</p>
+      <ol><li>Qual direito está envolvido? Ele é civil, político ou social?</li>
+      <li>Que fatores podem explicar a dificuldade de acesso?</li>
+      <li>Que ações do poder público ou da sociedade poderiam contribuir para enfrentar o problema?</li></ol></div></div>
+  </div>
+  <div class="ch-end"><span>Capítulo 3 de 8</span><span>Próximo: Césio-137 em Goiânia →</span></div>
+</section>
+<!-- ======================= CAPÍTULO 4 ======================= -->
+<section class="chapter" id="cesio">
+  <header class="ch-head"><div class="ch-num">4</div><div>
+    <p class="eyebrow">Goiânia · Goiás · 1987</p><h2>O acidente com o Césio-137</h2>
+    <p class="deck">O maior acidente radiológico do mundo aconteceu em plena redemocratização — e revelou lacunas de fiscalização, informação e proteção.</p></div></header>
+  <div class="body">
+    <div class="chips"><span class="chip">GO-EF09HI22-C</span><span class="chip g">Saúde · informação · preconceito · memória</span></div>
+    <p>Em 13 de setembro de 1987, dois jovens de 20 e 21 anos, Wagner Mota Pereira e Roberto Santos Alves, recolheram parte de um aparelho de radioterapia abandonado nas ruínas do antigo Instituto Goiano de Radioterapia (IGR), no centro de Goiânia. Pretendiam vender a peça a um ferro-velho e removeram o lacre da cápsula. Estava iniciado o maior acidente radiológico do mundo, classificado pela Comissão Nacional de Energia Nuclear (CNEN) como <b>nível 5</b> em uma escala de 1 a 7.</p>
+    <p>A cápsula continha cloreto de césio-137, um pó que emitia uma luz azulada. Fascinados, parentes, vizinhos e amigos manipularam e distribuíram fragmentos do material. Sem saber o que era, muitas pessoas se contaminaram.</p>
+
+    <div class="stats" aria-label="Números do acidente">
+      <div class="stat"><b>13/09</b><span>1987 — a fonte é violada em um ferro-velho</span></div>
+      <div class="stat"><b>29/09</b><span>1987 — o acidente é identificado e notificado à CNEN</span></div>
+      <div class="stat"><b>112.800</b><span>pessoas monitoradas</span></div>
+      <div class="stat"><b>249</b><span>pessoas com algum grau de contaminação</span></div>
+      <div class="stat"><b>129</b><span>precisaram de acompanhamento médico especial</span></div>
+      <div class="stat"><b>6 mil t</b><span>de rejeitos radioativos gerados por cerca de 19 g de césio</span></div>
+    </div>
+
+    <h3>Por que o acidente aconteceu? A questão da responsabilidade</h3>
+    <p>Em 1985, o IGR mudou de endereço e deixou para trás um aparelho de radioterapia considerado obsoleto, cuja fonte era de césio-137. A Secretaria de Saúde de Goiás e a CNEN afirmaram que não foram devidamente notificadas; o IGR, em sua defesa judicial, alegou ter notificado a CNEN. As ruínas puderam ser acessadas livremente.</p>
+    <p>Havia, além disso, um problema de organização do Estado. O Decreto nº 81.384/1978 transferira a fiscalização de fontes radioativas para as secretarias estaduais de Saúde e determinara que o Conselho Nacional de Saúde estabelecesse as normas de radioproteção. O Conselho, porém, ficou em recesso por seis anos, e as normas só foram retomadas em dezembro de 1988 — mais de um ano depois do acidente.</p>
+
+    <figure class="doc"><blockquote>“A situação é absurda. Não existe ninguém responsável pela fiscalização dos aparelhos que utilizam elementos radioativos para fins medicinais.”</blockquote>
+      <figcaption><b>Superintendente da Polícia Federal em Goiás</b>, em declaração ao jornal <em>O Globo</em>, 21 out. 1987, citada em <em>Césio 137: 37 anos</em> (SES-GO, 2024).<br>Observe: de que forma uma falha de fiscalização pública pode ameaçar o direito à saúde e à vida?</figcaption></figure>
+
+    <h3>Do desconhecimento à descoberta</h3>
+    <p>Nos dias seguintes, os fragmentos se espalharam por várias casas. Ivo Alves Ferreira, irmão do dono do ferro-velho, levou pó para casa; sua filha, <b>Leide das Neves Ferreira, de 6 anos</b>, brincou com a substância e comeu com as mãos sujas, tornando-se a pessoa mais afetada pela radiação. Os primeiros sintomas — náuseas, vômitos, tonturas, diarreia — foram tratados como doenças infecciosas, porque ninguém relacionava o mal-estar ao “pó brilhante”. Somente em 29 de setembro, quando funcionários da saúde estadual e um físico procuraram um aparelho para medir radioatividade, o acidente foi identificado.</p>
+
+    <ul class="tl">
+      <li class="hl"><div class="y">1985</div><div class="t"><b>Abandono do equipamento</b><span>O IGR muda de sede; o aparelho de radioterapia fica nas ruínas, acessível a qualquer pessoa.</span></div></li>
+      <li class="hl"><div class="y">13/09/1987</div><div class="t"><b>Violação da fonte</b><span>A cápsula é aberta em um ferro-velho; fragmentos são distribuídos a vizinhos e parentes.</span></div></li>
+      <li class="hl"><div class="y">29/09/1987</div><div class="t"><b>Confirmação e notificação</b><span>O acidente é identificado, comunicado à CNEN e, depois, à Agência Internacional de Energia Atômica.</span></div></li>
+      <li><div class="y">30/09/1987</div><div class="t"><b>Chegada da CNEN</b><span>Técnicos com roupas e máscaras especiais percorrem a cidade; é necessário um intenso trabalho de informação para acalmar os moradores.</span></div></li>
+      <li><div class="y">Out./1987</div><div class="t"><b>Operação Césio 137</b><span>Isolamento de áreas, monitoramento da população, descontaminação; 41 casas evacuadas, 7 demolidas.</span></div></li>
+      <li><div class="y">1997</div><div class="t"><b>Depósito definitivo</b><span>Em 5 de junho é inaugurado o depósito de rejeitos em Abadia de Goiás, com previsão de 300 anos para a perda da radioatividade.</span></div></li>
+    </ul>
+
+    <aside class="support"><header><i></i>Texto de apoio · Informação pública e comunicação em crise</header>
+      <div class="in">
+        <p>A Secretaria de Estado da Saúde organizou uma central de informações na qual, diariamente, o diretor do Departamento de Instalações Nucleares da CNEN, o secretário de Saúde e cientistas prestavam esclarecimentos à imprensa. O governador Henrique Santillo fez um pronunciamento em cadeia nacional de rádio e TV, afirmando que “a verdade não está sendo escondida do povo”. O Governo do Estado convocou a população para medição de radioatividade, e 112.800 pessoas foram monitoradas.</p>
+        <p>O acesso a informação clara foi decisivo para reduzir o pânico, mas não impediu o medo nem a discriminação — tema do próximo texto de apoio.</p>
+      </div>
+      <div class="src"><b>Fonte:</b> GOIÁS. Secretaria de Estado da Saúde. <em>Césio 137: 37 anos</em>. Goiânia: SES-GO, 2024, seções “Confirmação”, “Comunicação” e “Monitoramento”. Síntese e adaptação.</div>
+    </aside>
+
+    <h3>Preconceito e solidariedade</h3>
+    <p>Além do sofrimento físico, as vítimas enfrentaram <b>estigma</b>. Em 1987, na ocasião do enterro de Leide das Neves, mais de duas mil pessoas, temendo que o corpo contaminasse a área, tentaram impedir o sepultamento e bloquearam a rua com pedras e tijolos. A mãe de Leide só conseguiu se aproximar do caixão para a despedida graças à intervenção da primeira-dama do Estado, Sônia Santillo, que pediu à multidão: “deixem a mãe enterrar sua filha”. Goiânia e os goianos, em geral, passaram a ser vistos com medo e desconfiança em outras partes do país.</p>
+    <p>A resposta também veio por meio da solidariedade. No início de dezembro de 1987, autoridades, técnicos e jornalistas se uniram para anunciar que Goiânia estava livre da contaminação, e uma campanha nacional buscou resgatar a autoestima dos goianienses. A primeira bailarina do Teatro Municipal do Rio de Janeiro, Ana Maria Botafogo, apresentou um espetáculo no Teatro Goiânia contra a discriminação.</p>
+
+    <div class="callout green"><span class="lab">Por que estudar esse caso em História?</span>
+      <p>O acidente permite discutir responsabilidade pública, fiscalização, acesso à informação, proteção da população, discriminação contra grupos atingidos por uma tragédia e preservação da memória. Por isso pode ser relacionado à cidadania individual e coletiva — e ao tema central deste livro: <b>direitos reconhecidos em lei só se efetivam quando o Estado e a sociedade atuam para garanti-los</b>.</p></div>
+
+    <h3>Cuidar, lembrar, prevenir</h3>
+    <p>Para cuidar das vítimas foi criada a Fundação Leide das Neves Ferreira (FunLeide), baseada no acolhimento integral — apoio médico, de enfermagem, psicológico, odontológico e de assistência social. Em 1999 a fundação foi extinta e suas atribuições passaram a uma superintendência; hoje, o Centro Estadual de Assistência aos Radioacidentados Leide das Neves (CARA), da Secretaria de Estado da Saúde, mantém o monitoramento permanente dos radioacidentados e de seus descendentes, que atualmente estão na terceira geração.</p>
+    <p>O depósito de rejeitos de Abadia de Goiás, inaugurado em 5 de junho de 1997, recebeu cerca de 6 mil toneladas de material (tambores e caixas metálicas, entre outros recipientes) e permanece sob monitoramento. A tragédia deixou lições sobre fiscalização de fontes radioativas, comunicação de risco e atendimento integral à saúde — uma memória que, nas palavras da Secretaria de Saúde, funciona como “um memorial para a prevenção e a promoção da saúde”.</p>
+
+    <figure class="doc"><blockquote>“Não quebrei portas ou janelas como disseram. Entrei [...] porque estava abandonada. Era final da tarde, com muito sol, e a peça era tão pesada que o carrinho entortou.”</blockquote>
+      <figcaption><b>Roberto Santos Alves</b>, um dos jovens que retiraram a peça das ruínas do IGR. Depoimento na exposição <em>Mãos de Césio 137</em>, reproduzido em <em>Césio 137: 37 anos</em> (SES-GO, 2024).<br>Observe: o que o depoimento nos permite perceber sobre a forma como as pessoas simples foram vistas e julgadas logo após o acidente? Por que é importante ouvir diferentes versões de um mesmo fato?</figcaption></figure>
+
+    <div class="act"><header>Atividade · Estudo de caso</header><div class="in">
+      <p>Complete o quadro com base no que você estudou:</p>
+      <table class="tb"><tr><th>Dimensão</th><th>O que devemos observar?</th><th>Registre um exemplo</th></tr>
+      <tr><td>Social</td><td>Relações entre pessoas e comunidades; preconceito e solidariedade.</td><td class="fill"></td></tr>
+      <tr><td>Sanitária</td><td>Consequências para a saúde e atendimento às pessoas.</td><td class="fill"></td></tr>
+      <tr><td>Ambiental</td><td>Contaminação, descontaminação e destino dos rejeitos.</td><td class="fill"></td></tr>
+      <tr><td>Econômica</td><td>Impactos sobre bens, moradias e atividades.</td><td class="fill"></td></tr>
+      <tr><td>Cidadania</td><td>Direitos, informação, proteção e responsabilidade pública.</td><td class="fill"></td></tr></table>
+      <p><b>Questão final:</b> em sua opinião, que direitos da Constituição de 1988 teriam relação direta com o acidente? Justifique.</p>
+      <div class="lines"><i></i><i></i><i></i></div></div></div>
+  </div>
+  <div class="ch-end"><span>Capítulo 4 de 8</span><span>Próximo: Lutas sociais →</span></div>
+</section>
+
+<!-- ======================= CAPÍTULO 5 ======================= -->
+<section class="chapter" id="lutas">
+  <header class="ch-head"><div class="ch-num">5</div><div>
+    <p class="eyebrow">Sociedade civil</p><h2>Lutas sociais e organização coletiva</h2>
+    <p class="deck">Os direitos que hoje reconhecemos foram, em grande parte, arrancados por mobilizações coletivas.</p></div></header>
+  <div class="body">
+    <div class="chips"><span class="chip">GO-EF09HI26-A</span><span class="chip g">Movimentos sociais · resistência · organização</span></div>
+    <p>A conquista de direitos não aconteceu apenas por decisões tomadas dentro das instituições. Em diferentes momentos, grupos sociais organizaram movimentos, campanhas, associações e sindicatos para apresentar reivindicações e disputar espaço na sociedade. Entre os grupos que historicamente enfrentaram exclusão ou violência estão negros, indígenas, mulheres, pessoas LGBTQIA+, pessoas com deficiência, camponeses e pobres.</p>
+    <div class="callout teal"><span class="lab">Uma ideia importante</span><p><b>Movimentos sociais</b> são formas de organização coletiva que apresentam reivindicações, defendem interesses, questionam situações existentes e buscam transformações sociais ou políticas.</p></div>
+
+    <h3>Como uma luta por direitos pode se organizar?</h3>
+    <div class="flow">
+      <div><b>Problema</b><span>Identificação de uma situação considerada injusta.</span></div>
+      <div><b>Organização</b><span>Articulação entre pessoas e grupos.</span></div>
+      <div><b>Reivindicação</b><span>Formulação de propostas e demandas.</span></div>
+      <div><b>Mobilização</b><span>Campanhas, atos, debates e outras estratégias.</span></div>
+      <div><b>Direitos</b><span>Busca por reconhecimento, proteção ou mudança.</span></div>
+    </div>
+
+    <h3>Três exemplos para comparar</h3>
+    <div class="cards">
+      <div class="card"><div class="n">Movimento negro</div><h6>Contra o racismo</h6><p>Imprensa negra, entidades e militantes como Abdias do Nascimento pressionaram por leis antidiscriminatórias, até que a Constituição de 1988 tornou o racismo crime.</p></div>
+      <div class="card"><div class="n">Movimento camponês</div><h6>Terra e reforma agrária</h6><p>Das Ligas Camponesas ao Movimento dos Trabalhadores Rurais Sem Terra (MST), criado em 1984, a luta é por distribuição de terras e acesso a direitos trabalhistas no campo.</p></div>
+      <div class="card"><div class="n">Povos indígenas</div><h6>Direito à diferença</h6><p>Mobilizados na Constituinte, conquistaram o reconhecimento de sua organização social, de suas línguas e do direito originário sobre as terras tradicionais (art. 231).</p></div>
+    </div>
+
+    <aside class="support"><header><i></i>Texto de apoio · A luta pela terra e seus conflitos</header>
+      <div class="in">
+        <p>As Ligas Camponesas, nos anos 1950, protegiam trabalhadores dos abusos de grandes proprietários e reivindicavam melhor distribuição de terras e a extensão das leis trabalhistas ao campo; foram desarticuladas em 1964. Atualmente, um dos principais movimentos de camponeses é o MST, criado em 1984, que realiza ocupações de terras improdutivas para pressionar o governo a realizar a reforma agrária prevista na Constituição. A continuidade da luta pela terra expressa a persistência da concentração fundiária, problema estrutural não resolvido no Brasil.</p>
+        <p>Em 1996, em Eldorado dos Carajás (PA), uma manifestação de cerca de mil trabalhadores sem-terra terminou em violenta repressão da Polícia Militar, episódio que expôs os conflitos rurais do período.</p>
+      </div>
+      <div class="src"><b>Fontes:</b> BRAICK; BARRETO, <em>Se liga na História 9</em>; KARNAL et al., <em>Viver História 9</em> (orientações ao professor); PANAZZO; VAZ, <em>História 9</em> (Editora do Brasil). Síntese e adaptação.</div>
+    </aside>
+
+    <div class="act"><header>Atividade · Ficha de um movimento social</header><div class="in">
+      <ol><li>Escolha um grupo social ou movimento.</li>
+      <li>Qual problema ou desigualdade está no centro de sua atuação?</li>
+      <li>Que direito está relacionado à reivindicação?</li>
+      <li>Quais estratégias de organização podem ser identificadas?</li>
+      <li>Que mudança social ou política foi reivindicada? Ela foi conquistada?</li></ol>
+      <div class="lines"><i></i><i></i><i></i><i></i></div></div></div>
+  </div>
+  <div class="ch-end"><span>Capítulo 5 de 8</span><span>Próximo: Equidade e ações afirmativas →</span></div>
+</section>
+
+<!-- ======================= CAPÍTULO 6 ======================= -->
+<section class="chapter" id="equidade">
+  <header class="ch-head"><div class="ch-num">6</div><div>
+    <p class="eyebrow">Igualdade e justiça social</p><h2>Equidade e ações afirmativas</h2>
+    <p class="deck">Tratar todos do mesmo jeito basta quando as pessoas partem de condições muito diferentes?</p></div></header>
+  <div class="body">
+    <div class="chips"><span class="chip">GO-EF09HI26-A</span><span class="chip g">Equidade · ações afirmativas · políticas públicas</span></div>
+    <p>Quando observamos desigualdades históricas, surge uma questão importante: tratar todas as pessoas exatamente da mesma maneira é suficiente para produzir igualdade de oportunidades? A <b>equidade</b> parte da ideia de “igualdade de direitos de aprender”: reconhecer que as necessidades das pessoas são diferentes e que é responsabilidade coletiva garantir formas eficientes de atender a todos, “a fim de que ninguém fique para trás”.</p>
+
+    <div class="two">
+      <div class="callout teal"><span class="lab">Igualdade</span><p>As pessoas têm os mesmos direitos e são tratadas pelas mesmas normas jurídicas.</p></div>
+      <div class="callout concept"><span class="lab">Equidade</span><p>Considera desigualdades e condições diferentes ao pensar medidas que ampliem oportunidades e reduzam barreiras.</p></div>
+    </div>
+
+    <figure class="fig">
+      <svg viewBox="0 0 720 230" width="100%" role="img" aria-label="Três cenas: na primeira, todos recebem a mesma caixa e quem é mais baixo continua sem enxergar o jogo; na segunda, cada um recebe a caixa de que precisa e todos enxergam; na terceira, a barreira é removida e ninguém precisa de caixa.">
+        <g font-family="Inter,Arial,sans-serif" font-size="13" fill="#1d2731" text-anchor="middle">
+          <g transform="translate(0,0)">
+            <rect x="10" y="10" width="220" height="190" rx="12" fill="#fff" stroke="#dcd6c8"/>
+            <rect x="30" y="80" width="180" height="14" fill="#c9c1ac"/><rect x="30" y="80" width="6" height="110" fill="#c9c1ac"/><rect x="204" y="80" width="6" height="110" fill="#c9c1ac"/>
+            <rect x="50" y="162" width="36" height="26" fill="#b8842b"/><rect x="104" y="162" width="36" height="26" fill="#b8842b"/><rect x="158" y="162" width="36" height="26" fill="#b8842b"/>
+            <circle cx="68" cy="68" r="10" fill="#1c4a6b"/><rect x="62" y="80" width="12" height="82" fill="#1c4a6b" opacity=".0"/><line x1="68" y1="78" x2="68" y2="162" stroke="#1c4a6b" stroke-width="10" stroke-linecap="round"/>
+            <circle cx="122" cy="102" r="10" fill="#1f6f78"/><line x1="122" y1="112" x2="122" y2="162" stroke="#1f6f78" stroke-width="10" stroke-linecap="round"/>
+            <circle cx="176" cy="120" r="10" fill="#a8472a"/><line x1="176" y1="130" x2="176" y2="162" stroke="#a8472a" stroke-width="10" stroke-linecap="round"/>
+            <text x="120" y="222">Igualdade: mesma caixa</text>
+          </g>
+          <g transform="translate(240,0)">
+            <rect x="10" y="10" width="220" height="190" rx="12" fill="#fff" stroke="#dcd6c8"/>
+            <rect x="30" y="80" width="180" height="14" fill="#c9c1ac"/><rect x="30" y="80" width="6" height="110" fill="#c9c1ac"/><rect x="204" y="80" width="6" height="110" fill="#c9c1ac"/>
+            <rect x="158" y="162" width="36" height="26" fill="#b8842b"/><rect x="104" y="136" width="36" height="52" fill="#b8842b"/>
+            <circle cx="68" cy="68" r="10" fill="#1c4a6b"/><line x1="68" y1="78" x2="68" y2="188" stroke="#1c4a6b" stroke-width="10" stroke-linecap="round"/>
+            <circle cx="122" cy="68" r="10" fill="#1f6f78"/><line x1="122" y1="78" x2="122" y2="136" stroke="#1f6f78" stroke-width="10" stroke-linecap="round"/>
+            <circle cx="176" cy="68" r="10" fill="#a8472a"/><line x1="176" y1="78" x2="176" y2="162" stroke="#a8472a" stroke-width="10" stroke-linecap="round"/>
+            <text x="120" y="222">Equidade: apoio sob medida</text>
+          </g>
+          <g transform="translate(480,0)">
+            <rect x="10" y="10" width="220" height="190" rx="12" fill="#fff" stroke="#dcd6c8"/>
+            <rect x="30" y="80" width="6" height="110" fill="#c9c1ac" opacity=".35"/><rect x="204" y="80" width="6" height="110" fill="#c9c1ac" opacity=".35"/>
+            <circle cx="68" cy="102" r="10" fill="#1c4a6b"/><line x1="68" y1="112" x2="68" y2="188" stroke="#1c4a6b" stroke-width="10" stroke-linecap="round"/>
+            <circle cx="122" cy="120" r="10" fill="#1f6f78"/><line x1="122" y1="130" x2="122" y2="188" stroke="#1f6f78" stroke-width="10" stroke-linecap="round"/>
+            <circle cx="176" cy="136" r="10" fill="#a8472a"/><line x1="176" y1="146" x2="176" y2="188" stroke="#a8472a" stroke-width="10" stroke-linecap="round"/>
+            <text x="120" y="222">Barreira removida</text>
+          </g>
+        </g>
+      </svg>
+      <figcaption>Esquema explicativo (ilustração original deste livro). A cerca representa uma barreira social; as caixas, políticas de apoio. Atenção: o objetivo das ações afirmativas é tornar o apoio temporário, até que as barreiras sejam superadas.</figcaption>
+    </figure>
+
+    <h3>O que são ações afirmativas?</h3>
+    <p>Ações afirmativas são políticas destinadas a enfrentar desigualdades e discriminações historicamente construídas, em nome do princípio constitucional da igualdade de oportunidades. Entre os exemplos estão políticas de acesso à educação, de inclusão de pessoas com deficiência, de proteção a povos indígenas e de estímulo à participação de mulheres na política.</p>
+
+    <aside class="support"><header><i></i>Texto de apoio · Como funciona a Lei de Cotas</header>
+      <div class="in">
+        <p>A política de cotas nas universidades públicas foi estabelecida pela <b>Lei nº 12.711/2012</b>, que reserva um percentual das vagas a estudantes pretos, pardos, indígenas e egressos de escolas públicas. A lei determina que 50% das vagas de determinadas instituições sejam dedicadas a estudantes que cursaram todo o ensino médio em escola pública, independentemente da cor da pele; dentro dessa reserva, parte das vagas é destinada a estudantes de baixa renda e as demais seguem a proporção de pretos, pardos e indígenas de cada estado, segundo o IBGE. Ou seja: as cotas combinam critérios <b>sociais, de renda e étnico-raciais</b>.</p>
+        <p>Muitos estudos apontam impactos positivos da política nas universidades, mas o tema continua controverso — o que o transforma em objeto de debate público e de revisão periódica.</p>
+      </div>
+      <div class="src"><b>Fontes:</b> AZEVEDO; CALBENTE; SERIACOPI, <em>A Conquista: História 9</em> (texto complementar, citando GERMANO, F., “Afinal, como funciona a Lei de Cotas?”, <em>Superinteressante</em>, 22 ago. 2018); PANAZZO; VAZ, <em>História 9</em> (Editora do Brasil). Síntese e adaptação.</div>
+    </aside>
+
+    <div class="cards">
+      <div class="card"><div class="n">Educação</div><h6>Reserva de vagas</h6><p>Busca ampliar o acesso de grupos sub-representados ao ensino superior.</p></div>
+      <div class="card"><div class="n">Inclusão</div><h6>Pessoas com deficiência</h6><p>Estatuto da Pessoa com Deficiência (2015): condições para exercer plenamente a cidadania.</p></div>
+      <div class="card"><div class="n">Representação</div><h6>Mulheres na política</h6><p>Regras podem estimular a presença de grupos sub-representados em espaços de decisão.</p></div>
+    </div>
+
+    <div class="think"><small>Pense</small>Se duas pessoas partem de condições muito diferentes, oferecer exatamente o mesmo recurso produz necessariamente o mesmo resultado?</div>
+
+    <div class="act"><header>Atividade · Debate escrito</header><div class="in">
+      <p>Explique, com suas palavras, a diferença entre <b>igualdade</b> e <b>equidade</b>. Depois, dê um exemplo de política pública que procure reduzir uma desigualdade e identifique: (a) quem é beneficiado; (b) qual barreira se pretende superar.</p>
+      <div class="lines"><i></i><i></i><i></i><i></i></div></div></div>
+  </div>
+  <div class="ch-end"><span>Capítulo 6 de 8</span><span>Próximo: Participação social →</span></div>
+</section>
+
+<!-- ======================= CAPÍTULO 7 ======================= -->
+<section class="chapter" id="participacao">
+  <header class="ch-head"><div class="ch-num">7</div><div>
+    <p class="eyebrow">Democracia</p><h2>Participação social: a cidadania em ação</h2>
+    <p class="deck">Do problema coletivo à política pública: como pessoas comuns influenciam decisões.</p></div></header>
+  <div class="body">
+    <div class="chips"><span class="chip">EF09HI23</span><span class="chip">GO-EF09HI26-A</span><span class="chip g">Participação · políticas públicas</span></div>
+    <p>A democracia não acontece apenas no momento da eleição. A participação social também ocorre por meio de associações, movimentos, conselhos, sindicatos, organizações comunitárias, manifestações, debates públicos e outras formas de atuação coletiva. A Constituição de 1988 abriu espaço para essa participação — já na própria elaboração, com as emendas populares.</p>
+
+    <h3>Da reivindicação à política pública</h3>
+    <div class="cards">
+      <div class="card"><div class="n">1 · Identificar</div><p>Perceber um problema coletivo e reunir informações sobre ele.</p></div>
+      <div class="card"><div class="n">2 · Debater</div><p>Ouvir diferentes grupos e construir argumentos.</p></div>
+      <div class="card"><div class="n">3 · Reivindicar</div><p>Apresentar demandas às instituições e à sociedade.</p></div>
+      <div class="card"><div class="n">4 · Acompanhar</div><p>Observar decisões, resultados e possíveis problemas.</p></div>
+      <div class="card"><div class="n">5 · Avaliar</div><p>Verificar se a política alcançou seus objetivos.</p></div>
+      <div class="card"><div class="n">6 · Participar</div><p>Continuar contribuindo para o debate e para a vida coletiva.</p></div>
+    </div>
+
+    <div class="callout green"><span class="lab">Cidadania no cotidiano</span><p>Participar de uma reunião comunitária, discutir problemas da escola, acompanhar decisões públicas, respeitar diferenças, conhecer direitos e organizar ações coletivas são práticas que aproximam cidadania e vida cotidiana.</p></div>
+
+    <aside class="support"><header><i></i>Texto de apoio · Responsabilidade e prevenção</header>
+      <div class="in"><p>O caso do Césio-137 mostra a face oposta da participação: quando não há fiscalização, informação e controle social, os riscos recaem sobre quem tem menos meios de se proteger. Para a Secretaria de Saúde de Goiás, a memória do acidente é um memorial “para a prevenção e a promoção da saúde”, que permanecem como “um desafio coletivo”. Conhecer a história é parte da cidadania.</p></div>
+      <div class="src"><b>Fonte:</b> GOIÁS. Secretaria de Estado da Saúde. <em>Césio 137: 37 anos</em>, 2024, “Apresentação”.</div>
+    </aside>
+
+    <div class="act"><header>Projeto · Minha comunidade, meus direitos</header><div class="in">
+      <p>Em pequenos grupos, escolha um problema observado na escola ou na comunidade. Produza um pequeno plano:</p>
+      <table class="tb"><tr><th>Problema</th><th>Quem é afetado?</th><th>Direito relacionado</th><th>Possível ação</th></tr>
+      <tr><td class="fill"></td><td></td><td></td><td></td></tr><tr><td class="fill"></td><td></td><td></td><td></td></tr></table></div></div>
+  </div>
+  <div class="ch-end"><span>Capítulo 7 de 8</span><span>Próximo: Síntese →</span></div>
+</section>
+
+<!-- ======================= CAPÍTULO 8 ======================= -->
+<section class="chapter" id="sintese">
+  <header class="ch-head"><div class="ch-num">8</div><div>
+    <p class="eyebrow">Síntese</p><h2>Cidadania em construção</h2>
+    <p class="deck">Direitos, democracia e cidadania são construções históricas — e continuam em movimento.</p></div></header>
+  <div class="body">
+    <p class="lead">Ao longo deste livro, acompanhamos uma ideia central: <b>direitos, democracia e cidadania são construções históricas</b>. Eles resultam de leis, instituições, mobilizações sociais e disputas em torno de diferentes necessidades e projetos de sociedade.</p>
+    <ul class="tl">
+      <li><div class="y">1979</div><div class="t"><b>Anistia e abertura política</b><span>Mobilizações sociais pressionam pela ampliação de liberdades.</span></div></li>
+      <li><div class="y">1983–84</div><div class="t"><b>Diretas Já</b><span>Milhões vão às ruas pela eleição direta para presidente.</span></div></li>
+      <li><div class="y">1985</div><div class="t"><b>Nova República</b><span>Eleição indireta de Tancredo Neves; posse de Sarney.</span></div></li>
+      <li><div class="y">1987</div><div class="t"><b>Constituinte instalada</b><span>Participação social e elaboração da nova Constituição.</span></div></li>
+      <li class="hl"><div class="y">Set./1987</div><div class="t"><b>Césio-137 em Goiânia</b><span>Cidadania, proteção pública, saúde, informação e preconceito em debate.</span></div></li>
+      <li><div class="y">1988</div><div class="t"><b>Constituição Cidadã</b><span>Ampliação de direitos civis, políticos e sociais.</span></div></li>
+      <li><div class="y">Depois de 1988</div><div class="t"><b>Lutas sociais e políticas públicas</b><span>Estatuto da Igualdade Racial (2010), Lei de Cotas (2012), Estatuto da Pessoa com Deficiência (2015) e novas mobilizações por efetivação de direitos.</span></div></li>
+    </ul>
+    <div class="callout concept"><span class="lab">Ideia-síntese</span><p><b>Constituição → direitos → cidadania → participação → organização social → políticas públicas → efetivação dos direitos.</b></p></div>
+    <div class="think"><small>Questão final</small>De que maneira a Constituição de 1988, o caso do Césio-137 e as lutas sociais ajudam a compreender que cidadania é uma construção histórica?</div>
+  </div>
+  <div class="ch-end"><span>Capítulo 8 de 8</span><span>Próximo: Atividades de revisão →</span></div>
+</section>
+
+<!-- ======================= ATIVIDADES ======================= -->
+<section class="chapter" id="atividades">
+  <header class="ch-head"><div class="ch-num">✎</div><div>
+    <p class="eyebrow">Vamos revisar</p><h2>Atividades de revisão</h2>
+    <p class="deck">Colégio Estadual Rodolfo de Oliveira · História · 9º ano · 2026</p></div></header>
+  <div class="body">
+    <div class="act"><header>Questão 1 · Organize no tempo</header><div class="in"><p>Organize os acontecimentos em ordem cronológica: <b>Constituição de 1988 · Diretas Já · Lei da Anistia · Instalação da Assembleia Constituinte · Acidente com o Césio-137</b>.</p><div class="lines"><i></i><i></i></div></div></div>
+    <div class="act"><header>Questão 2 · Relacione</header><div class="in">
+      <table class="tb"><tr><th>Conceito</th><th>Definição</th></tr>
+      <tr><td>Direitos civis</td><td>( ) Participação na vida política.</td></tr>
+      <tr><td>Direitos políticos</td><td>( ) Liberdades e garantias individuais.</td></tr>
+      <tr><td>Direitos sociais</td><td>( ) Condições e serviços necessários à vida social.</td></tr>
+      <tr><td>Equidade</td><td>( ) Consideração das desigualdades para ampliar oportunidades.</td></tr></table></div></div>
+    <div class="act"><header>Questão 3 · Interpretação</header><div class="in">
+      <p>Um grupo social identifica uma situação de discriminação e passa a organizar reuniões, campanhas e propostas de políticas públicas.</p>
+      <ol><li>Que formas de participação social aparecem nessa situação?</li><li>Como essa mobilização pode se relacionar com a cidadania?</li><li>Que diferença existe entre reivindicar um direito e garantir sua efetivação?</li></ol></div></div>
+    <div class="act"><header>Questão 4 · Análise de fonte</header><div class="in">
+      <p>Releia o depoimento de Roberto Santos Alves (capítulo 4) e o texto do art. 231 da Constituição (capítulo 2). Para cada um: (a) quem fala? (b) em que contexto? (c) que direito está em jogo?</p><div class="lines"><i></i><i></i><i></i><i></i></div></div></div>
+    <div class="act"><header>Questão 5 · Produção final</header><div class="in">
+      <p>Produza um pequeno texto respondendo à frase abaixo, usando pelo menos dois conceitos do glossário:</p>
+      <figure class="doc"><blockquote>“Cidadania não é apenas ter direitos escritos na lei. É também participar da sociedade e lutar para que esses direitos sejam efetivados.”</blockquote></figure>
+      <div class="lines"><i></i><i></i><i></i><i></i><i></i></div></div></div>
+
+    <details class="prof"><summary>Orientações para o professor (não impressas)</summary><div class="in">
+      <p><b>Q1:</b> Lei da Anistia (1979) → Diretas Já (1983–84) → Instalação da Constituinte (1987) → Césio-137 (setembro de 1987) → Constituição (1988).</p>
+      <p><b>Q2:</b> civis → liberdades e garantias individuais; políticos → participação na vida política; sociais → condições e serviços necessários à vida social; equidade → consideração das desigualdades.</p>
+      <p><b>Q3:</b> esperam-se referências a reuniões, campanhas, associações e proposição de políticas públicas; a mobilização é exercício de cidadania; reivindicar é pedir o reconhecimento de um direito, efetivar é garantir, na prática, o acesso a ele.</p>
+      <p><b>Q4:</b> o depoimento é de um dos jovens envolvidos no acidente (contexto: estigma e busca de responsabilização); o art. 231 reconhece direitos indígenas (contexto: Constituição de 1988; direito à diferença e às terras).</p>
+      <p><b>Sugestão de uso:</b> os textos de apoio podem ser lidos em duplas com a técnica “cada um explica um parágrafo”; as fontes históricas servem para ensinar a pergunta-guia <i>quem fala, quando, para quem e com qual objetivo?</i></p></div></details>
+  </div>
+</section>
+
+<!-- ======================= GLOSSÁRIO ======================= -->
+<section class="chapter" id="glossario">
+  <header class="ch-head"><div class="ch-num">A</div><div><p class="eyebrow">Para consultar</p><h2>Glossário</h2><p class="deck">Os conceitos centrais do livro em linguagem direta.</p></div></header>
+  <div class="body"><dl class="gl">
+    <dt>Ação afirmativa</dt><dd>Medida destinada a enfrentar desigualdades ou discriminações historicamente construídas.</dd>
+    <dt>Anistia</dt><dd>Medida jurídica que perdoa determinados crimes ou infrações, nos termos definidos pela lei.</dd>
+    <dt>Cidadania</dt><dd>Condição ligada ao exercício de direitos, deveres e participação na sociedade.</dd>
+    <dt>Colégio Eleitoral</dt><dd>Conjunto de congressistas e delegados que elegiam indiretamente o presidente no regime militar.</dd>
+    <dt>Constituição</dt><dd>Conjunto fundamental de normas que organiza o Estado e estabelece direitos e deveres.</dd>
+    <dt>Direitos civis</dt><dd>Liberdades individuais e igualdade perante a lei.</dd>
+    <dt>Direitos políticos</dt><dd>Direitos de votar, ser votado e participar da vida política.</dd>
+    <dt>Direitos sociais</dt><dd>Direitos ligados às condições de vida e ao acesso a serviços e garantias sociais.</dd>
+    <dt>Efetivação de direitos</dt><dd>Passagem do direito reconhecido em lei ao direito exercido na prática.</dd>
+    <dt>Emenda popular</dt><dd>Proposta apresentada pela sociedade, com assinaturas, para ser incluída na Constituição de 1988.</dd>
+    <dt>Equidade</dt><dd>Princípio que considera as condições e desigualdades existentes para ampliar oportunidades.</dd>
+    <dt>Estigma</dt><dd>Marca negativa atribuída a pessoas ou grupos, como ocorreu com as vítimas do Césio-137.</dd>
+    <dt>Movimento social</dt><dd>Organização coletiva voltada à defesa de reivindicações e de transformações sociais ou políticas.</dd>
+    <dt>Participação social</dt><dd>Atuação de pessoas e grupos na vida pública e nas discussões coletivas.</dd>
+    <dt>Política pública</dt><dd>Conjunto de ações do poder público para enfrentar problemas e atender necessidades coletivas.</dd>
+    <dt>Radioacidentado</dt><dd>Pessoa atingida por acidente com material radioativo.</dd>
+    <dt>Redemocratização</dt><dd>Reconstrução das instituições e práticas democráticas após o período autoritário.</dd>
+    <dt>Rejeito radioativo</dt><dd>Material contaminado por radioatividade que precisa ser armazenado com segurança.</dd>
+  </dl></div>
+</section>
+
+<!-- ======================= BIBLIOGRAFIA ======================= -->
+<section class="chapter" id="fontes">
+  <header class="ch-head"><div class="ch-num">§</div><div><p class="eyebrow">Referências de apoio</p><h2>Bibliografia e fontes</h2><p class="deck">Os textos deste livro foram reescritos e reorganizados didaticamente a partir de obras de referência.</p></div></header>
+  <div class="body">
+    <div class="callout teal"><span class="lab">Nota ao estudante e ao professor</span><p>As coleções de História do 9º ano abaixo são <b>materiais de divulgação (manuais do professor)</b> submetidos ao PNLD. As sínteses dos “textos de apoio” são adaptações didáticas, não transcrições; ao citar, consulte a obra completa. As datas e os fatos devem ser sempre conferidos nas fontes originais.</p></div>
+    <h4>Obras-base: cidadania e Césio-137</h4>
+    <ol class="refs">
+      <li>GOIÁS. Secretaria de Estado da Saúde. <em>Césio 137: 37 anos — a história do acidente radioativo em Goiânia</em>. Organização e texto: Patrícia Almeida da Silva Machado. Edição bilíngue. Goiânia: SES-GO, 2024.</li>
+      <li>CARVALHO, José Murilo de. <em>Cidadania no Brasil: o longo caminho</em>. 3. ed. Rio de Janeiro: Civilização Brasileira, 2002.</li>
+    </ol>
+    <h4>Coleções didáticas consultadas</h4>
+    <ol class="refs" start="3">
+      <li>AZEVEDO, Gislane; CALBENTE, Leandro; SERIACOPI, Reinaldo. <em>A Conquista: História 9º ano</em>. Manual do Professor. São Paulo: FTD, 2022.</li>
+      <li>BOULOS JÚNIOR, Alfredo. <em>História, Sociedade e Cidadania: 9º ano</em>. Manual do Professor. São Paulo: FTD, 2022.</li>
+      <li>BRAICK, Patrícia Ramos; BARRETO, Anna. <em>Se liga na História: 9º ano</em>. Manual do Professor. São Paulo: Moderna, 2022.</li>
+      <li>COTRIM, Gilberto; RODRIGUES, Jaime. <em>Expedições da História: 9º ano</em>. Manual do Professor. São Paulo: Moderna, 2022.</li>
+      <li>COTRIM, Gilberto; RODRIGUES, Jaime. <em>Historiar: 9º ano</em>. Manual do Professor. 3. ed. São Paulo: Saraiva, 2018. (PNLD 2020)</li>
+      <li>FERREIRA, Lier Pires et al. <em>História: 9º ano</em>. Manual do Professor. São Paulo: Editora do Brasil, 2022.</li>
+      <li>KARNAL, Leandro et al. <em>Viver História: 9º ano</em>. Manual do Professor. São Paulo: Moderna, 2022.</li>
+      <li>MINORELLI, Caroline; CHIBA, Charles. <em>Superação! História: 9º ano</em>. Manual do Professor. São Paulo: Moderna, 2022.</li>
+      <li>MODERNA (org.). <em>Araribá Conecta História: 9º ano</em>. Manual do Professor. São Paulo: Moderna, 2022.</li>
+      <li>PANAZZO, Silvia; VAZ, Maria Luísa. <em>História: 9º ano</em>. Manual do Professor. São Paulo: Editora do Brasil, 2022.</li>
+      <li>REIS JUNIOR, Antônio et al. <em>Segue a trilha: História 9º ano</em>. Manual do Professor. São Paulo: Palavras Projetos Editoriais, 2022.</li>
+      <li>SM EDUCAÇÃO (org.). <em>Geração Alpha: História 9º ano</em>. Manual do Professor. 4. ed. São Paulo: SM, 2022.</li>
+      <li>VAINFAS, Ronaldo et al. <em>História Doc: 9º ano</em>. Manual do Professor. São Paulo: Saraiva, 2018/2022.</li>
+    </ol>
+    <h4>Legislação e documentos citados</h4>
+    <ol class="refs" start="16">
+      <li>BRASIL. <em>Constituição da República Federativa do Brasil de 1988</em>, em especial o art. 231.</li>
+      <li>BRASIL. <em>Lei nº 6.683, de 28 de agosto de 1979</em> (Lei da Anistia).</li>
+      <li>BRASIL. <em>Lei nº 12.711, de 29 de agosto de 2012</em> (Lei de Cotas).</li>
+      <li>BRASIL. <em>Lei nº 12.288, de 20 de julho de 2010</em> (Estatuto da Igualdade Racial).</li>
+      <li>BRASIL. <em>Lei nº 13.146, de 6 de julho de 2015</em> (Estatuto da Pessoa com Deficiência).</li>
+      <li>BRASIL. <em>Decreto nº 81.384, de 22 de fevereiro de 1978</em> (fiscalização de fontes radioativas), citado em GOIÁS (2024).</li>
+    </ol>
+    <h4>Obras citadas pelos livros didáticos (citação indireta)</h4>
+    <ol class="refs" start="22">
+      <li>GERMANO, Felipe. Afinal, como funciona a Lei de Cotas? <em>Superinteressante</em>, São Paulo, 22 ago. 2018. Citado em A Conquista (2022).</li>
+      <li>SKIDMORE, Thomas E. <em>Uma história do Brasil</em>. São Paulo: Paz e Terra, 1998. Citado em Se liga na História (2022).</li>
+      <li>SACCHETTA, Vladimir. <em>Os cartazes desta história: memória gráfica da resistência à ditadura e da redemocratização (1964–1985)</em>. São Paulo: Instituto Vladimir Herzog; Escrituras, 2012. Indicado em A Conquista (2022).</li>
+    </ol>
+    <h4>Mídias digitais</h4>
+    <ol class="refs" start="25">
+      <li>ASSEMBLEIA LEGISLATIVA DO ESTADO DE GOIÁS (@assembleiago). Publicação sobre o conceito de cidadania. <em>Instagram</em>, 2026. Disponível em: https://www.instagram.com/reel/Dd1kMOega9_/. Acesso em: 2 out. 2026.</li>
+    </ol>
+    <div class="callout concept"><span class="lab">Habilidades em foco</span><p><b>EF09HI23</b> · direitos civis, políticos e sociais e cidadania.<br><b>GO-EF09HI22-C</b> · Césio-137 em Goiânia e cidadania individual e coletiva.<br><b>GO-EF09HI26-A</b> · lutas por igualdade, políticas públicas afirmativas e organização social.</p></div>
+  </div>
+</section>
+<div class="colophon">HISTÓRIA · 9º ANO · CIDADANIA, DIREITOS E LUTAS SOCIAIS NO BRASIL · CERO · 2026</div>
+</main>
+
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Imagem ampliada" aria-hidden="true">
+  <div class="lb-bar"><div class="grp"><button id="lbOut" aria-label="Diminuir zoom">−</button><span class="pct" id="lbPct">100%</span><button id="lbIn" aria-label="Aumentar zoom">+</button><button id="lbFit" aria-label="Ajustar à tela">Ajustar</button></div><div class="grp"><button id="lbPrev" aria-label="Imagem anterior">‹</button><span class="pct" id="lbCnt"></span><button id="lbNext" aria-label="Próxima imagem">›</button><button id="lbX" aria-label="Fechar">×</button></div></div>
+  <div class="lb-stage" id="lbStage"><img id="lbImg" alt=""></div>
+  <div class="lb-help">Use + e −, a roda do mouse ou dê um duplo clique para ampliar · arraste para mover · Esc fecha</div>
+</div>
+<script>
+(function(){
+  var bar=document.getElementById('progress');
+  function onScroll(){var h=document.documentElement;var p=h.scrollTop/(h.scrollHeight-h.clientHeight||1);bar.style.width=(p*100)+'%'}
+  window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+
+  var tab=document.createElement('button');tab.className='toc-tab';tab.setAttribute('aria-label','Abrir sumário');tab.setAttribute('aria-expanded','false');tab.innerHTML='<b>☰</b> Sumário';
+  var ov=document.createElement('div');ov.className='toc-ov';
+  var dr=document.createElement('aside');dr.className='drawer';dr.setAttribute('aria-label','Sumário');dr.setAttribute('aria-hidden','true');
+  dr.innerHTML='<div class="dr-head"><div><div class="k">História · 9º ano</div><div class="t">Cidadania, Direitos e Lutas Sociais no Brasil</div></div><button class="dr-close" aria-label="Fechar sumário">×</button></div><div class="dr-prog"><span id="drLbl">Capa</span><i><span id="drBar"></span></i></div><div class="dr-body" id="drBody"></div>';
+  document.body.append(tab,ov,dr);
+  var body=dr.querySelector('#drBody');
+
+  function slug(s){return s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')}
+  function sec(id){return document.getElementById(id)}
+  function title(id){var h=sec(id).querySelector('h2');return h?h.textContent:'Capa'}
+  function num(id){var n=sec(id).querySelector('.ch-num');return n?n.textContent:'·'}
+  function subs(id){var out=[];sec(id).querySelectorAll('.body h3').forEach(function(h,i){if(!h.id)h.id=id+'-'+slug(h.textContent);out.push(h)});return out}
+  var links={};
+  function link(id,cls){var a=document.createElement('a');a.href='#'+id;a.className=cls;links[id]=a;return a}
+
+  [['capa','Capa'],['habilidades','Habilidades e objetivos'],['abertura','Para começar']].forEach(function(p){var a=link(p[0],'dr-link');a.textContent=p[1];body.appendChild(a)});
+
+  function group(label,ids,open,withNum){
+    var g=document.createElement('div');g.className='acc'+(open?' open':'');
+    var b=document.createElement('button');b.textContent=label;b.setAttribute('aria-expanded',open?'true':'false');
+    var pn=document.createElement('div');pn.className='panel';
+    ids.forEach(function(id){
+      var it=document.createElement('div');it.className='item';
+      var row=document.createElement('div');row.className='row';
+      var a=link(id,'');a.innerHTML='<b>'+num(id)+'</b><span>'+title(id)+'</span>';row.appendChild(a);
+      var ss=subs(id);
+      if(ss.length){
+        var tb=document.createElement('button');tb.setAttribute('aria-label','Mostrar tópicos');tb.setAttribute('aria-expanded','false');
+        tb.addEventListener('click',function(e){e.stopPropagation();var o=it.classList.toggle('open');tb.setAttribute('aria-expanded',o)});
+        row.appendChild(tb);
+        var sb=document.createElement('div');sb.className='subs';
+        ss.forEach(function(h){var s=document.createElement('a');s.href='#'+h.id;s.textContent=h.textContent;sb.appendChild(s)});
+        it.append(row,sb);
+      } else it.appendChild(row);
+      pn.appendChild(it);
+    });
+    b.addEventListener('click',function(){var o=!g.classList.contains('open');
+      body.querySelectorAll('.acc').forEach(function(x){x.classList.remove('open');x.firstChild.setAttribute('aria-expanded','false')});
+      if(o){g.classList.add('open');b.setAttribute('aria-expanded','true')}});
+    g.append(b,pn);body.appendChild(g);return g;
+  }
+  var chIds=['redemocratizacao','constituicao','direitos','cesio','lutas','equidade','participacao','sintese'];
+  var g1=group('Capítulos',chIds,true);
+  var g2=group('Para consultar',['atividades','glossario','fontes'],false);
+
+  function open(){dr.classList.add('open');ov.classList.add('open');tab.setAttribute('aria-expanded','true');dr.setAttribute('aria-hidden','false')}
+  function close(){dr.classList.remove('open');ov.classList.remove('open');tab.setAttribute('aria-expanded','false');dr.setAttribute('aria-hidden','true')}
+  tab.addEventListener('click',open);ov.addEventListener('click',close);dr.querySelector('.dr-close').addEventListener('click',close);
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')close()});
+  body.addEventListener('click',function(e){if(e.target.closest('a'))close()});
+
+  var order=['capa','habilidades','abertura'].concat(chIds,['atividades','glossario','fontes']);
+  var lbl=dr.querySelector('#drLbl'),pbar=dr.querySelector('#drBar');
+  function setActive(id){
+    Object.keys(links).forEach(function(k){links[k].classList.remove('on')});
+    if(links[id])links[id].classList.add('on');
+    var ci=chIds.indexOf(id);
+    lbl.textContent=ci>=0?'Capítulo '+(ci+1)+' de 8 · '+title(id):title(id)||'Capa';
+    pbar.style.width=((order.indexOf(id)+1)/order.length*100)+'%';
+    var grp=ci>=0?g1:(['atividades','glossario','fontes'].indexOf(id)>=0?g2:null);
+    if(grp&&!grp.classList.contains('open')&&!dr.classList.contains('open')){body.querySelectorAll('.acc').forEach(function(x){x.classList.remove('open')});grp.classList.add('open')}
+  }
+  setActive('capa');
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting)setActive(e.target.id)})},{rootMargin:'-30% 0px -60% 0px'});
+    order.forEach(function(k){io.observe(sec(k))});
+  }
+})();
+
+(function(){
+  var lb=document.getElementById('lb'),st=document.getElementById('lbStage'),im=document.getElementById('lbImg'),pct=document.getElementById('lbPct');
+  var z=1,fit=1,last=null;
+  function apply(){var w=im.naturalWidth*fit*z;im.style.width=w+'px';pct.textContent=Math.round(z*100)+'%'}
+  function calcFit(){var bw=st.clientWidth-16,bh=st.clientHeight-16;fit=Math.min(bw/im.naturalWidth,bh/im.naturalHeight,1)||1}
+  function setZ(n,cx,cy){var old=z;z=Math.max(1,Math.min(4,n));var r=st.getBoundingClientRect();cx=cx==null?r.width/2:cx;cy=cy==null?r.height/2:cy;
+    var px=(st.scrollLeft+cx)/old,py=(st.scrollTop+cy)/old;apply();st.scrollLeft=px*z-cx;st.scrollTop=py*z-cy}
+  var gal=[],gi=0;
+  function show(i){gi=(i+gal.length)%gal.length;var b=gal[gi];im.alt=b.dataset.alt||'';im.onload=function(){calcFit();z=1;apply();st.scrollTop=0;st.scrollLeft=0};im.src=b.dataset.zoom;if(im.complete&&im.naturalWidth){calcFit();z=1;apply()}
+    document.getElementById('lbCnt').textContent=gal.length>1?(gi+1)+' / '+gal.length:'';
+    var multi=gal.length>1;document.getElementById('lbPrev').style.display=multi?'':'none';document.getElementById('lbNext').style.display=multi?'':'none'}
+  function openLb(btn){last=btn;var g=btn.dataset.gal;gal=g?Array.prototype.slice.call(document.querySelectorAll('[data-gal="'+g+'"]')):[btn];show(gal.indexOf(btn));
+    lb.classList.add('open');lb.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';document.getElementById('lbX').focus()}
+  function closeLb(){lb.classList.remove('open');lb.setAttribute('aria-hidden','true');document.body.style.overflow='';if(last)last.focus()}
+  document.querySelectorAll('[data-zoom]').forEach(function(b){b.addEventListener('click',function(){if(b._moved){b._moved=false;return}openLb(b)})});
+  document.getElementById('lbIn').onclick=function(){setZ(z+.5)};
+  document.getElementById('lbOut').onclick=function(){setZ(z-.5)};
+  document.getElementById('lbFit').onclick=function(){setZ(1)};
+  document.getElementById('lbX').onclick=closeLb;
+  document.getElementById('lbPrev').onclick=function(){show(gi-1)};
+  document.getElementById('lbNext').onclick=function(){show(gi+1)};
+  st.addEventListener('wheel',function(e){e.preventDefault();var r=st.getBoundingClientRect();setZ(z+(e.deltaY<0?.25:-.25),e.clientX-r.left,e.clientY-r.top)},{passive:false});
+  st.addEventListener('dblclick',function(e){var r=st.getBoundingClientRect();setZ(z>=2?1:2.5,e.clientX-r.left,e.clientY-r.top)});
+  var d=null;
+  st.addEventListener('pointerdown',function(e){d={x:e.clientX,y:e.clientY,l:st.scrollLeft,t:st.scrollTop};st.classList.add('drag');st.setPointerCapture(e.pointerId)});
+  st.addEventListener('pointermove',function(e){if(!d)return;st.scrollLeft=d.l-(e.clientX-d.x);st.scrollTop=d.t-(e.clientY-d.y)});
+  ['pointerup','pointercancel'].forEach(function(n){st.addEventListener(n,function(){d=null;st.classList.remove('drag')})});
+  document.addEventListener('keydown',function(e){if(!lb.classList.contains('open'))return;if(e.key==='Escape'){e.stopImmediatePropagation();closeLb()}else if(e.key==='ArrowLeft'&&z===1)show(gi-1);else if(e.key==='ArrowRight'&&z===1)show(gi+1);else if(e.key==='+'||e.key==='=')setZ(z+.5);else if(e.key==='-')setZ(z-.5)},true);
+  window.addEventListener('resize',function(){if(lb.classList.contains('open')){calcFit();apply()}});
+})();
+
+(function(){
+  var car=document.getElementById('car');if(!car)return;
+  var track=car.querySelector('.car-track'),slides=car.querySelectorAll('.car-slide'),dots=document.querySelectorAll('.car-dot'),cap=document.getElementById('carCap');
+  var n=slides.length,i=0;
+  function go(k){i=(k+n)%n;track.style.transform='translateX(-'+(i*100)+'%)';
+    slides.forEach(function(s,j){var on=j===i;s.setAttribute('aria-hidden',on?'false':'true');s.querySelector('button').tabIndex=on?0:-1});
+    dots.forEach(function(d,j){d.classList.toggle('on',j===i)});
+    cap.innerHTML='<b>'+(i+1)+' de '+n+'.</b> '+slides[i].dataset.cap+' Clique para ampliar e use o zoom para ler os detalhes.'}
+  car.querySelector('.prev').addEventListener('click',function(){go(i-1)});
+  car.querySelector('.next').addEventListener('click',function(){go(i+1)});
+  dots.forEach(function(d,j){d.addEventListener('click',function(){go(j)})});
+  car.addEventListener('keydown',function(e){if(e.key==='ArrowLeft'){go(i-1)}else if(e.key==='ArrowRight'){go(i+1)}});
+  var sx=null,sy=0,moved=false;
+  track.addEventListener('pointerdown',function(e){sx=e.clientX;sy=e.clientY;moved=false});
+  track.addEventListener('pointermove',function(e){if(sx!==null&&Math.abs(e.clientX-sx)>12&&Math.abs(e.clientX-sx)>Math.abs(e.clientY-sy))moved=true});
+  function end(e){if(sx===null)return;var dx=e.clientX-sx;if(moved&&Math.abs(dx)>40){go(dx<0?i+1:i-1);var b=slides[i].querySelector('button');slides.forEach(function(s){s.querySelector('button')._moved=true});setTimeout(function(){slides.forEach(function(s){s.querySelector('button')._moved=false})},50)}sx=null}
+  track.addEventListener('pointerup',end);track.addEventListener('pointercancel',function(){sx=null});
+  go(0);
+})();
+</script>
+</body>
+</html>

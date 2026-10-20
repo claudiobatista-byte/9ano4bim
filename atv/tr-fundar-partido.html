@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#3b1d52">
+<title>Funde o seu partido | CERO</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<style>
+  :root{
+    --bg:#f5f0f8; --bg-alt:#e9dff1; --paper:#fdfbfe; --ink:#231a2b; --ink-soft:#66566f;
+    --pri:#5b2f7a; --pri-dark:#3b1d52; --pri-2:#8a5cab;
+    --ouro:#d19a1f; --ouro-light:#f4e2b0; --line:#dccfe6;
+    --shadow:0 10px 30px rgba(59,29,82,.16); --radius:14px;
+    --font-title:'Playfair Display',serif; --font-body:'Source Serif 4',serif; --font-mono:'JetBrains Mono',monospace;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font-body);line-height:1.7;overflow-wrap:break-word;-webkit-text-size-adjust:100%;}
+  input,textarea,select,button{font-family:inherit;}
+
+  /* CAPA */
+  #capa{min-height:100vh;min-height:100dvh;display:flex;align-items:center;justify-content:center;padding:24px;
+    background:linear-gradient(135deg,var(--pri-dark) 0%,var(--pri) 70%,var(--pri-2) 100%);}
+  .capa-card{background:var(--paper);border-radius:var(--radius);box-shadow:var(--shadow);max-width:480px;width:100%;padding:36px 32px;text-align:center;}
+  .tag{display:inline-block;font-family:var(--font-mono);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--pri-dark);background:rgba(91,47,122,.1);padding:5px 12px;border-radius:999px;margin-bottom:14px;}
+  .capa-card h1{font-family:var(--font-title);font-size:1.7rem;margin:0 0 10px;color:var(--pri-dark);}
+  .capa-card p.desc{color:var(--ink-soft);font-size:.95rem;margin:0 0 22px;}
+  .capa-card input{width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:8px;font-size:16px;margin-bottom:14px;}
+  .capa-card button{width:100%;padding:13px;border:none;border-radius:8px;background:var(--pri);color:#fff;font-weight:600;font-size:1rem;cursor:pointer;min-height:44px;}
+  .capa-aviso{font-size:.8rem;color:#a33;margin-top:8px;display:none;}
+
+  /* APP */
+  #app{display:none;}
+  .sticky-header{position:sticky;top:0;z-index:50;background:var(--pri-dark);color:#f1e8f7;padding:12px 20px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;font-family:var(--font-mono);font-size:.8rem;}
+  .sticky-header .aluno{font-family:var(--font-body);font-weight:600;font-size:.92rem;}
+  .trilho{flex:1;min-width:120px;height:8px;background:rgba(255,255,255,.2);border-radius:6px;overflow:hidden;}
+  .fill{height:100%;width:0;background:var(--ouro);transition:width .3s;}
+  .wrap{max-width:820px;margin:0 auto;padding:32px 24px 60px;}
+  header.topo{margin-bottom:26px;}
+  .hero-tag{display:inline-block;font-family:var(--font-mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--pri-dark);background:rgba(91,47,122,.1);padding:5px 12px;border-radius:999px;margin-bottom:10px;}
+  header.topo h1{font-family:var(--font-title);font-size:clamp(1.6rem,4vw,2.1rem);margin:0 0 8px;}
+  header.topo p{color:var(--ink-soft);margin:0 0 8px;}
+  .descritor{font-family:var(--font-mono);font-size:.76rem;color:var(--ink-soft);background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:8px 14px;display:inline-block;margin-bottom:12px;}
+  .ficha{display:flex;flex-wrap:wrap;gap:8px 26px;background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:12px 16px;margin-top:10px;font-family:var(--font-mono);font-size:.84rem;}
+  .ficha b{color:var(--pri-dark);}
+
+  /* PASSOS */
+  .passo{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:26px 28px;margin-bottom:24px;}
+  .passo h2{font-family:var(--font-title);font-size:1.25rem;color:var(--pri-dark);margin:0 0 4px;display:flex;align-items:center;gap:10px;}
+  .num{display:inline-flex;align-items:center;justify-content:center;min-width:30px;height:30px;border-radius:50%;background:var(--pri);color:#fff;font-family:var(--font-mono);font-size:.85rem;}
+  .passo .sub{font-family:var(--font-mono);font-size:.72rem;color:var(--ink-soft);display:block;margin-bottom:14px;}
+  .passo p{margin:0 0 12px;}
+  .dica{background:var(--bg-alt);border-left:3px solid var(--ouro);border-radius:0 8px 8px 0;padding:12px 16px;margin:0 0 16px;font-size:.94rem;}
+  .dica .rot{font-family:var(--font-mono);font-size:.7rem;text-transform:uppercase;letter-spacing:.08em;color:var(--pri-dark);display:block;margin-bottom:4px;}
+  .dica p{margin:0 0 6px;} .dica p:last-child{margin:0;}
+  label.lab{display:block;font-weight:600;margin:16px 0 6px;}
+  label.lab small{font-weight:400;color:var(--ink-soft);font-size:.82rem;}
+  input[type=text],input[type=number],select,textarea{width:100%;padding:11px 13px;border:1px solid var(--line);border-radius:8px;font-size:16px;color:var(--ink);background:#fff;}
+  textarea{min-height:96px;resize:vertical;line-height:1.5;}
+  input:focus,textarea:focus,select:focus{outline:2px solid var(--pri-2);outline-offset:1px;}
+  .cont{font-family:var(--font-mono);font-size:.72rem;color:var(--ink-soft);text-align:right;margin-top:4px;}
+  .cont.ok{color:#2f7a3a;}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:0 16px;}
+  .membros{display:grid;grid-template-columns:1fr 170px;gap:8px 10px;}
+  .proposta{border:1px solid var(--line);border-radius:12px;padding:6px 18px 16px;margin-top:16px;background:#fff;}
+  .proposta h3{font-family:var(--font-title);font-size:1.02rem;color:var(--pri-dark);margin:14px 0 0;}
+
+  /* cor */
+  .cores{display:flex;flex-wrap:wrap;gap:8px;align-items:center;}
+  .cores button.sw{width:38px;height:38px;border-radius:50%;border:3px solid #fff;box-shadow:0 0 0 1px var(--line);cursor:pointer;padding:0;}
+  .cores button.sw.sel{box-shadow:0 0 0 3px var(--pri-dark);}
+  .cores input[type=color]{width:46px;height:38px;padding:0;border:1px solid var(--line);border-radius:8px;background:#fff;}
+  .hex{font-family:var(--font-mono);font-size:.82rem;color:var(--ink-soft);}
+
+  /* mascote */
+  .atelie{display:flex;flex-wrap:wrap;gap:16px;align-items:flex-start;}
+  #cv{width:100%;max-width:340px;aspect-ratio:1/1;border:2px dashed var(--pri-2);border-radius:12px;background:#fff;touch-action:none;cursor:crosshair;}
+  .ferr{flex:1;min-width:200px;}
+  .paleta{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px;}
+  .paleta button{width:30px;height:30px;border-radius:50%;border:2px solid #fff;box-shadow:0 0 0 1px var(--line);cursor:pointer;padding:0;}
+  .paleta button.sel{box-shadow:0 0 0 3px var(--pri-dark);}
+  .btn{font-weight:600;font-size:.94rem;padding:11px 20px;border-radius:8px;border:none;cursor:pointer;min-height:44px;touch-action:manipulation;}
+  .btn-pri{background:var(--pri);color:#fff;} .btn-ouro{background:var(--ouro);color:#fff;}
+  .btn-sec{background:transparent;color:var(--ink);border:1px solid var(--line);}
+  .btn[disabled]{opacity:.45;cursor:not-allowed;}
+  input[type=range]{width:100%;}
+
+  /* bandeira */
+  .bandeira{border-radius:14px;overflow:hidden;box-shadow:var(--shadow);display:flex;align-items:center;gap:18px;padding:22px 24px;background:#5b2f7a;color:#fff;margin-top:12px;}
+  .bandeira img{width:120px;height:120px;object-fit:contain;background:#fff;border-radius:12px;border:3px solid rgba(255,255,255,.7);flex-shrink:0;}
+  .b-sigla{font-family:var(--font-title);font-weight:800;font-size:2.2rem;line-height:1.1;}
+  .b-nome{font-weight:600;margin-top:2px;}
+  .b-slogan{font-style:italic;margin-top:8px;opacity:.95;}
+  .chk{display:flex;gap:10px;align-items:flex-start;margin-top:16px;padding:12px 14px;background:var(--bg-alt);border-radius:8px;}
+  .chk input{width:22px;height:22px;margin-top:3px;flex-shrink:0;}
+
+  .fases{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 20px;}
+  .fase-chip{flex:1;min-width:104px;border:1px solid var(--line);background:var(--paper);border-radius:10px;padding:8px 10px;font-family:var(--font-mono);font-size:.72rem;color:var(--ink-soft);text-align:left;cursor:default;min-height:44px;}
+  .fase-chip b{display:block;font-size:.8rem;color:var(--ink);font-family:var(--font-body);}
+  .fase-chip.ativa{border-color:var(--pri);background:var(--pri);color:#e9dff1;} .fase-chip.ativa b{color:#fff;}
+  .fase-chip.feita{border-color:#2f7a3a;color:#2f7a3a;cursor:pointer;} .fase-chip.feita b{color:#2f7a3a;}
+  .fase-chip.livre{cursor:pointer;}
+  .fase-chip.trava{opacity:.55;}
+  .ficha-adesao{border:1px solid var(--line);border-radius:12px;background:#fff;padding:14px 16px;margin-top:6px;}
+  .ficha-adesao .decl{font-size:.9rem;color:var(--ink-soft);margin:0 0 10px;font-style:italic;}
+  .ficha-linha{display:grid;grid-template-columns:28px 1fr 110px;gap:8px;align-items:center;margin-bottom:8px;}
+  .fl-n{font-family:var(--font-mono);font-size:.8rem;color:var(--ink-soft);text-align:right;}
+  .ad-cont{font-family:var(--font-mono);font-size:.8rem;margin:8px 0 12px;color:var(--ink-soft);}
+  .ad-cont.ok{color:#2f7a3a;}
+  .cargo{display:grid;grid-template-columns:1fr 1fr;gap:6px 16px;align-items:center;padding:10px 0;border-bottom:1px solid var(--line);}
+  .cargo b{display:block;color:var(--pri-dark);} .cargo small{color:var(--ink-soft);font-size:.82rem;line-height:1.35;display:block;}
+  .nav-fase{display:flex;gap:12px;flex-wrap:wrap;justify-content:space-between;}
+  .alerta{display:none;background:#fdf0e4;border:1px solid #efc9a6;color:#8a4a10;padding:12px 16px;border-radius:8px;margin-bottom:16px;font-size:.92rem;}
+  .alerta.show{display:block;} .alerta ul{margin:6px 0 0 18px;padding:0;}
+  .acoes{display:flex;gap:12px;flex-wrap:wrap;}
+  footer.rodape{text-align:center;padding:24px;color:var(--ink-soft);font-family:var(--font-mono);font-size:.8rem;}
+  .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#333;color:#fff;padding:10px 20px;border-radius:8px;font-size:14px;z-index:9999;opacity:0;transition:opacity .3s;pointer-events:none;}
+  .overlay{position:fixed;inset:0;background:rgba(11,20,30,.6);display:none;align-items:center;justify-content:center;z-index:999;padding:20px;}
+  .overlay.show{display:flex;}
+  .overlay .card{background:#fff;border-radius:14px;padding:28px 32px;text-align:center;max-width:320px;width:100%;}
+  .overlay h4{margin:0 0 6px;font-family:var(--font-title);color:var(--pri-dark);}
+  .overlay p{margin:0 0 12px;color:var(--ink-soft);font-size:.9rem;}
+
+  @media(max-width:700px){
+    .wrap{padding:22px 14px 50px;} .passo{padding:18px 16px;}
+    .grid2{grid-template-columns:1fr;} .membros{grid-template-columns:1fr;}
+    .bandeira{flex-direction:column;text-align:center;} .acoes .btn{width:100%;}
+    .cargo{grid-template-columns:1fr;} .ficha-linha{grid-template-columns:22px 1fr 84px;}
+    .trilho{order:3;flex-basis:100%;} .nav-fase .btn{width:100%;} .fase-chip{min-width:46%;}
+  }
+</style>
+</head>
+<body>
+
+<!-- CAPA -->
+<div id="capa">
+  <div class="capa-card">
+    <span class="tag">9º ano · História · CERO</span>
+    <h1>Funde o seu partido</h1>
+    <p class="desc">Você vai fundar um partido político fictício: ideias, identidade, regras e propostas. Depois, vai conquistar a adesão dos colegas e formar, com eles, a diretoria do partido. No fim, você gera o PDF do dossiê do seu partido. Preencha os dados para começar.</p>
+    <input type="text" id="nome-aluno" placeholder="Seu nome completo">
+    <input type="text" id="turma-aluno" placeholder="Turma (ex.: 9º A)">
+    <button onclick="iniciar()">Iniciar atividade</button>
+    <div class="capa-aviso" id="capa-aviso">Por favor, digite seu nome para continuar.</div>
+  </div>
+</div>
+
+<!-- APP -->
+<div id="app">
+  <div class="sticky-header">
+    <span class="aluno" id="h-nome"></span>
+    <div class="trilho"><div class="fill" id="fill"></div></div>
+    <span id="h-cont">0%</span>
+  </div>
+
+  <div class="wrap">
+    <header class="topo">
+      <span class="descritor">História / 9º Ano do Ensino Fundamental &nbsp;|&nbsp; Cidadania, democracia e participação política</span>
+      <span class="hero-tag" style="display:block;">Projeto coletivo: começa com um fundador e termina em grupo</span>
+      <h1>Funde o seu partido</h1>
+      <p>Você vai fundar um partido político de mentira, mas com regras de verdade. Siga as sete fases na ordem: ao completar uma, você libera a próxima. O PDF sai ao final da última fase.</p>
+      <p>O projeto começa com você, como fundador(a), e termina em grupo: os colegas que aderirem formam o partido, a diretoria é escolhida entre eles e o relatório final é escrito por todos.</p>
+      <div class="ficha">
+        <span><b>NOME:</b> <span id="f-nome"></span></span>
+        <span><b>DATA:</b> <span id="f-data"></span></span>
+        <span><b>TURMA:</b> <span id="f-turma"></span></span>
+      </div>
+    </header>
+
+    <nav class="fases" id="fases" aria-label="Fases da atividade"></nav>
+
+    <main>
+
+      <!-- PASSO 1 -->
+      <section class="passo">
+        <h2><span class="num">1</span> Qual problema você quer resolver?</h2>
+        <span class="sub">A ideia central do partido</span>
+        <div class="dica"><span class="rot">Como fazer</span>
+          <p>Um partido é um grupo de pessoas que defendem as mesmas ideias e disputam o poder pelo voto. Pense em um problema da escola ou do bairro (merenda, quadra, transporte, wi-fi, segurança, lixo) e escolha um só.</p>
+        </div>
+        <label class="lab" for="prob">Qual problema você escolheu?</label>
+        <textarea id="prob" class="req" data-min="40" data-label="Passo 1: problema escolhido" placeholder="Descreva o problema..."></textarea>
+        <label class="lab" for="existe">Complete: “Meu partido existe porque...”</label>
+        <textarea id="existe" class="req" data-min="30" data-label="Passo 1: meu partido existe porque" placeholder="Meu partido existe porque..."></textarea>
+      </section>
+
+      <!-- PASSO 2 -->
+      <section class="passo">
+        <h2><span class="num">2</span> Criem a identidade do partido</h2>
+        <span class="sub">Nome, sigla, slogan, cor e mascote</span>
+        <div class="dica"><span class="rot">Regras</span>
+          <p>Não copie nome, sigla, cor ou símbolo de partido real. Não use nomes de políticos reais. Não ofenda pessoas ou grupos.</p>
+        </div>
+        <div class="grid2">
+          <div>
+            <label class="lab" for="nome-p">Nome do partido</label>
+            <input type="text" id="nome-p" class="req" data-min="4" data-label="Passo 2: nome do partido" placeholder="Ex.: Partido da Juventude Ativa" maxlength="60">
+          </div>
+          <div>
+            <label class="lab" for="sigla">Sigla <small>(até 8 letras)</small></label>
+            <input type="text" id="sigla" class="req" data-min="2" data-label="Passo 2: sigla" placeholder="Ex.: PJA" maxlength="8">
+          </div>
+        </div>
+        <label class="lab" for="slogan">Slogan <small>(uma frase curta)</small></label>
+        <input type="text" id="slogan" class="req" data-min="8" data-label="Passo 2: slogan" placeholder="Ex.: Quem estuda, transforma." maxlength="80">
+
+        <label class="lab">Cor do partido</label>
+        <div class="cores" id="cores"></div>
+
+        <label class="lab">Mascote <small>(um animal, planta ou personagem inventado)</small></label>
+        <div class="atelie">
+          <canvas id="cv" width="400" height="400" aria-label="Área de desenho do mascote"></canvas>
+          <div class="ferr">
+            <div class="paleta" id="paleta"></div>
+            <label for="tam" style="font-size:.85rem;color:var(--ink-soft);">Espessura do traço</label>
+            <input type="range" id="tam" min="2" max="28" value="8">
+            <div class="acoes" style="margin-top:12px;">
+              <button class="btn btn-sec" type="button" onclick="limparCanvas()">Apagar tudo</button>
+              <button class="btn btn-sec" type="button" onclick="document.getElementById('arq').click()">Usar uma imagem</button>
+            </div>
+            <input type="file" id="arq" accept="image/*" style="display:none">
+            <p style="font-size:.82rem;color:var(--ink-soft);margin-top:10px;">Desenhe com o dedo ou o mouse, ou envie a foto de um desenho feito no caderno.</p>
+          </div>
+        </div>
+        <div class="grid2">
+          <div>
+            <label class="lab" for="masc-n">Nome do mascote</label>
+            <input type="text" id="masc-n" class="req" data-min="2" data-label="Passo 2: nome do mascote" placeholder="Ex.: Tuco, o tucano" maxlength="40">
+          </div>
+        </div>
+        <label class="lab" for="masc-s">Por que você escolheu essa cor e esse mascote?</label>
+        <textarea id="masc-s" class="req" data-min="40" data-label="Passo 2: por que escolheu a cor e o mascote" placeholder="Explique em uma ou duas frases..."></textarea>
+
+        <label class="lab">Bandeira do partido <small>(montada com as suas escolhas)</small></label>
+        <div class="bandeira" id="bandeira">
+          <img id="b-img" alt="Mascote do partido" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==">
+          <div>
+            <div class="b-sigla" id="b-sigla">SIGLA</div>
+            <div class="b-nome" id="b-nome">Nome do partido</div>
+            <div class="b-slogan" id="b-slogan">“Seu slogan aparece aqui”</div>
+          </div>
+        </div>
+        <label class="chk"><input type="checkbox" id="orig"> <span>Declaro que não copiei nome, sigla, cor ou símbolo de partido real nem usei nomes de políticos reais.</span></label>
+      </section>
+
+      <!-- PASSO 3 -->
+      <section class="passo">
+        <h2><span class="num">3</span> Regras do partido</h2>
+        <span class="sub">O estatuto, em versão curta</span>
+        <div class="dica"><span class="rot">Atenção</span><p>As regras precisam respeitar a democracia e os direitos de todos.</p></div>
+        <label class="lab" for="e2">Quem pode participar do partido?</label>
+        <textarea id="e2" class="req" data-min="30" data-label="Passo 3: quem pode participar"></textarea>
+        <label class="lab" for="e3">Como o partido toma as decisões? <small>(votação, consenso, reunião...)</small></label>
+        <textarea id="e3" class="req" data-min="30" data-label="Passo 3: como as decisões são tomadas"></textarea>
+      </section>
+
+      <!-- PASSO 4 -->
+      <section class="passo">
+        <h2><span class="num">4</span> Três propostas</h2>
+        <span class="sub">O programa do partido</span>
+        <div class="dica"><span class="rot">Evitem</span><p>Promessas vagas, como “vou melhorar a escola”. Diga o que será feito e quem se beneficia.</p></div>
+        <div id="propostas"></div>
+      </section>
+
+      <!-- PASSO 5 -->
+      <section class="passo">
+        <h2><span class="num">5</span> Conquiste adesões</h2>
+        <span class="sub">Ficha de adesão ao seu partido</span>
+        <div class="dica"><span class="rot">Como funciona de verdade</span>
+          <p>Pela Lei dos Partidos Políticos (Lei 9.096/1995), um partido só é registrado depois de mostrar que tem apoio de muitos eleitores. Aqui, apresente o seu partido aos colegas e peça a adesão de quem concordar com as suas ideias.</p>
+          <p>Cada colega que aderir escreve o <b>nome completo</b> e a turma na ficha. São necessárias pelo menos <b id="min-ad">5</b> adesões.</p>
+        </div>
+        <div class="ficha-adesao">
+          <p class="decl">Ao escrever o meu nome nesta ficha, declaro que apoio as ideias deste partido e quero participar dele.</p>
+          <div id="fichas"></div>
+          <button class="btn btn-sec" type="button" onclick="addLinha()">Adicionar mais uma adesão</button>
+        </div>
+        <div class="ad-cont" id="ad-cont">0 adesões válidas</div>
+        <label class="lab" for="ap-a">Qual argumento mais convenceu os colegas a aderir?</label>
+        <textarea id="ap-a" class="req" data-min="30" data-label="Passo 5: argumento que mais convenceu" style="min-height:80px;"></textarea>
+      </section>
+
+      <!-- PASSO 6 -->
+      <section class="passo">
+        <h2><span class="num">6</span> Escolha a diretoria</h2>
+        <span class="sub">Cargos do partido</span>
+        <div class="dica"><span class="rot">Como fazer</span>
+          <p>Agora que o partido tem adesões, é hora de organizá-lo. Escolha, entre você e os colegas que aderiram, quem vai ocupar cada cargo. Cada pessoa pode ter um cargo só.</p>
+        </div>
+        <div id="cargos"></div>
+        <label class="lab" for="dir-j">Por que você escolheu essa diretoria?</label>
+        <textarea id="dir-j" class="req" data-min="30" data-label="Passo 6: por que escolheu essa diretoria" style="min-height:80px;" placeholder="Explique em uma ou duas frases..."></textarea>
+      </section>
+
+      <!-- PASSO 7 -->
+      <section class="passo">
+        <h2><span class="num">7</span> Relatório do partido</h2>
+        <span class="sub">Escrito por todo o grupo, depois de formado o partido</span>
+        <div class="dica"><span class="rot">Como fazer</span>
+          <p>Reúnam os integrantes da diretoria e os colegas que aderiram. Conversem sobre o caminho que o partido percorreu e escrevam, juntos, o relatório abaixo. Contem o que realmente aconteceu, inclusive as dificuldades.</p>
+        </div>
+        <label class="lab" for="r1">Como foi formar o partido? Quais foram as dificuldades e como o grupo superou cada uma?</label>
+        <textarea id="r1" class="req" data-min="100" data-label="Passo 7: como foi formar o partido" style="min-height:120px;" placeholder="Contem a experiência do grupo..."></textarea>
+        <label class="lab" for="r2">O que o grupo fez, na prática, para lutar pela solução do problema escolhido?</label>
+        <textarea id="r2" class="req" data-min="100" data-label="Passo 7: o que o grupo fez pela solução do problema" style="min-height:120px;" placeholder="Descrevam as ações, reuniões, conversas e propostas..."></textarea>
+        <label class="lab" for="r3">O problema avançou para uma solução? O que o grupo aprendeu sobre participação política e democracia?</label>
+        <textarea id="r3" class="req" data-min="100" data-label="Passo 7: resultado e aprendizado do grupo" style="min-height:120px;" placeholder="Falem do resultado e do que aprenderam..."></textarea>
+      </section>
+
+      <div class="alerta" id="alerta"></div>
+      <div class="nav-fase">
+        <button class="btn btn-sec" id="btn-volta" type="button" onclick="mudarFase(-1)">Voltar</button>
+        <button class="btn btn-ouro" id="btn-avanca" type="button" onclick="avancar()" disabled>Concluir fase e avançar</button>
+      </div>
+    </main>
+  </div>
+  <footer class="rodape">Colégio Estadual Rodolfo de Oliveira · CERO · 2026</footer>
+</div>
+
+<div class="overlay" id="ov"><div class="card"><h4>Gerando PDF…</h4><p id="ov-t">Aguarde alguns instantes.</p></div></div>
+<div class="toast" id="toast"></div>
+
+<script>
+const $ = id => document.getElementById(id);
+const CORES = ['#c0392b','#e67e22','#f1c40f','#27ae60','#16a085','#2980b9','#5b2f7a','#e84393','#2d3436','#6d4c41'];
+let corEscolhida = false, temMascote = false, corPartido = '#5b2f7a';
+
+/* ===== Montagem dinâmica ===== */
+(function montar(){
+
+  let p = '';
+  for(let i=1;i<=3;i++){
+    p += '<label class="lab" for="pp'+i+'">Proposta '+i+': o que será feito e quem se beneficia?</label>' +
+         '<textarea id="pp'+i+'" class="req" data-min="40" data-label="Passo 4, proposta '+i+'" style="min-height:80px;"></textarea>';
+  }
+  $('propostas').innerHTML = p;
+
+  $('cores').innerHTML = CORES.map(c=>'<button type="button" class="sw" data-c="'+c+'" style="background:'+c+'" aria-label="Cor '+c+'"></button>').join('') +
+    '<input type="color" id="cor-livre" value="#5b2f7a" aria-label="Outra cor"><span class="hex" id="hex">Escolha uma cor</span>';
+  $('paleta').innerHTML = ['#111111','#c0392b','#e67e22','#f1c40f','#27ae60','#2980b9','#8e44ad','#8d5524','#ffffff'].map((c,i)=>
+    '<button type="button" data-c="'+c+'" style="background:'+c+'" class="'+(i===0?'sel':'')+'" aria-label="Traço '+c+'"></button>').join('');
+
+  document.querySelectorAll('.req').forEach(function(el){
+    if(el.tagName === 'TEXTAREA'){
+      const c = document.createElement('div'); c.className = 'cont';
+      c.textContent = '0 caracteres (mínimo ' + el.dataset.min + ')';
+      el.insertAdjacentElement('afterend', c); el._cont = c;
+    }
+  });
+})();
+
+/* ===== Início ===== */
+function iniciar(){
+  const nome = $('nome-aluno').value.trim(), turma = $('turma-aluno').value.trim();
+  if(!nome){ $('capa-aviso').style.display = 'block'; return; }
+  const d = new Date();
+  $('h-nome').textContent = nome; $('f-nome').textContent = nome; $('f-turma').textContent = turma || '—';
+  $('f-data').textContent = String(d.getDate()).padStart(2,'0')+'/'+String(d.getMonth()+1).padStart(2,'0')+'/'+d.getFullYear();
+  $('capa').style.display = 'none'; $('app').style.display = 'block'; window.scrollTo(0,0);
+}
+
+/* ===== Itens obrigatórios e progresso ===== */
+const itens = [];
+const fases = Array.from(document.querySelectorAll('main .passo'));
+const NOMES = ['Problema','Identidade','Regras','Propostas','Adesões','Diretoria','Relatório'];
+let faseAtual = 0, maxFase = 0;
+document.querySelectorAll('.req').forEach(el => itens.push({fase: fases.indexOf(el.closest('.passo')), label: el.dataset.label, ok: () => el.value.trim().length >= parseInt(el.dataset.min,10)}));
+itens.push({fase:1, label:'Passo 2: escolher a cor do partido', ok: () => corEscolhida});
+itens.push({fase:1, label:'Passo 2: desenhar ou enviar o mascote', ok: () => temMascote});
+itens.push({fase:1, label:'Passo 2: marcar a declaração de originalidade', ok: () => $('orig').checked});
+
+function faltamFase(i){ return itens.filter(x => x.fase === i && !x.ok()); }
+function progresso(){
+  const faltam = itens.filter(i => !i.ok());
+  const pct = Math.round((itens.length - faltam.length) / itens.length * 100);
+  $('fill').style.width = pct + '%'; $('h-cont').textContent = pct + '%';
+  atualizarFase();
+  return faltam;
+}
+function atualizarFase(){
+  fases.forEach((sec, i) => { sec.style.display = (i === faseAtual) ? 'block' : 'none'; });
+  $('fases').innerHTML = NOMES.map((n, i) => {
+    const feita = i < maxFase || (i <= maxFase && i !== faseAtual && !faltamFase(i).length);
+    const cls = i === faseAtual ? 'ativa' : (i < maxFase ? 'feita' : (i <= maxFase ? 'livre' : 'trava'));
+    return '<button type="button" class="fase-chip ' + cls + '" data-i="' + i + '"' + (i > maxFase ? ' disabled' : '') + '>Fase ' + (i+1) + '<b>' + n + '</b></button>';
+  }).join('');
+  document.querySelectorAll('.fase-chip').forEach(b => b.addEventListener('click', () => { faseAtual = +b.dataset.i; atualizarFase(); window.scrollTo(0,0); }));
+  if(faseAtual === 5 && typeof montarCargos === 'function') montarCargos();
+  const falta = faltamFase(faseAtual), ultima = faseAtual === fases.length - 1;
+  const bt = $('btn-avanca');
+  bt.disabled = falta.length > 0;
+  bt.textContent = ultima ? 'Gerar o PDF do dossiê' : 'Concluir fase e avançar';
+  $('btn-volta').style.visibility = faseAtual === 0 ? 'hidden' : 'visible';
+  const a = $('alerta');
+  if(falta.length){ a.innerHTML = 'Para liberar a próxima etapa, falta preencher:<ul>' + falta.map(f => '<li>'+f.label.replace(/^Passo \d+(, proposta \d)?: ?/, '$1').replace(/^, /,'') + '</li>').join('') + '</ul>'; a.classList.add('show'); }
+  else a.classList.remove('show');
+}
+function mudarFase(d){ faseAtual = Math.max(0, Math.min(fases.length - 1, faseAtual + d)); atualizarFase(); window.scrollTo(0,0); }
+function avancar(){
+  if(faltamFase(faseAtual).length) return;
+  if(faseAtual === fases.length - 1){ gerarPDF(); return; }
+  faseAtual++; maxFase = Math.max(maxFase, faseAtual);
+  atualizarFase(); window.scrollTo(0,0); toast('Fase concluída! Vamos para a próxima.');
+}
+function verificar(){
+  const f = itens.find(i => !i.ok());
+  if(f){ faseAtual = f.fase; maxFase = Math.max(maxFase, faseAtual); atualizarFase(); window.scrollTo(0,0); }
+}
+document.querySelectorAll('.req').forEach(function(el){
+  el.addEventListener('input', function(){
+    if(el._cont){
+      const n = el.value.length, min = parseInt(el.dataset.min,10);
+      el._cont.textContent = n + ' caracteres (mínimo ' + min + ')';
+      el._cont.classList.toggle('ok', n >= min);
+    }
+    progresso(); atualizarBandeira();
+  });
+});
+$('orig').addEventListener('change', progresso);
+$('sigla').addEventListener('input', function(){ this.value = this.value.toUpperCase(); });
+
+/* ===== Cor ===== */
+function setCor(c, doc){
+  corPartido = c; corEscolhida = true; $('hex').textContent = c.toUpperCase();
+  document.querySelectorAll('#cores .sw').forEach(b => b.classList.toggle('sel', b.dataset.c === c));
+  progresso(); atualizarBandeira();
+}
+document.querySelectorAll('#cores .sw').forEach(b => b.addEventListener('click', () => { $('cor-livre').value = b.dataset.c; setCor(b.dataset.c); }));
+$('cor-livre').addEventListener('input', e => setCor(e.target.value));
+
+function contraste(hex){
+  const r = parseInt(hex.substr(1,2),16), g = parseInt(hex.substr(3,2),16), b = parseInt(hex.substr(5,2),16);
+  return (0.299*r + 0.587*g + 0.114*b) > 150 ? '#1b1b1b' : '#ffffff';
+}
+function atualizarBandeira(){
+  const b = $('bandeira'); b.style.background = corPartido; b.style.color = contraste(corPartido);
+  $('b-sigla').textContent = $('sigla').value.trim() || 'SIGLA';
+  $('b-nome').textContent = $('nome-p').value.trim() || 'Nome do partido';
+  const s = $('slogan').value.trim();
+  $('b-slogan').textContent = s ? '“' + s + '”' : '“Seu slogan aparece aqui”';
+}
+
+/* ===== Desenho do mascote ===== */
+const cv = $('cv'), ctx = cv.getContext('2d');
+let desenhando = false, traco = '#111111';
+function fundoBranco(){ ctx.fillStyle = '#fff'; ctx.fillRect(0,0,cv.width,cv.height); }
+fundoBranco(); ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+function pos(e){ const r = cv.getBoundingClientRect(); return {x:(e.clientX-r.left)*cv.width/r.width, y:(e.clientY-r.top)*cv.height/r.height}; }
+cv.addEventListener('pointerdown', function(e){
+  e.preventDefault(); cv.setPointerCapture(e.pointerId); desenhando = true;
+  const p = pos(e); ctx.strokeStyle = traco; ctx.fillStyle = traco; ctx.lineWidth = +$('tam').value;
+  ctx.beginPath(); ctx.arc(p.x, p.y, ctx.lineWidth/2, 0, Math.PI*2); ctx.fill(); ctx.beginPath(); ctx.moveTo(p.x, p.y);
+});
+cv.addEventListener('pointermove', function(e){
+  if(!desenhando) return; e.preventDefault();
+  const p = pos(e); ctx.lineTo(p.x, p.y); ctx.stroke();
+});
+function fimTraco(){ if(!desenhando) return; desenhando = false; temMascote = true; fotoMascote(); progresso(); }
+cv.addEventListener('pointerup', fimTraco); cv.addEventListener('pointercancel', fimTraco);
+document.querySelectorAll('#paleta button').forEach(b => b.addEventListener('click', function(){
+  traco = b.dataset.c; document.querySelectorAll('#paleta button').forEach(x => x.classList.toggle('sel', x === b));
+}));
+function limparCanvas(){ fundoBranco(); temMascote = false; $('b-img').src = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=='; progresso(); }
+function fotoMascote(){ $('b-img').src = cv.toDataURL('image/png'); }
+$('arq').addEventListener('change', function(){
+  const f = this.files[0]; if(!f) return;
+  const rd = new FileReader();
+  rd.onload = function(){
+    const im = new Image();
+    im.onload = function(){
+      fundoBranco();
+      const k = Math.min(cv.width/im.width, cv.height/im.height), w = im.width*k, h = im.height*k;
+      ctx.drawImage(im, (cv.width-w)/2, (cv.height-h)/2, w, h);
+      temMascote = true; fotoMascote(); progresso();
+    };
+    im.src = rd.result;
+  };
+  rd.readAsDataURL(f); this.value = '';
+});
+
+/* ===== Proteção anti-cola (campos de texto longo) ===== */
+function toast(m){
+  const t = $('toast'); t.textContent = m; t.style.opacity = '1';
+  clearTimeout(t._t); t._t = setTimeout(() => { t.style.opacity = '0'; }, 2500);
+}
+document.querySelectorAll('textarea.req').forEach(function(c){
+  ['paste','copy','cut','drop','dragover','contextmenu'].forEach(ev => c.addEventListener(ev, function(e){ e.preventDefault(); toast('Colar não permitido nesta atividade.'); }));
+  c.addEventListener('beforeinput', function(e){ if(e.inputType === 'insertFromPaste' || e.inputType === 'insertFromDrop'){ e.preventDefault(); toast('Colar não permitido nesta atividade.'); } });
+  let ant = c.value;
+  c.addEventListener('input', function(e){
+    const dif = c.value.length - ant.length, tipo = e.inputType || '';
+    const susp = (tipo === '' || tipo === 'insertFromPaste' || tipo === 'insertFromDrop' || tipo === 'insertFromYank');
+    if(dif >= 25 && susp){ c.value = ant; toast('Colar não permitido nesta atividade.'); } else { ant = c.value; }
+  });
+});
+
+/* ===== PDF ===== */
+function sleep(ms){ return new Promise(r => setTimeout(r, ms)); }
+function lim(t){
+  return String(t || '').replace(/[‘’‚]/g,"'").replace(/[“”„]/g,'"').replace(/ /g,' ').replace(/\t/g,'    ')
+    .replace(/[^\n\x20-\x7E¡-ÿ–—…•]/g,'');
+}
+function rgb(hex){ return [parseInt(hex.substr(1,2),16), parseInt(hex.substr(3,2),16), parseInt(hex.substr(5,2),16)]; }
+
+async function gerarPDF(){
+  if(progresso().length){ verificar(); return; }
+  $('ov').classList.add('show'); await sleep(80);
+  try{
+    const { jsPDF } = window.jspdf;
+    const pdf = new jsPDF({orientation:'portrait', unit:'pt', format:'a4', compress:true});
+    const PW = pdf.internal.pageSize.getWidth(), PH = pdf.internal.pageSize.getHeight();
+    const ML = 40, CW = PW - ML*2, BOT = PH - 46;
+    let y = ML;
+    const nome = $('h-nome').textContent, turma = $('f-turma').textContent, data = $('f-data').textContent;
+    const V = id => $(id).value.trim();
+
+    function espaco(h){ if(y + h > BOT){ pdf.addPage(); y = ML; } }
+    function linhas(t, larg, fs, bold){
+      pdf.setFont('helvetica', bold ? 'bold' : 'normal'); pdf.setFontSize(fs);
+      return pdf.splitTextToSize(lim(t), larg);
+    }
+    function faixa(num, titulo){
+      espaco(70);
+      pdf.setFillColor(91,47,122); pdf.roundedRect(ML, y, CW, 26, 5, 5, 'F');
+      pdf.setFont('helvetica','bold'); pdf.setFontSize(11.5); pdf.setTextColor(255,255,255);
+      pdf.text('PASSO ' + num + '  |  ' + lim(titulo).toUpperCase(), ML + 12, y + 17);
+      y += 26 + 16;
+    }
+    function par(rotulo, texto){
+      const lh = 11 * 1.5;
+      const rl = linhas(rotulo, CW, 10, true);
+      espaco(rl.length*13 + lh + 14);
+      pdf.setFont('helvetica','bold'); pdf.setFontSize(10); pdf.setTextColor(59,29,82);
+      rl.forEach(l => { pdf.text(l, ML, y); y += 13; });
+      y += 2;
+      const tl = linhas(texto, CW - 20, 11, false);
+      tl.forEach(function(l){
+        espaco(lh + 4);
+        pdf.setFillColor(233,223,241); pdf.rect(ML, y - 11, CW, lh + 0.5, 'F');
+        pdf.setFont('helvetica','normal'); pdf.setFontSize(11); pdf.setTextColor(35,26,43);
+        pdf.text(l, ML + 10, y); y += lh;
+      });
+      y += 10;
+    }
+
+    /* CAPA */
+    pdf.setFillColor(59,29,82); pdf.rect(0, 0, PW, 96, 'F');
+    pdf.setFont('helvetica','bold'); pdf.setFontSize(9); pdf.setTextColor(214,196,230);
+    pdf.text('HISTÓRIA · 9º ANO DO ENSINO FUNDAMENTAL · CERO', ML, 30);
+    pdf.setFontSize(24); pdf.setTextColor(255,255,255); pdf.text('Dossiê do partido', ML, 60);
+    pdf.setFont('helvetica','normal'); pdf.setFontSize(11); pdf.setTextColor(230,215,240);
+    pdf.text(lim('Aluno(a): ' + nome + '   |   Turma: ' + turma + '   |   ' + data), ML, 82);
+    y = 96 + 28;
+
+    /* bandeira */
+    const cor = corPartido, txt = rgb(contraste(cor)), bh = 170;
+    pdf.setFillColor.apply(pdf, rgb(cor)); pdf.roundedRect(ML, y, CW, bh, 10, 10, 'F');
+    const img = cv.toDataURL('image/png'), isz = 130;
+    pdf.setFillColor(255,255,255); pdf.roundedRect(ML + 20, y + 20, isz, isz, 8, 8, 'F');
+    pdf.addImage(img, 'PNG', ML + 24, y + 24, isz - 8, isz - 8);
+    const tx = ML + 20 + isz + 22, tw = CW - (tx - ML) - 20;
+    pdf.setTextColor.apply(pdf, txt);
+    pdf.setFont('helvetica','bold'); pdf.setFontSize(34); pdf.text(lim(V('sigla')), tx, y + 58);
+    const nl = linhas(V('nome-p'), tw, 14, true); pdf.setFont('helvetica','bold'); pdf.setFontSize(14);
+    let ty = y + 82; nl.forEach(l => { pdf.text(l, tx, ty); ty += 17; });
+    pdf.setFont('helvetica','italic'); pdf.setFontSize(12);
+    const sl = pdf.splitTextToSize(lim('"' + V('slogan') + '"'), tw); ty += 6; sl.forEach(l => { pdf.text(l, tx, ty); ty += 15; });
+    y += bh + 10;
+    pdf.setFont('helvetica','normal'); pdf.setFontSize(9); pdf.setTextColor(102,86,111);
+    pdf.text('Cor do partido: ' + cor.toUpperCase() + '   |   Mascote: ' + lim(V('masc-n')), ML, y + 8); y += 26;
+
+    /* PASSO 0 */
+    faixa('1', 'Problema central');
+    par('Qual problema você escolheu?', V('prob'));
+    par('Meu partido existe porque...', V('existe'));
+
+    faixa('2', 'Identidade do partido');
+    par('Mascote: ' + V('masc-n') + ' | Por que você escolheu essa cor e esse mascote?', V('masc-s'));
+
+    faixa('3', 'Regras do partido');
+    par('Quem pode participar', V('e2'));
+    par('Como o partido toma as decisões', V('e3'));
+
+    faixa('4', 'Três propostas');
+    for(let i=1;i<=3;i++){ par('Proposta ' + i + ' | O que será feito e quem se beneficia', V('pp'+i)); }
+
+    faixa('5', 'Ficha de adesão: ' + V('sigla'));
+    par('Argumento que mais convenceu os colegas', V('ap-a'));
+    espaco(30); pdf.setFont('helvetica','italic'); pdf.setFontSize(9.5); pdf.setTextColor(102,86,111);
+    pdf.splitTextToSize('Ao escrever o nome nesta ficha, cada colega declarou que apoia as ideias do partido e quer participar dele.', CW).forEach(l => { pdf.text(l, ML, y); y += 12; });
+    y += 4;
+    const adl = adesoes();
+    pdf.setFont('helvetica','bold'); pdf.setFontSize(9); pdf.setTextColor(59,29,82);
+    espaco(24); pdf.text('Nº', ML + 8, y); pdf.text('NOME COMPLETO', ML + 34, y); pdf.text('TURMA', ML + 400, y); y += 14;
+    adl.forEach(function(a, k){
+      espaco(20);
+      if(k % 2 === 0){ pdf.setFillColor(233,223,241); pdf.rect(ML, y - 12, CW, 18, 'F'); }
+      pdf.setFont('helvetica','normal'); pdf.setFontSize(11); pdf.setTextColor(35,26,43);
+      pdf.text(String(k+1), ML + 8, y); pdf.text(lim(a.n).substring(0, 52), ML + 34, y); pdf.text(lim(a.t), ML + 400, y); y += 18;
+    });
+    espaco(24); pdf.setFont('helvetica','bold'); pdf.setFontSize(10); pdf.setTextColor(59,29,82);
+    pdf.text('Total de adesões: ' + adl.length, ML, y + 4); y += 24;
+
+    faixa('6', 'Diretoria do partido');
+    CARGOS.forEach(function(c){
+      const v = $('cg-' + c[0]).value; if(!v) return;
+      espaco(22);
+      pdf.setFont('helvetica','bold'); pdf.setFontSize(10.5); pdf.setTextColor(59,29,82);
+      pdf.text(lim(c[1].replace(' (opcional)','')), ML + 6, y);
+      pdf.setFont('helvetica','normal'); pdf.setFontSize(11); pdf.setTextColor(35,26,43);
+      pdf.text(lim(v).substring(0, 52), ML + 200, y); y += 19;
+    });
+    y += 6;
+    par('Por que você escolheu essa diretoria?', V('dir-j'));
+
+    faixa('7', 'Relatório do partido');
+    par('Como foi formar o partido? Dificuldades e como o grupo as superou', V('r1'));
+    par('O que o grupo fez para lutar pela solução do problema', V('r2'));
+    par('Resultado e aprendizado do grupo sobre participação política e democracia', V('r3'));
+
+    /* declaração */
+    espaco(40); pdf.setFont('helvetica','italic'); pdf.setFontSize(9.5); pdf.setTextColor(102,86,111);
+    pdf.splitTextToSize('Declaração: o aluno não copiou nome, sigla, cor ou símbolo de partido real nem usou nomes de políticos reais.', CW).forEach(l => { pdf.text(l, ML, y); y += 12; });
+
+    /* rodapé */
+    const tp = pdf.getNumberOfPages();
+    for(let p=1;p<=tp;p++){
+      pdf.setPage(p); pdf.setDrawColor(220,207,230); pdf.line(ML, PH-34, ML+CW, PH-34);
+      pdf.setFont('helvetica','normal'); pdf.setFontSize(9); pdf.setTextColor(120,105,130);
+      pdf.text(lim('Colégio Estadual Rodolfo de Oliveira · CERO · 2026  |  ' + V('sigla') + ' · ' + nome), ML, PH-20);
+      pdf.text('Página ' + p + ' de ' + tp, ML+CW, PH-20, {align:'right'});
+    }
+
+    const seguro = s => s.replace(/[^a-zA-Z0-9_\-]/g,'_');
+    const arq = 'Dossie_' + seguro(V('sigla')) + '_' + seguro(nome) + '.pdf';
+    const ios = /iP(hone|ad|od)/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+    if(ios && navigator.canShare){
+      const f = new File([pdf.output('blob')], arq, {type:'application/pdf'});
+      if(navigator.canShare({files:[f]})){
+        try{ await navigator.share({files:[f], title:'Dossiê do partido'}); }catch(e){ if(e && e.name !== 'AbortError') pdf.save(arq); }
+      } else pdf.save(arq);
+    } else pdf.save(arq);
+  }catch(err){
+    console.error(err); toast('Erro ao gerar o PDF: ' + err.message);
+  }finally{
+    $('ov').classList.remove('show');
+  }
+}
+
+/* ===== FICHA DE ADESÃO E DIRETORIA ===== */
+const MIN_ADESOES = 5;
+const CARGOS = [
+  ['pres','Presidente','Representa o partido e coordena as reuniões.',true],
+  ['vice','Vice-presidente','Substitui o presidente e ajuda a organizar as tarefas.',true],
+  ['sec','Secretário(a)','Anota as decisões e guarda a ficha de adesão.',true],
+  ['tes','Tesoureiro(a)','Cuida dos materiais do partido (cartazes, impressões).',true],
+  ['com','Coordenador(a) de comunicação (opcional)','Divulga o partido e as propostas.',false]
+];
+let nLinhas = 0;
+function nomeOk(v){ v = v.trim(); return v.length >= 6 && v.split(/\s+/).filter(x => x.length >= 2).length >= 2; }
+function adesoes(){
+  const r = [];
+  for(let i=1;i<=nLinhas;i++){
+    const n = $('ad-n'+i).value.trim(), t = $('ad-t'+i).value.trim();
+    if(nomeOk(n) && t.length >= 2) r.push({n:n, t:t});
+  }
+  return r;
+}
+function contAdesoes(){
+  const n = adesoes().length, el = $('ad-cont');
+  el.textContent = n + (n === 1 ? ' adesão válida' : ' adesões válidas') + ' (mínimo ' + MIN_ADESOES + '). Escreva nome e sobrenome e informe a turma.';
+  el.classList.toggle('ok', n >= MIN_ADESOES);
+}
+function addLinha(){
+  if(nLinhas >= 40){ toast('Limite de 40 adesões.'); return; }
+  nLinhas++; const i = nLinhas, d = document.createElement('div'); d.className = 'ficha-linha';
+  d.innerHTML = '<span class="fl-n">'+i+'</span><input type="text" id="ad-n'+i+'" placeholder="Nome completo do colega" maxlength="80" autocomplete="off">' +
+                '<input type="text" id="ad-t'+i+'" placeholder="Turma" maxlength="12" autocomplete="off">';
+  $('fichas').appendChild(d);
+  d.querySelectorAll('input').forEach(el => el.addEventListener('input', () => { contAdesoes(); progresso(); }));
+}
+$('min-ad').textContent = MIN_ADESOES;
+for(let k=0;k<MIN_ADESOES;k++) addLinha();
+contAdesoes();
+itens.push({fase:4, label:'Passo 5: pelo menos ' + MIN_ADESOES + ' adesões com nome completo e turma', ok: () => adesoes().length >= MIN_ADESOES});
+
+function pessoasPartido(){
+  const fundador = $('h-nome').textContent.trim(), lista = [];
+  if(fundador) lista.push(fundador);
+  adesoes().forEach(a => { if(lista.indexOf(a.n) < 0) lista.push(a.n); });
+  return lista;
+}
+function montarCargos(){
+  const lista = pessoasPartido(), box = $('cargos'), chave = lista.join('|');
+  if(box.dataset.k === chave && box.children.length) return;
+  const atuais = {}; CARGOS.forEach(c => { const e = $('cg-'+c[0]); if(e) atuais[c[0]] = e.value; });
+  box.innerHTML = CARGOS.map(c =>
+    '<div class="cargo"><div><b>'+c[1]+'</b><small>'+c[2]+'</small></div>' +
+    '<select id="cg-'+c[0]+'"><option value="">Escolha uma pessoa</option>' +
+    lista.map(n => '<option value="'+n.replace(/"/g,'&quot;')+'">'+n.replace(/</g,'&lt;')+'</option>').join('') + '</select></div>').join('');
+  box.dataset.k = chave;
+  CARGOS.forEach(c => { const e = $('cg-'+c[0]); if(atuais[c[0]] && lista.indexOf(atuais[c[0]]) >= 0) e.value = atuais[c[0]]; e.addEventListener('change', progresso); });
+}
+montarCargos();
+function cargosUnicos(){
+  const v = CARGOS.map(c => $('cg-'+c[0]).value).filter(Boolean);
+  return v.length === new Set(v).size;
+}
+itens.push({fase:5, label:'Passo 6: escolher presidente, vice-presidente, secretário(a) e tesoureiro(a)', ok: () => CARGOS.filter(c => c[3]).every(c => $('cg-'+c[0]).value)});
+itens.push({fase:5, label:'Passo 6: cada pessoa pode ocupar só um cargo', ok: cargosUnicos});
+
+progresso(); atualizarBandeira();
+</script>
+</body>
+</html>

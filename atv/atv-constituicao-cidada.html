@@ -1,0 +1,1439 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="format-detection" content="telephone=no">
+<meta name="theme-color" content="#14305f">
+<title>Constituição Cidadã | CERO</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<style>
+  :root{
+    --bg:#eef2f9;
+    --bg-alt:#dde6f4;
+    --paper:#fbfcfe;
+    --ink:#142036;
+    --ink-soft:#4d5f7a;
+    --teal:#2a5aa8;
+    --teal-dark:#14305f;
+    --teal-2:#6f95d1;
+    --cobre:#c9951b;
+    --cobre-light:#f3e2b0;
+    --line:#c9d6ea;
+    --shadow:0 10px 30px rgba(20,48,95,.16);
+    --radius:14px;
+    --font-title:'Playfair Display', serif;
+    --font-body:'Source Serif 4', serif;
+    --font-mono:'JetBrains Mono', monospace;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--font-body);
+    line-height:1.7;
+    -webkit-touch-callout:none;
+    -webkit-user-select:none;
+    user-select:none;
+    -webkit-text-size-adjust:100%;
+    text-size-adjust:100%;
+    -webkit-tap-highlight-color:transparent;
+    overflow-wrap:break-word;
+  }
+  .selecionavel, main{-webkit-user-select:text;user-select:text;}
+  /* iOS Safari exige -webkit-user-select:text para digitar em campos */
+  input, textarea, .campo-resposta{-webkit-user-select:text;user-select:text;-webkit-touch-callout:default;}
+
+  /* ===== CAPA / GATE ===== */
+  #capa{
+    min-height:100vh;
+    min-height:100dvh;
+    display:flex; align-items:center; justify-content:center;
+    position:relative;
+    overflow:hidden;
+    background:linear-gradient(135deg,#0d2247 0%,#14305f 55%,#2a5aa8 100%);
+    padding:24px;
+  }
+  #capa .grade-centralizada{
+    position:absolute;
+    top:0; bottom:0; left:50%;
+    transform:translateX(-50%);
+    width:100%;
+    max-width:896px;
+    pointer-events:none;
+    z-index:0;
+    opacity:.08;
+    background:
+      repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(255,255,255,.5) 39px, rgba(255,255,255,.5) 40px),
+      repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(255,255,255,.5) 39px, rgba(255,255,255,.5) 40px);
+    background-size:40px 40px;
+  }
+  .capa-card{
+    position:relative;
+    z-index:1;
+    background:var(--paper);
+    border-radius:var(--radius);
+    box-shadow:var(--shadow);
+    max-width:480px;
+    width:100%;
+    padding:36px 32px;
+    text-align:center;
+  }
+  .capa-card .tag{
+    display:inline-block; font-family:var(--font-mono); font-size:.7rem;
+    letter-spacing:.1em; text-transform:uppercase; color:var(--teal-dark);
+    background:rgba(42,90,168,.1); padding:5px 12px; border-radius:999px; margin-bottom:14px;
+  }
+  .capa-card h1{font-family:var(--font-title); font-size:1.6rem; margin:0 0 10px; color:var(--teal-dark);}
+  .capa-card p.desc{color:var(--ink-soft); font-size:.94rem; margin:0 0 22px;}
+  .capa-card input{
+    width:100%; padding:12px 14px; border:1px solid var(--line); border-radius:8px;
+    font-family:var(--font-body); font-size:1rem; margin-bottom:14px;
+  }
+  .capa-card button{
+    width:100%; padding:13px; border:none; border-radius:8px;
+    background:var(--teal); color:#fff; font-weight:600; font-size:1rem; cursor:pointer;
+    font-family:var(--font-body); transition:filter .15s ease;
+  }
+  .capa-card button:hover{filter:brightness(1.08);}
+  .capa-aviso{font-size:.78rem; color:#a33; margin-top:8px; display:none;}
+
+  /* ===== APP ===== */
+  #app{display:none;}
+  .sticky-header{
+    position:sticky; top:0; z-index:50;
+    background:var(--teal-dark); color:#eaf1fb;
+    padding:12px 20px; display:flex; align-items:center; justify-content:space-between;
+    flex-wrap:wrap; gap:8px;
+    font-family:var(--font-mono); font-size:.82rem;
+  }
+  .sticky-header .aluno{font-family:var(--font-body); font-weight:600; font-size:.92rem;}
+  .barra-progresso-trilho{
+    flex:1; min-width:120px; height:8px; background:rgba(255,255,255,.2); border-radius:6px; overflow:hidden; margin:0 14px;
+  }
+  .barra-progresso-fill{height:100%; background:var(--cobre); width:0%; transition:width .3s ease;}
+
+  .wrap{max-width:800px; margin:0 auto; padding:32px 24px 60px;}
+
+  header.topo{margin-bottom:28px;}
+  header.topo .hero-tag{
+    display:inline-block; font-family:var(--font-mono); font-size:.72rem;
+    letter-spacing:.1em; text-transform:uppercase; color:var(--teal-dark);
+    background:rgba(42,90,168,.1); padding:5px 12px; border-radius:999px; margin-bottom:12px;
+  }
+  header.topo h1{font-family:var(--font-title); font-size:clamp(1.5rem,4vw,2rem); margin:0 0 8px; color:var(--ink);}
+  header.topo p.sub{color:var(--ink-soft); margin:0; font-size:.98rem;}
+  .descritor-bar{
+    font-family:var(--font-mono); font-size:.76rem; color:var(--ink-soft);
+    background:var(--paper); border:1px solid var(--line); border-radius:8px;
+    padding:8px 14px; margin-bottom:14px; display:inline-block;
+  }
+  .ficha-id{
+    display:flex; flex-wrap:wrap; gap:10px 26px;
+    background:var(--paper); border:1px solid var(--line); border-radius:10px;
+    padding:12px 16px; margin-top:12px; font-family:var(--font-mono); font-size:.84rem; color:var(--ink);
+  }
+  .ficha-id span b{color:var(--teal-dark);}
+
+  /* ===== TEXTO DE APOIO ===== */
+  .texto-apoio{
+    background:var(--paper); border:1px solid var(--line); border-radius:var(--radius);
+    box-shadow:var(--shadow); padding:28px 30px; margin-bottom:30px;
+  }
+  .texto-apoio h2{font-family:var(--font-title); font-size:1.25rem; color:var(--teal-dark); margin:0 0 4px;}
+  .texto-apoio .fonte-tag{font-family:var(--font-mono); font-size:.72rem; color:var(--ink-soft); margin-bottom:16px; display:block;}
+  .texto-apoio p{margin:0 0 14px; color:var(--ink);}
+  .texto-apoio p:last-of-type{margin-bottom:0;}
+  .texto-apoio::after{content:'';display:block;clear:both;}
+
+  .conceito-box{
+    background:var(--bg-alt); border-left:3px solid var(--teal-2); border-radius:0 8px 8px 0;
+    padding:14px 18px; margin:0 0 16px;
+  }
+  .conceito-box .rot{
+    font-family:var(--font-mono); font-size:.7rem; text-transform:uppercase; letter-spacing:.08em;
+    color:var(--teal-dark); display:block; margin-bottom:6px;
+  }
+  .conceito-box p{margin:0; font-size:.94rem;}
+
+  .referencia-box{
+    margin-top:20px; padding:14px 16px;
+    background:var(--bg-alt); border-left:3px solid var(--cobre); border-radius:0 8px 8px 0;
+  }
+  .referencia-box .rot{
+    font-family:var(--font-mono); font-size:.7rem; text-transform:uppercase; letter-spacing:.08em;
+    color:var(--teal-dark); display:block; margin-bottom:6px;
+  }
+  .referencia-box p{margin:0 0 6px; font-size:.86rem; color:var(--ink-soft); font-family:var(--font-mono); line-height:1.6;}
+  .referencia-box p:last-child{margin-bottom:0;}
+
+  /* ===== TABELA COMPARATIVA ===== */
+  .tabela-wrap{overflow-x:auto; margin-top:6px;}
+  table.comparativa{
+    width:100%; border-collapse:collapse; font-size:.92rem; min-width:480px;
+  }
+  table.comparativa thead th{
+    background:var(--teal-dark); color:#eaf1fb; font-family:var(--font-title);
+    font-size:1rem; padding:11px 14px; text-align:left; border:1px solid var(--teal-dark);
+  }
+  table.comparativa tbody td{
+    border:1px solid var(--line); padding:10px 14px; vertical-align:top; color:var(--ink);
+  }
+  table.comparativa tbody tr:nth-child(even) td{background:var(--bg-alt);}
+  table.comparativa tbody td:first-child{border-left:3px solid var(--teal-2);}
+  table.comparativa tbody td:last-child{border-left:3px solid var(--cobre);}
+
+  /* ===== QUESTOES ===== */
+  .questoes-titulo{
+    font-family:var(--font-title); font-size:1.2rem; color:var(--teal-dark);
+    margin:0 0 18px; display:flex; align-items:center; gap:10px;
+  }
+  .questao{
+    background:var(--paper); border:1px solid var(--line); border-radius:12px;
+    padding:20px 22px; margin-bottom:18px;
+  }
+  .questao .num-q{
+    display:inline-flex; align-items:center; justify-content:center;
+    width:26px; height:26px; border-radius:50%; background:var(--teal);
+    color:#fff; font-family:var(--font-mono); font-size:.78rem; margin-right:8px; flex-shrink:0;
+  }
+  .questao .enunciado{font-weight:600; color:var(--ink); margin-bottom:12px; display:flex; align-items:flex-start;}
+  .questao textarea{
+    width:100%; min-height:100px; padding:12px 14px; border:1px solid var(--line); border-radius:8px;
+    font-family:var(--font-body); font-size:.96rem; resize:vertical; color:var(--ink);
+  }
+  .questao textarea:focus{outline:2px solid var(--teal-2); outline-offset:1px;}
+  .contador-chars{font-family:var(--font-mono); font-size:.72rem; color:var(--ink-soft); margin-top:6px; text-align:right;}
+
+  .comentario-prof{
+    display:none; margin-top:14px; padding:14px 16px;
+    background:#fbf3dc; border:1px solid #f3e2b0; border-radius:8px; font-size:.9rem; color:#5e4310;
+  }
+  .comentario-prof.show{display:block;}
+  .comentario-prof b{display:block; margin-bottom:4px; font-family:var(--font-title); font-size:.92rem;}
+
+  /* ===== ALERTA / FINALIZAR ===== */
+  .alerta-incompleto{
+    display:none; background:#fdf3e2; border:1px solid #f1d9a6; color:#8a5a10;
+    padding:12px 16px; border-radius:8px; font-size:.9rem; margin-bottom:16px;
+  }
+  .alerta-incompleto.show{display:block;}
+
+  .acoes-finais{display:flex; gap:12px; flex-wrap:wrap; margin-top:10px;}
+  .btn{
+    font-family:var(--font-body); font-weight:600; font-size:.94rem; padding:12px 22px;
+    border-radius:8px; border:none; cursor:pointer; transition:filter .15s ease;
+  }
+  .btn:hover{filter:brightness(1.08);}
+  .btn-primario{background:var(--teal); color:#fff;}
+  .btn-secundario{background:transparent; color:var(--ink); border:1px solid var(--line);}
+  .btn-pdf{background:var(--cobre); color:#fff;}
+  .btn[disabled]{opacity:.5; cursor:not-allowed;}
+
+  /* ===== POPUP ===== */
+  .popup-overlay{
+    display:none; position:fixed; inset:0; background:rgba(8,20,45,.6);
+    align-items:center; justify-content:center; z-index:200; padding:20px;
+  }
+  .popup-overlay.show{display:flex;}
+  .popup-card{
+    background:var(--paper); border-radius:var(--radius); box-shadow:var(--shadow);
+    max-width:420px; width:100%; padding:32px 28px; text-align:center;
+  }
+  .popup-card .emoji{font-size:2.4rem; margin-bottom:10px;}
+  .popup-card h3{font-family:var(--font-title); margin:0 0 8px; color:var(--teal-dark);}
+  .popup-card p{color:var(--ink-soft); font-size:.94rem; margin:0 0 20px;}
+
+  footer.rodape{text-align:center; padding:24px; color:var(--ink-soft); font-family:var(--font-mono); font-size:.8rem;}
+
+  @media (max-width:600px){
+    .wrap{padding:24px 16px 50px;}
+    .texto-apoio, .questao{padding:18px 18px;}
+  }
+
+  /* ===== IMAGEM DE APOIO · TEXTO 1 ===== */
+  .imagem-atv1-box{
+    float:right;
+    width:185px;
+    margin:0 0 16px 22px;
+    padding:8px;
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:12px;
+    box-shadow:0 5px 16px rgba(0,0,0,.10);
+    text-align:center;
+  }
+  .imagem-atv1-trigger{
+    display:block;
+    width:100%;
+    padding:0;
+    border:0;
+    background:transparent;
+    cursor:zoom-in;
+  }
+  .imagem-atv1-trigger img{
+    display:block;
+    width:100%;
+    height:auto;
+    border-radius:8px;
+  }
+  .imagem-atv1-legenda{
+    margin:7px 2px 0 !important;
+    font-family:var(--font-mono);
+    font-size:.66rem !important;
+    line-height:1.35;
+    color:var(--ink-soft) !important;
+  }
+  .imagem-atv1-modal{
+    display:none;
+    position:fixed;
+    inset:0;
+    z-index:1000;
+    background:rgba(8,20,45,.82);
+    align-items:center;
+    justify-content:center;
+    padding:18px;
+  }
+  .imagem-atv1-modal.show{display:flex;}
+  .imagem-atv1-modal-card{
+    position:relative;
+    width:min(1100px,96vw);
+    height:min(92vh,900px);
+    background:#0f1624;
+    border-radius:16px;
+    box-shadow:0 20px 60px rgba(0,0,0,.45);
+    display:flex;
+    flex-direction:column;
+    overflow:hidden;
+  }
+  .imagem-atv1-controls{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    padding:10px 58px 10px 12px;
+    background:#16233a;
+    color:#fff;
+    font-family:var(--font-mono);
+    flex-wrap:wrap;
+  }
+  .imagem-atv1-controls button{
+    border:1px solid rgba(255,255,255,.22);
+    background:#243a5a;
+    color:#fff;
+    border-radius:7px;
+    padding:7px 12px;
+    cursor:pointer;
+    font-weight:700;
+  }
+  .imagem-atv1-controls button:hover{background:#33507a;}
+  #atv1ZoomNivel{min-width:58px;text-align:center;}
+  .imagem-atv1-close{
+    position:absolute;
+    top:7px;
+    right:9px;
+    z-index:3;
+    width:40px;
+    height:40px;
+    border:0;
+    border-radius:50%;
+    background:#fff;
+    color:#16233a;
+    font-size:28px;
+    line-height:1;
+    cursor:pointer;
+    box-shadow:0 2px 8px rgba(0,0,0,.25);
+  }
+  .imagem-atv1-area{
+    flex:1;
+    overflow:auto;
+    display:flex;
+    align-items:flex-start;
+    justify-content:center;
+    padding:18px;
+    cursor:grab;
+  }
+  .imagem-atv1-area:active{cursor:grabbing;}
+  #atv1ImagemGrande{
+    width:auto;
+    max-width:none;
+    height:auto;
+    min-width:0;
+    transform-origin:top center;
+    transition:transform .18s ease;
+    user-select:none;
+    -webkit-user-drag:none;
+  }
+  .imagem-atv1-hint{
+    padding:8px 12px;
+    text-align:center;
+    color:#c6d3e6;
+    background:#101a2b;
+    font-family:var(--font-mono);
+    font-size:.68rem;
+  }
+  @media(max-width:700px){
+    .imagem-atv1-box{width:145px;margin-left:14px;}
+    .imagem-atv1-modal{padding:8px;}
+    .imagem-atv1-modal-card{width:100%;height:94vh;border-radius:10px;}
+  }
+
+
+  /* ===== TEXTO 2 · IMAGEM AO LADO DE "A ORDEM DOS DIREITOS NA INGLATERRA" ===== */
+  .ordem-direitos-com-imagem{
+    display:flex;
+    align-items:flex-start;
+    gap:18px;
+    margin-top:16px;
+  }
+  .ordem-direitos-texto{flex:1; min-width:0;}
+  .ordem-direitos-texto .conceito-box{margin:0;}
+  .ordem-direitos-com-imagem .imagem-atv1-box{
+    float:none;
+    flex:0 0 185px;
+    width:185px;
+    margin:0;
+  }
+  @media(max-width:700px){
+    .ordem-direitos-com-imagem{align-items:flex-start;gap:12px;}
+    .ordem-direitos-com-imagem .imagem-atv1-box{flex-basis:145px;width:145px;}
+  }
+
+
+  /* ===== TEXTO 6 · IMAGEM AO LADO DO BOX DE REFERÊNCIAS ===== */
+  .referencias-com-imagem{
+    display:flex;
+    align-items:flex-start;
+    gap:18px;
+    margin-top:16px;
+  }
+  .referencias-texto{flex:1; min-width:0;}
+  .referencias-com-imagem .imagem-atv1-box{
+    float:none;
+    flex:0 0 185px;
+    width:185px;
+    margin:0;
+  }
+  @media(max-width:700px){
+    .referencias-com-imagem{gap:12px;}
+    .referencias-com-imagem .imagem-atv1-box{
+      flex-basis:145px;
+      width:145px;
+    }
+  }
+
+
+  /* ===== AJUSTE DE ALINHAMENTO DOS TEXTOS ===== */
+  .texto-apoio > p,
+  .texto-apoio .conceito-box p,
+  .texto-apoio .contexto-box p,
+  .texto-apoio .referencias-texto p,
+  .texto-apoio .ordem-direitos-texto p{
+    text-align:justify;
+    text-justify:inter-word;
+    hyphens:auto;
+    -webkit-hyphens:auto;
+    line-height:1.7;
+  }
+
+  /* Mantém elementos curtos e legendas sem espaçamento artificial */
+  .texto-apoio .imagem-atv1-legenda,
+  .texto-apoio .fonte-tag{
+    text-align:left;
+    hyphens:none;
+  }
+
+  @media(max-width:700px){
+    .texto-apoio > p,
+    .texto-apoio .conceito-box p,
+    .texto-apoio .contexto-box p,
+    .texto-apoio .referencias-texto p,
+    .texto-apoio .ordem-direitos-texto p{
+      text-align:left;
+      hyphens:none;
+    }
+  }
+
+
+  /* ===== CONTINUIDADE: CIDADANIA NO BRASIL (2000–2026) ===== */
+  .continuidade-box{
+    background:linear-gradient(180deg,#f5f8fd 0%,#e9f0fa 100%);
+    border:1px solid var(--line);
+    border-left:5px solid var(--cobre);
+    border-radius:12px;
+    box-shadow:var(--shadow);
+    padding:24px 26px;
+    margin:26px 0 24px;
+  }
+  .continuidade-box .continuidade-tag{
+    display:inline-block;
+    font-family:var(--font-mono);
+    font-size:.7rem;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:var(--teal-dark);
+    background:#f3e2b0;
+    padding:5px 10px;
+    border-radius:999px;
+    margin-bottom:10px;
+  }
+  .continuidade-box h2{
+    font-family:var(--font-title);
+    color:var(--teal-dark);
+    font-size:1.3rem;
+    margin:0 0 14px;
+  }
+  .continuidade-box h3{
+    font-family:var(--font-title);
+    color:var(--teal-dark);
+    font-size:1.05rem;
+    margin:20px 0 8px;
+  }
+  .continuidade-box p{
+    margin:0 0 13px;
+    text-align:justify;
+    text-justify:inter-word;
+    hyphens:auto;
+  }
+  .continuidade-box .balanco{
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:9px;
+    padding:14px 16px;
+    margin:14px 0;
+  }
+  .continuidade-box ol{
+    margin:10px 0 0 22px;
+    padding:0;
+  }
+  .continuidade-box li{margin:8px 0;}
+  .continuidade-box .tarefa-pesquisa{
+    margin-top:18px;
+    padding:15px 17px;
+    background:#fbf3dc;
+    border:1px solid #f3e2b0;
+    border-radius:9px;
+  }
+
+  /* ===== OTIMIZAÇÃO MOBILE (Android / iOS) ===== */
+  input, textarea, button{font-family:inherit;}
+  .capa-card input, .questao textarea{font-size:16px !important; -webkit-appearance:none; appearance:none;} /* 16px evita zoom automático no iOS */
+  .questao textarea{line-height:1.5; min-height:140px; touch-action:manipulation;}
+  .btn, .capa-card button, .imagem-atv1-controls button{touch-action:manipulation; min-height:44px;}
+  .tabela-wrap{-webkit-overflow-scrolling:touch; max-width:100%;}
+  .texto-apoio img{max-width:100%; height:auto;}
+  .sticky-header{padding-top:max(12px, env(safe-area-inset-top)); padding-left:max(20px, env(safe-area-inset-left)); padding-right:max(20px, env(safe-area-inset-right));}
+  .wrap{padding-left:max(24px, env(safe-area-inset-left)); padding-right:max(24px, env(safe-area-inset-right)); padding-bottom:max(60px, calc(env(safe-area-inset-bottom) + 40px));}
+  .popup-overlay{padding:max(20px, env(safe-area-inset-top)) max(20px, env(safe-area-inset-right)) max(20px, env(safe-area-inset-bottom)) max(20px, env(safe-area-inset-left));}
+  .imagem-atv1-modal-card{height:min(92vh,900px); height:min(92dvh,900px);}
+
+  @media (max-width:700px){
+    .sticky-header{padding-bottom:10px; gap:6px 10px; font-size:.76rem;}
+    .sticky-header .aluno{font-size:.86rem; max-width:100%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
+    .barra-progresso-trilho{order:3; flex-basis:100%; margin:0; min-width:0;}
+    .descritor-bar{display:block; font-size:.72rem;}
+    .ficha-id{gap:6px 16px; font-size:.78rem;}
+    .texto-apoio p, .conceito-box p{font-size:1rem;}
+    .conceito-box p{font-size:.95rem;}
+    .questao .enunciado{font-size:1rem;}
+    .acoes-finais{flex-direction:column; gap:10px;}
+    .acoes-finais .btn{width:100%; padding:14px 18px; font-size:1rem;}
+    .continuidade-box{padding:18px 16px;}
+    .continuidade-box p{text-align:left; hyphens:none;}
+    .referencia-box p{overflow-wrap:anywhere;}
+    table.comparativa{min-width:520px; font-size:.86rem;}
+    .tabela-wrap{margin-right:-4px; padding-bottom:4px;}
+    .popup-card{padding:26px 20px;}
+  }
+  @media (max-width:420px){
+    .capa-card{padding:28px 20px;}
+    .capa-card h1{font-size:1.35rem;}
+    .wrap{padding-top:22px;}
+    .texto-apoio, .questao{padding:16px 14px;}
+    .imagem-atv1-box{width:120px; margin-left:12px;}
+    .ordem-direitos-com-imagem, .referencias-com-imagem{flex-direction:column;}
+    .ordem-direitos-com-imagem .imagem-atv1-box, .referencias-com-imagem .imagem-atv1-box{flex-basis:auto; width:min(220px,100%); margin:0 auto;}
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== CAPA ===== -->
+<div id="capa">
+  <div class="grade-centralizada"></div>
+  <div class="capa-card">
+    <span class="tag">9º ano · História · CERO</span>
+    <h1>Constituição Cidadã: participação e direitos</h1>
+    <p class="desc">Como a Constituição de 1988 foi escrita, o que ela passou a garantir e por que seus direitos nem sempre são exercidos por todos. Preencha os dados para começar.</p>
+    <input type="text" id="nome-aluno" placeholder="Seu nome completo">
+    <input type="text" id="turma-aluno" placeholder="Turma (ex.: 9º A)">
+    <button onclick="iniciarAtividade()">Iniciar atividade</button>
+    <div class="capa-aviso" id="capa-aviso">Por favor, digite seu nome para continuar.</div>
+  </div>
+</div>
+
+<!-- ===== APP ===== -->
+<div id="app">
+  <div class="sticky-header">
+    <span class="aluno" id="header-nome"></span>
+    <div class="barra-progresso-trilho"><div class="barra-progresso-fill" id="barra-fill"></div></div>
+    <span id="contador-geral">Respondidas: 0/8</span>
+  </div>
+
+  <div class="wrap">
+    <header class="topo selecionavel">
+      <span class="descritor-bar">História / 9º Ano do Ensino Fundamental &nbsp;|&nbsp; (EF09HI23) – Direitos civis, políticos e sociais na Constituição de 1988 e a noção de cidadania</span>
+      <span class="hero-tag" style="display:block; margin-top:10px;">Leitura e análise</span>
+      <h1>Constituição Cidadã: participação e direitos</h1>
+      <p class="sub">Leia os textos, o cartaz e os quadros com atenção. Depois de cada leitura, responda à questão correspondente. São oito questões ao todo.</p>
+      <div class="ficha-id" id="ficha-id">
+        <span><b>NOME:</b> <span id="ficha-nome"></span></span>
+        <span><b>DATA:</b> <span id="ficha-data"></span></span>
+        <span><b>TURMA:</b> <span id="ficha-turma"></span></span>
+      </div>
+    </header>
+
+    <main>
+
+      <!-- ========== PARTE 1: A CONSTITUINTE ========== -->
+      <section class="texto-apoio selecionavel" data-titulo="Uma Constituição escrita em meio a debates">
+        <h2>Uma Constituição escrita em meio a debates</h2>
+        <span class="fonte-tag">Parte 1 · A Assembleia Nacional Constituinte (1987–1988)</span>
+
+        <div class="imagem-atv1-box">
+          <button class="imagem-atv1-trigger" type="button" onclick="window.open('imgatv/atv-constituicao/img/henfil-constituinte.webp', '_blank', 'noopener,noreferrer')" aria-label="Abrir imagem em nova aba: cartaz de Henfil">
+            <img src="imgatv/atv-constituicao/henfil-constituinte.webp" alt="Cartaz de Henfil: Constituinte sem povo não cria nada de novo. Bandeira do Brasil com a palavra Constituinte e pessoas subindo por uma escada.">
+          </button>
+          <p class="imagem-atv1-legenda"><strong>Clique na imagem</strong><br>para abrir em nova aba</p>
+        </div>
+
+        <p>A Assembleia Nacional Constituinte foi instalada em 1987, com deputados e senadores eleitos em novembro de 1986, para elaborar uma nova Constituição. Esperava-se completar, com ela, a transição democrática, isto é, a passagem da ditadura militar para um regime em que os direitos e a participação da população voltassem a ser respeitados.</p>
+
+        <div class="conceito-box">
+          <span class="rot">Emendas populares</span>
+          <p>Pela primeira vez na história constitucional brasileira, a população pôde apresentar <b>emendas populares</b>: as propostas precisavam de pelo menos 30 mil assinaturas e deviam ser apresentadas por alguma entidade (sindicatos, partidos, associações, entidades religiosas).</p>
+        </div>
+
+        <p>Assim, grupos à direita e à esquerda mobilizaram-se, coletaram assinaturas e levaram suas reivindicações ao Congresso. Foi nesse clima de disputa e de participação que circulou o cartaz do cartunista Henfil ao lado, com a frase: <b>“Constituinte sem povo não cria nada de novo”</b>.</p>
+      </section>
+
+      <div class="questao" data-questao="1">
+        <div class="enunciado"><span class="num-q">1</span> Explique por que a criação das emendas populares foi uma novidade importante para a participação da população na elaboração da Constituição de 1988.</div>
+        <textarea id="resp-1" class="campo-resposta dissertativa" data-min="140" placeholder="Escreva sua resposta aqui..."></textarea>
+        <div class="contador-chars">0 caracteres (mínimo 140)</div>
+        <div class="comentario-prof">
+          <b>Comentário do professor</b>
+          Foi a primeira vez na história constitucional brasileira em que a população pôde apresentar propostas diretamente à Constituinte. Bastava reunir pelo menos 30 mil assinaturas e contar com o apoio de uma entidade (sindicato, partido, associação, igreja). Isso permitiu que grupos diversos, de direita e de esquerda, levassem suas reivindicações ao Congresso, e não apenas deputados e senadores decidissem sozinhos. Para a transição democrática, isso significava que o povo deixava de ser espectador e passava a participar da escrita das regras do país.
+        </div>
+      </div>
+
+      <div class="questao" data-questao="2">
+        <div class="enunciado"><span class="num-q">2</span> A frase do cartaz de Henfil diz: “Constituinte sem povo não cria nada de novo”. Explique como essa frase se relaciona com o nome “Constituição Cidadã”.</div>
+        <textarea id="resp-2" class="campo-resposta dissertativa" data-min="140" placeholder="Escreva sua resposta aqui..."></textarea>
+        <div class="contador-chars">0 caracteres (mínimo 140)</div>
+        <div class="comentario-prof">
+          <b>Comentário do professor</b>
+          O cartaz defende que uma Constituição só traz algo realmente novo se contar com a participação popular. Esse é um dos motivos do nome “Cidadã”: a Constituição de 1988 ficou conhecida assim por ter contado com participação popular (emendas populares, mobilização de entidades) e por ampliar os direitos. Elementos da imagem que podem apoiar a resposta: a bandeira com a palavra “Constituinte” (a nação e a nova lei) e as pessoas subindo a escada (o povo se mobilizando para chegar ao lugar onde as decisões são tomadas).
+        </div>
+      </div>
+
+      <!-- ========== PARTE 2: CONSTITUIÇÃO CIDADÃ ========== -->
+      <section class="texto-apoio selecionavel" data-titulo="A Constituição Cidadã">
+        <h2>A Constituição Cidadã</h2>
+        <span class="fonte-tag">Parte 2 · O significado de um nome</span>
+
+        <p>Em 5 de outubro de 1988 foi promulgada a nova Constituição Federal. Por ampliar os direitos civis, políticos e sociais e por ter contado com participação popular, ficou conhecida como <b>Constituição Cidadã</b>, expressão associada a Ulysses Guimarães, presidente da Assembleia Constituinte.</p>
+
+        <div class="conceito-box">
+          <span class="rot">Constituição Cidadã</span>
+          <p>A expressão destaca a ampliação das garantias individuais e sociais e a retomada dos direitos políticos depois de anos de autoritarismo. “Cidadã” não significa que todos os direitos já eram plenamente exercidos em 1988, mas que o texto os reconheceu e abriu caminhos para cobrá-los.</p>
+        </div>
+      </section>
+
+      <div class="questao" data-questao="3">
+        <div class="enunciado"><span class="num-q">3</span> O texto afirma que “Cidadã” não significa que todos os direitos já eram plenamente exercidos em 1988. Explique o que essa afirmação quer dizer.</div>
+        <textarea id="resp-3" class="campo-resposta dissertativa" data-min="140" placeholder="Escreva sua resposta aqui..."></textarea>
+        <div class="contador-chars">0 caracteres (mínimo 140)</div>
+        <div class="comentario-prof">
+          <b>Comentário do professor</b>
+          A afirmação distingue reconhecer um direito de exercê-lo. Em 1988, a Constituição escreveu os direitos na lei e deu à população instrumentos para cobrá-los, mas isso não garantiu que todos já os vivessem na prática. Um direito no papel depende de políticas públicas, de fiscalização e da pressão da sociedade para se tornar real. O nome “Cidadã”, portanto, indica um ponto de partida e um caminho aberto, não uma conquista completa.
+        </div>
+      </div>
+
+      <!-- ========== PARTE 3: O QUE A CONSTITUIÇÃO PASSOU A GARANTIR ========== -->
+      <section class="texto-apoio selecionavel" data-titulo="O que a Constituição passou a garantir">
+        <h2>O que a Constituição passou a garantir</h2>
+        <span class="fonte-tag">Parte 3 · Quadro-síntese e princípios</span>
+
+        <p>Observe no quadro alguns dos direitos que a Constituição de 1988 passou a garantir.</p>
+
+        <div class="tabela-wrap">
+          <table class="comparativa">
+            <thead>
+              <tr><th>Tema</th><th>Direito</th><th>O que passou a valer</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><b>Liberdades</b></td>
+                <td>Expressão, crença e associação</td>
+                <td>Liberdade de pensamento, de culto, de reunião e de manifestação, sem censura prévia.</td>
+              </tr>
+              <tr>
+                <td><b>Trabalho</b></td>
+                <td>Direitos sociais</td>
+                <td>Direito de greve, liberdade sindical, jornada de 44 horas, licença-maternidade e paternidade, seguro-desemprego e 13º salário.</td>
+              </tr>
+              <tr>
+                <td><b>Participação</b></td>
+                <td>Voto ampliado</td>
+                <td>Direito de voto aos analfabetos e voto facultativo para jovens de 16 e 17 anos e para pessoas com mais de 70 anos.</td>
+              </tr>
+              <tr>
+                <td><b>Igualdade</b></td>
+                <td>Contra a discriminação</td>
+                <td>Igualdade perante a lei; o racismo e a tortura passam a ser crimes.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p style="margin-top:16px;">Além desses direitos, a Constituição estabeleceu princípios que organizam a vida em sociedade:</p>
+
+        <div class="conceito-box">
+          <span class="rot">Igualdade jurídica</span>
+          <p>Todos são iguais perante a lei, e garantem-se aos brasileiros e aos estrangeiros residentes o direito à vida, à liberdade, à igualdade, à segurança e à propriedade.</p>
+        </div>
+        <div class="conceito-box">
+          <span class="rot">Subordinação de todos à lei</span>
+          <p>Ninguém será obrigado a fazer ou deixar de fazer algo senão em virtude de lei. O limite à liberdade é definido pelas normas jurídicas, não pelo arbítrio de alguém.</p>
+        </div>
+        <div class="conceito-box">
+          <span class="rot">Liberdade de pensamento, crença, expressão, locomoção e associação</span>
+          <p>Essas liberdades valem independentemente de censura ou licença.</p>
+        </div>
+
+        <p>Entre as conquistas sociais e de reconhecimento, destacam-se a criminalização da tortura e do racismo, o voto dos analfabetos, o resguardo dos direitos indígenas e quilombolas e a extensão de direitos trabalhistas aos empregados domésticos.</p>
+      </section>
+
+      <div class="questao" data-questao="4">
+        <div class="enunciado"><span class="num-q">4</span> Explique de que maneira o fim da censura prévia e o voto dos analfabetos mostram que a Constituição de 1988 ampliou a cidadania depois de anos de autoritarismo.</div>
+        <textarea id="resp-4" class="campo-resposta dissertativa" data-min="140" placeholder="Escreva sua resposta aqui..."></textarea>
+        <div class="contador-chars">0 caracteres (mínimo 140)</div>
+        <div class="comentario-prof">
+          <b>Comentário do professor</b>
+          O fim da censura prévia protege os direitos civis: as pessoas passam a poder pensar, se expressar, se reunir e se manifestar sem que o Estado examine ou proíba antes o que será dito. O voto dos analfabetos amplia os direitos políticos: pessoas que antes ficavam fora das eleições passam a participar da escolha dos governantes. Os dois exemplos mostram a retomada e a ampliação de direitos que o autoritarismo havia restringido, em duas dimensões da cidadania (civil e política).
+        </div>
+      </div>
+
+      <div class="questao" data-questao="5">
+        <div class="enunciado"><span class="num-q">5</span> O texto afirma que ninguém será obrigado a fazer ou deixar de fazer algo senão em virtude de lei, e que o limite à liberdade é definido pelas normas jurídicas, não pelo arbítrio de alguém. Explique por que essa ideia protege os cidadãos.</div>
+        <textarea id="resp-5" class="campo-resposta dissertativa" data-min="140" placeholder="Escreva sua resposta aqui..."></textarea>
+        <div class="contador-chars">0 caracteres (mínimo 140)</div>
+        <div class="comentario-prof">
+          <b>Comentário do professor</b>
+          Se os limites à liberdade dependem de leis públicas, conhecidas e iguais para todos, nenhuma autoridade pode proibir ou obrigar alguém apenas por vontade própria (arbítrio). Isso protege as pessoas de perseguições e decisões injustas, como as ocorridas em períodos autoritários, e permite que qualquer cidadão saiba o que pode e o que não pode fazer e possa cobrar o cumprimento da lei, inclusive de quem governa.
+        </div>
+      </div>
+
+      <!-- ========== PARTE 4: ART. 231 ========== -->
+      <section class="texto-apoio selecionavel" data-titulo="Os direitos indígenas na Constituição">
+        <h2>Os direitos indígenas na Constituição</h2>
+        <span class="fonte-tag">Parte 4 · Fonte histórica: art. 231 da Constituição Federal de 1988</span>
+
+        <div class="conceito-box">
+          <span class="rot">Constituição Federal de 1988, art. 231 (caput)</span>
+          <p>“São reconhecidos aos índios sua organização social, costumes, línguas, crenças e tradições, e os direitos originários sobre as terras que tradicionalmente ocupam, competindo à União demarcá-las, proteger e fazer respeitar todos os seus bens.”</p>
+        </div>
+
+        <p>Transcrito em <i>Expedições da História 9</i>. Antes de 1988, a política oficial tratava os indígenas como grupos a serem “integrados”. O que muda quando a Constituição reconhece seu <b>direito à diferença</b>?</p>
+      </section>
+
+      <div class="questao" data-questao="6">
+        <div class="enunciado"><span class="num-q">6</span> Explique o que muda para os povos indígenas quando a Constituição reconhece seu direito à diferença, em vez de tratá-los como grupos a serem “integrados”.</div>
+        <textarea id="resp-6" class="campo-resposta dissertativa" data-min="140" placeholder="Escreva sua resposta aqui..."></textarea>
+        <div class="contador-chars">0 caracteres (mínimo 140)</div>
+        <div class="comentario-prof">
+          <b>Comentário do professor</b>
+          Na política de “integração”, esperava-se que os indígenas deixassem de ser diferentes e se incorporassem ao modo de vida da sociedade nacional. Com o art. 231, a Constituição reconhece como direitos a organização social, os costumes, as línguas, as crenças e as tradições dos povos indígenas, além dos direitos originários sobre as terras que ocupam tradicionalmente, cabendo à União demarcá-las e protegê-las. A diferença deixa de ser um problema a ser eliminado e passa a ser um direito a ser respeitado.
+        </div>
+      </div>
+
+      <!-- ========== PARTE 5: DIREITOS NO PAPEL E NA REALIDADE ========== -->
+      <section class="texto-apoio selecionavel" data-titulo="Direitos no papel e na realidade">
+        <h2>Direitos no papel e na realidade</h2>
+        <span class="fonte-tag">Parte 5 · O que podemos compreender?</span>
+
+        <div class="imagem-atv1-box">
+          <button class="imagem-atv1-trigger" type="button" onclick="window.open('imgatv/atv-constituicao/direitos1.webp', '_blank', 'noopener,noreferrer')" aria-label="Abrir imagem em nova aba: Constituição de 1988, direitos no papel e na realidade">
+            <img src="imgatv/atv-constituicao/direitos1.webp" alt="Infográfico: Constituição de 1988, direitos no papel e na realidade. Educação, saúde, liberdade, igualdade e participação política, com desafios e exemplos do cotidiano.">
+          </button>
+          <p class="imagem-atv1-legenda"><strong>Clique na imagem</strong><br>para abrir em nova aba</p>
+        </div>
+
+        <p>A Constituição garante direitos, mas a vida cotidiana mostra avanços e limites. Observe o quadro e o infográfico ao lado.</p>
+
+        <div class="tabela-wrap">
+          <table class="comparativa">
+            <thead>
+              <tr><th>Direito</th><th>O que podemos compreender?</th><th>Exemplo cotidiano</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><b>Educação</b></td>
+                <td>Direito social e responsabilidade pública.</td>
+                <td>Matrícula gratuita na escola pública.</td>
+              </tr>
+              <tr>
+                <td><b>Saúde</b></td>
+                <td>Integra o conjunto de direitos sociais garantidos constitucionalmente.</td>
+                <td>Atendimento em unidades de saúde do SUS.</td>
+              </tr>
+              <tr>
+                <td><b>Liberdade</b></td>
+                <td>Liberdades individuais e coletivas recebem proteção jurídica.</td>
+                <td>Expressar opiniões e professar uma religião.</td>
+              </tr>
+              <tr>
+                <td><b>Igualdade</b></td>
+                <td>A lei estabelece a igualdade e combate práticas discriminatórias.</td>
+                <td>Racismo é crime inafiançável e imprescritível.</td>
+              </tr>
+              <tr>
+                <td><b>Participação política</b></td>
+                <td>O sistema democrático reconhece o voto e outros mecanismos de cidadania.</td>
+                <td>Votar, participar de conselhos e de associações.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="referencia-box">
+          <span class="rot">Fontes e referências</span>
+          <p>COTRIM, Gilberto; RODRIGUES, Jaime. <i>Historiar 9</i>, “Constituição cidadã”.</p>
+          <p>BRAICK, Patricia Ramos; BARRETO, Anna Maria. <i>Se liga na História 9</i>, “A Constituição de 1988”.</p>
+          <p>COTRIM, Gilberto; RODRIGUES, Jaime. <i>Expedições da História 9</i>, “Constituição Cidadã”. Síntese e adaptação.</p>
+          <p>BRASIL. Constituição da República Federativa do Brasil de 1988, art. 231 (caput).</p>
+          <p>HENFIL. Cartaz para o Plenário Nacional Pró-Participação Popular na Constituinte. Acervo Museu da República.</p>
+          <p>BRASIL. Ministério da Educação. Base Nacional Comum Curricular. Brasília: MEC, 2018. (habilidade EF09HI23)</p>
+        </div>
+      </section>
+
+      <div class="questao" data-questao="7">
+        <div class="enunciado"><span class="num-q">7</span> Observe o quadro: a Constituição garante educação, saúde, liberdade, igualdade e participação política, mas os exemplos do dia a dia mostram limites. Pense em um desses direitos que não é plenamente exercido perto de você e explique por que isso acontece.</div>
+        <textarea id="resp-7" class="campo-resposta dissertativa" data-min="140" placeholder="Escreva sua resposta aqui..."></textarea>
+        <div class="contador-chars">0 caracteres (mínimo 140)</div>
+        <div class="comentario-prof">
+          <b>Comentário do professor</b>
+          A resposta é pessoal, mas deve identificar um direito constitucional real, relacioná-lo à escola, ao bairro ou à cidade do estudante e apontar ao menos uma causa, como falta de investimento ou de profissionais, desigualdade social, desconhecimento do direito, discriminação ou pouca participação da população. O ponto central é perceber que garantir um direito na lei não é o mesmo que efetivá-lo.
+        </div>
+      </div>
+
+      <div class="questao" data-questao="8">
+        <div class="enunciado"><span class="num-q">8</span> Defenda, em um parágrafo, a ideia de que a Constituição de 1988 merece o nome de “Constituição Cidadã”, usando como argumentos a participação popular em sua elaboração e os direitos que ela garantiu.</div>
+        <textarea id="resp-8" class="campo-resposta dissertativa" data-min="200" placeholder="Escreva sua resposta aqui..."></textarea>
+        <div class="contador-chars">0 caracteres (mínimo 200)</div>
+        <div class="comentario-prof">
+          <b>Comentário do professor</b>
+          Uma boa resposta explica que “Cidadã” se refere ao processo e ao conteúdo. Quanto ao processo: a Constituinte contou com a participação popular, por meio das emendas populares (30 mil assinaturas e uma entidade proponente) e da mobilização representada pelo cartaz de Henfil. Quanto ao conteúdo: ampliou direitos civis, políticos e sociais (fim da censura prévia, voto dos analfabetos, direitos trabalhistas, criminalização do racismo e da tortura, reconhecimento dos direitos indígenas). A resposta pode concluir lembrando que os direitos precisam ser cobrados para serem exercidos.
+        </div>
+      </div>
+
+      <div class="alerta-incompleto" id="alerta-incompleto">
+        ⚠️ Ainda há questões incompletas. Todas as respostas devem atingir o mínimo de caracteres indicado.
+      </div>
+
+      <div class="acoes-finais">
+        <button class="btn btn-primario" onclick="finalizarAtividade()">Ver comentários do professor</button>
+        <button class="btn btn-secundario" onclick="refazerAtividade()">Refazer</button>
+        <button class="btn btn-pdf" onclick="exportarPDF()">Exportar em PDF</button>
+      </div>
+    </main>
+  </div>
+
+  <footer class="rodape">Colégio Estadual Rodolfo de Oliveira · CERO · 2026</footer>
+</div>
+
+<!-- ===== POPUP ===== -->
+<div class="popup-overlay" id="popup-overlay">
+  <div class="popup-card">
+    <div class="emoji">🎉</div>
+    <h3>Atividade concluída!</h3>
+    <p>Suas oito respostas foram registradas. Os comentários do professor estão disponíveis em todas as questões para você comparar com o que escreveu.</p>
+    <button class="btn btn-primario" onclick="fecharPopup()">Continuar</button>
+  </div>
+</div>
+
+<script>
+/* ===== GATE DE NOME ===== */
+function iniciarAtividade(){
+  const nome = document.getElementById('nome-aluno').value.trim();
+  const turma = document.getElementById('turma-aluno').value.trim();
+  const aviso = document.getElementById('capa-aviso');
+  if(!nome){
+    aviso.style.display = 'block';
+    return;
+  }
+  aviso.style.display = 'none';
+  const hoje = new Date();
+  const dataFormatada = String(hoje.getDate()).padStart(2,'0') + '/' + String(hoje.getMonth()+1).padStart(2,'0') + '/' + hoje.getFullYear();
+  document.getElementById('header-nome').textContent = nome;
+  document.getElementById('ficha-nome').textContent = nome;
+  document.getElementById('ficha-data').textContent = dataFormatada;
+  document.getElementById('ficha-turma').textContent = turma || '—';
+  document.getElementById('capa').style.display = 'none';
+  document.getElementById('app').style.display = 'block';
+  window.scrollTo(0,0);
+}
+
+/* ===== CONTADOR DE CARACTERES E PROGRESSO ===== */
+const textareas = document.querySelectorAll('textarea.dissertativa');
+const TOTAL = textareas.length;
+
+function atualizarProgresso(){
+  let respondidas = 0;
+  textareas.forEach(function(t){
+    const min = parseInt(t.dataset.min, 10);
+    if(t.value.trim().length >= min) respondidas++;
+  });
+  document.getElementById('contador-geral').textContent = 'Respondidas: ' + respondidas + '/' + TOTAL;
+  document.getElementById('barra-fill').style.width = (respondidas / TOTAL * 100) + '%';
+}
+
+textareas.forEach(function(t){
+  const contadorEl = t.parentElement.querySelector('.contador-chars');
+  const min = parseInt(t.dataset.min, 10);
+  t.addEventListener('input', function(){
+    contadorEl.textContent = t.value.length + ' caracteres (mínimo ' + min + ')';
+    atualizarProgresso();
+  });
+});
+
+/* ===== FINALIZAR ===== */
+function finalizarAtividade(){
+  let completo = true;
+  textareas.forEach(function(t){
+    const min = parseInt(t.dataset.min, 10);
+    if(t.value.trim().length < min) completo = false;
+  });
+
+  const alerta = document.getElementById('alerta-incompleto');
+  if(!completo){
+    alerta.classList.add('show');
+    alerta.scrollIntoView({behavior:'smooth', block:'center'});
+    return;
+  }
+  alerta.classList.remove('show');
+
+  document.querySelectorAll('.comentario-prof').forEach(function(c){
+    c.classList.add('show');
+  });
+
+  document.getElementById('popup-overlay').classList.add('show');
+}
+
+function fecharPopup(){
+  document.getElementById('popup-overlay').classList.remove('show');
+}
+
+function refazerAtividade(){
+  textareas.forEach(function(t){
+    t.value = '';
+    t.parentElement.querySelector('.contador-chars').textContent = '0 caracteres (mínimo ' + t.dataset.min + ')';
+  });
+  document.querySelectorAll('.comentario-prof').forEach(function(c){
+    c.classList.remove('show');
+  });
+  document.getElementById('alerta-incompleto').classList.remove('show');
+  atualizarProgresso();
+  window.scrollTo(0,0);
+}
+
+/* ===== EXPORTAR PDF ===== */
+function sleep(ms){ return new Promise(function(r){ setTimeout(r, ms); }); }
+
+function esc(str){
+  const d = document.createElement('div');
+  d.textContent = str || '';
+  return d.innerHTML.replace(/\n/g, '<br>');
+}
+
+async function exportarPDF(){
+  let completo = true;
+  textareas.forEach(function(t){
+    const min = parseInt(t.dataset.min, 10);
+    if(t.value.trim().length < min) completo = false;
+  });
+  if(!completo){
+    const alerta = document.getElementById('alerta-incompleto');
+    alerta.classList.add('show');
+    alerta.textContent = '⚠️ Para exportar o PDF, responda todas as 8 questões com o mínimo de caracteres indicado em cada resposta.';
+    alerta.scrollIntoView({behavior:'smooth', block:'center'});
+    return;
+  }
+  document.getElementById('alerta-incompleto').classList.remove('show');
+
+  const overlay = document.createElement('div');
+  overlay.id = 'pdf-overlay';
+  overlay.style.cssText = 'position:fixed;inset:0;background:rgba(8,20,45,.6);display:flex;align-items:center;justify-content:center;z-index:999;';
+  overlay.innerHTML =
+    '<div style="background:#fff;border-radius:14px;padding:32px 36px;text-align:center;max-width:300px;box-shadow:0 10px 30px rgba(20,48,95,.3);font-family:\'Source Serif 4\',serif;">' +
+      '<div style="font-size:2rem;margin-bottom:8px;">📄</div>' +
+      '<h4 style="margin:0 0 4px;color:#14305f;font-family:\'Playfair Display\',serif;">Gerando PDF…</h4>' +
+      '<p style="margin:0 0 14px;color:#4d5f7a;font-size:.86rem;">Aguarde alguns instantes.</p>' +
+      '<div style="background:#dde6f4;border-radius:6px;overflow:hidden;height:8px;">' +
+        '<div id="pdf-prog" style="height:100%;width:0%;background:#2a5aa8;transition:width .2s ease;"></div>' +
+      '</div>' +
+      '<div id="pdf-prog-txt" style="margin-top:8px;font-family:\'JetBrains Mono\',monospace;font-size:.74rem;color:#4d5f7a;">0%</div>' +
+    '</div>';
+  document.body.appendChild(overlay);
+  await sleep(80);
+  function setP(pct, msg){
+    const pp = document.getElementById('pdf-prog'), pt = document.getElementById('pdf-prog-txt');
+    if(pp) pp.style.width = pct + '%';
+    if(pt) pt.textContent = msg || (pct + '%');
+  }
+
+  try{
+    const { jsPDF } = window.jspdf;
+    const pdf = new jsPDF({orientation:'portrait', unit:'pt', format:'a4', compress:true});
+    const PW = pdf.internal.pageSize.getWidth(), PH = pdf.internal.pageSize.getHeight();
+    const ML = 32, CW = PW - ML*2;
+    const RW = 760; /* largura (px) em que os blocos da página são renderizados */
+    let y = ML;
+
+    /* Renderiza o bloco; se o navegador "contaminar" o canvas (imagens locais/file:// ou de outro domínio),
+       refaz o bloco sem as imagens para o PDF nunca falhar. */
+    function canvasLimpo(c){
+      try{ c.getContext('2d').getImageData(0,0,1,1); c.toDataURL('image/jpeg', .1); return true; }
+      catch(e){ return false; }
+    }
+    async function renderSeguro(el, scale){
+      const base = {scale:scale, useCORS:true, allowTaint:false, logging:false, backgroundColor:'#ffffff', scrollX:0, scrollY:0, windowWidth:RW};
+      let c = null;
+      try{ c = await html2canvas(el, base); } catch(e){ c = null; }
+      if(c && canvasLimpo(c)) return c;
+      if(c){ c.width = c.height = 0; }
+      console.warn('Imagens bloqueadas pelo navegador (canvas contaminado); exportando o bloco sem elas.');
+      c = await html2canvas(el, Object.assign({}, base, {
+        onclone: function(doc){
+          doc.querySelectorAll('.imagem-atv1-box').forEach(function(n){ n.style.display = 'none'; });
+          doc.querySelectorAll('img').forEach(function(n){ n.style.display = 'none'; });
+        }
+      }));
+      return c;
+    }
+
+    /* Procura, perto de 'alvo', uma linha de pixels em branco para cortar o bloco sem partir texto ao meio */
+    function acharCorte(canvas, alvo, minimo){
+      const ctx = canvas.getContext('2d');
+      const w = canvas.width;
+      const alcance = Math.min(alvo - minimo, Math.round(canvas.width * 0.5));
+      if(alcance <= 4) return alvo;
+      const y0 = alvo - alcance;
+      let dados;
+      try{ dados = ctx.getImageData(0, y0, w, alcance).data; } catch(e){ return alvo; }
+      const x0 = Math.round(w*0.05), x1 = Math.round(w*0.95), xMeio = Math.round(w*0.6);
+      function linhaLivre(r, xFim){
+        const o = r*w*4;
+        const r0 = dados[o+x0*4], g0 = dados[o+x0*4+1], b0 = dados[o+x0*4+2];
+        for(let x=x0; x<xFim; x+=2){
+          const i = o + x*4;
+          if(Math.abs(dados[i]-r0)>14 || Math.abs(dados[i+1]-g0)>14 || Math.abs(dados[i+2]-b0)>14) return false;
+        }
+        return true;
+      }
+      /* 1) linha livre na largura toda; 2) só na coluna de texto (ignora imagens ao lado) */
+      for(const xFim of [x1, xMeio]){
+        for(let r=alcance-1; r>=0; r--){
+          if(linhaLivre(r, xFim)){
+            /* centraliza o corte no vão entre linhas */
+            let r2 = r; while(r2>0 && linhaLivre(r2-1, xFim)) r2--;
+            return y0 + Math.round((r2 + r)/2);
+          }
+        }
+      }
+      return alvo;
+    }
+
+    async function addImg(el){
+      /* limita a área do canvas (iOS/Android têm limite de memória) */
+      const altCss = Math.max(el.offsetHeight || el.scrollHeight || 1, 1);
+      let scale = 2;
+      const MAX_AREA = 12e6;
+      if(RW*altCss*scale*scale > MAX_AREA) scale = Math.max(1, Math.sqrt(MAX_AREA/(RW*altCss)));
+      const canvas = await renderSeguro(el, scale);
+      const imgW = CW, imgH = (canvas.height / canvas.width) * imgW;
+      const pxPerPt = canvas.width / imgW;
+      const avail = PH - ML*2;
+      /* blocos grandes que não cabem no resto da página são fatiados em linhas em branco (sem deixar meia página vazia) */
+      const restante = PH - ML - y;
+      const fatiar = imgH > avail*0.35 && y + imgH > PH - ML && restante > avail*0.4;
+      if(imgH <= avail && !fatiar){
+        if(y + imgH > PH - ML){ pdf.addPage(); y = ML; }
+        pdf.addImage(canvas.toDataURL('image/jpeg', .9), 'JPEG', ML, y, imgW, imgH, undefined, 'FAST');
+        y += imgH + 8;
+      } else {
+        let srcY = 0;
+        if(y > PH - ML - 120){ pdf.addPage(); y = ML; }
+        while(srcY < canvas.height){
+          const availPt = PH - ML - y;
+          let fatia = Math.min(Math.floor(availPt * pxPerPt), canvas.height - srcY);
+          if(srcY + fatia < canvas.height){
+            const corte = acharCorte(canvas, srcY + fatia, srcY + Math.round(fatia*0.5));
+            fatia = Math.max(corte - srcY, 1);
+          }
+          const tmp = document.createElement('canvas');
+          tmp.width = canvas.width; tmp.height = fatia;
+          const tctx = tmp.getContext('2d');
+          tctx.fillStyle = '#ffffff'; tctx.fillRect(0,0,tmp.width,tmp.height);
+          tctx.drawImage(canvas, 0, srcY, canvas.width, fatia, 0, 0, canvas.width, fatia);
+          const slicePt = fatia / pxPerPt;
+          pdf.addImage(tmp.toDataURL('image/jpeg', .9), 'JPEG', ML, y, imgW, slicePt, undefined, 'FAST');
+          tmp.width = tmp.height = 0;
+          srcY += fatia; y += slicePt;
+          if(srcY < canvas.height){ pdf.addPage(); y = ML; }
+        }
+        y += 8;
+      }
+      canvas.width = canvas.height = 0;
+    }
+
+    function bandaHTML(tag, txt){
+      return '<div style="font-family:Arial,sans-serif;margin-bottom:10px"><div style="background:linear-gradient(90deg,#2a5aa8,#14305f);border-radius:8px;padding:12px 22px;display:flex;align-items:center;gap:12px">' +
+        '<span style="background:rgba(255,255,255,.2);color:#fff;font-weight:700;font-size:12px;letter-spacing:1px;border-radius:20px;padding:3px 12px">' + tag + '</span>' +
+        '<span style="color:#fff;font-size:15px;font-weight:700">' + esc(txt) + '</span></div></div>';
+    }
+
+    /* Título + texto no mesmo bloco: o título nunca fica sozinho no fim da página */
+    async function addTextoComTitulo(sec, titulo){
+      const clone = sec.cloneNode(true);
+      const h2 = clone.querySelector('h2'); if(h2) h2.remove();
+      clone.style.cssText = 'margin:0;box-shadow:none;border-radius:10px;-webkit-user-select:text;user-select:text;';
+      const wrap = document.createElement('div');
+      wrap.style.cssText = 'width:'+RW+'px;position:absolute;left:-9999px;top:0;background:#fff;';
+      wrap.innerHTML = bandaHTML('TEXTO', titulo);
+      wrap.appendChild(clone);
+      document.body.appendChild(wrap);
+      await sleep(40);
+      try{ await addImg(wrap); } finally { document.body.removeChild(wrap); }
+    }
+
+    const nome = document.getElementById('header-nome').textContent || 'Aluno(a)';
+    const turma = document.getElementById('ficha-turma').textContent || '—';
+    const now = new Date();
+    const dtStr = now.toLocaleDateString('pt-BR') + ' às ' + now.toLocaleTimeString('pt-BR', {hour:'2-digit', minute:'2-digit'});
+
+    setP(5, 'Preparando capa…'); await sleep(40);
+    const coverEl = document.createElement('div');
+    coverEl.style.cssText = 'width:'+RW+'px;font-family:Arial,sans-serif;overflow:hidden;position:absolute;left:-9999px;top:0';
+    coverEl.innerHTML =
+      '<div style="background:linear-gradient(135deg,#0d2247 0%,#2a5aa8 60%,#6f95d1 100%);padding:32px 48px 28px;color:white">' +
+        '<div style="font-size:10px;letter-spacing:3px;text-transform:uppercase;opacity:.7;font-weight:700;margin-bottom:6px">História · 9º Ano do Ensino Fundamental · EF09HI23</div>' +
+        '<div style="font-size:26px;font-weight:900;line-height:1.2;margin-bottom:5px">Constituição Cidadã: participação e direitos</div>' +
+        '<div style="font-size:13px;opacity:.8;font-style:italic">Textos adaptados de livros didáticos de História 9 · ' + TOTAL + ' questões dissertativas</div>' +
+      '</div>' +
+      '<div style="background:#eef2f9;padding:22px 48px 26px;border-bottom:3px solid #f3e2b0">' +
+        '<div style="font-size:9px;text-transform:uppercase;letter-spacing:2px;color:#2a5aa8;font-weight:700;margin-bottom:5px">Aluno(a)</div>' +
+        '<div style="font-size:20px;font-weight:700;color:#142036;border-bottom:2.5px solid #2a5aa8;padding-bottom:6px;display:inline-block;margin-bottom:16px">' + esc(nome) + '</div>' +
+        '<div style="display:flex;gap:12px;flex-wrap:wrap">' +
+          '<div style="background:white;border-radius:8px;padding:12px 18px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,.07);min-width:84px">' +
+            '<div style="font-size:22px;font-weight:900;color:#2a5aa8">' + esc(turma) + '</div>' +
+            '<div style="font-size:9px;text-transform:uppercase;letter-spacing:1px;color:#888;margin-top:2px">Turma</div></div>' +
+          '<div style="background:white;border-radius:8px;padding:12px 18px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,.07);min-width:84px">' +
+            '<div style="font-size:22px;font-weight:900;color:#c9951b">' + TOTAL + '</div>' +
+            '<div style="font-size:9px;text-transform:uppercase;letter-spacing:1px;color:#888;margin-top:2px">Dissertativas</div></div>' +
+          '<div style="background:white;border-radius:8px;padding:12px 18px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,.07);min-width:140px">' +
+            '<div style="font-size:13px;font-weight:700;color:#333">' + dtStr + '</div>' +
+            '<div style="font-size:9px;text-transform:uppercase;letter-spacing:1px;color:#888;margin-top:2px">Gerado em</div></div>' +
+        '</div>' +
+        '<div style="font-size:9px;color:#bbb;margin-top:14px">Colégio Estadual Rodolfo de Oliveira · Goiás · 2026</div>' +
+      '</div>';
+    document.body.appendChild(coverEl); await sleep(60); await addImg(coverEl); document.body.removeChild(coverEl);
+
+    /* Percorre a página na ordem: textos e questões intercalados */
+    const itens = Array.from(document.querySelectorAll('main > .texto-apoio, main > .questao'));
+    for(let i=0; i<itens.length; i++){
+      const el = itens[i];
+      setP(8 + Math.round(i/itens.length*84), 'Preparando bloco ' + (i+1) + '/' + itens.length + '…');
+      await sleep(12);
+
+      if(el.classList.contains('texto-apoio')){
+        await addTextoComTitulo(el, el.dataset.titulo || el.querySelector('h2').textContent);
+      } else {
+        const num = el.dataset.questao;
+        const enunc = el.querySelector('.enunciado').textContent.replace(/^\s*\d+\s*/, '').replace(/\s+/g, ' ').trim();
+        const ta = el.querySelector('textarea');
+        const valor = ta ? ta.value : '';
+        const comentarioEl = el.querySelector('.comentario-prof');
+        const coment = comentarioEl ? comentarioEl.textContent.replace('Comentário do professor','').replace(/\s+/g, ' ').trim() : '';
+        /* Questão em texto nativo no PDF: evita corte/estouro de respostas longas */
+        /* Texto nativo: remove emojis/símbolos que a fonte padrão do PDF não desenha (evita caracteres embaralhados) */
+        function limparTexto(t){
+          return String(t || '')
+            .replace(/[\u2018\u2019\u201A]/g, "'").replace(/[\u201C\u201D\u201E]/g, '"')
+            .replace(/\u00A0/g, ' ').replace(/\t/g, '    ')
+            .replace(/[^\n\x20-\x7E\u00A1-\u00FF\u2013\u2014\u2026\u2022]/g, '');
+        }
+        function garantirEspaco(altura){
+          if(y + altura > PH - ML - 18){
+            pdf.addPage();
+            y = ML;
+          }
+        }
+
+        /* Quebra robusta: inclusive sequências sem espaços, URLs e palavras muito longas */
+        function quebrarTextoSeguro(texto, largura){
+          texto = limparTexto(texto).replace(/\r\n/g, '\n').replace(/\r/g, '\n');
+          const resultado = [];
+
+          texto.split('\n').forEach(function(paragrafo){
+            if(paragrafo === ''){
+              resultado.push('');
+              return;
+            }
+
+            const palavras = paragrafo.split(/\s+/);
+            let linha = '';
+
+            palavras.forEach(function(palavra){
+              /* Fragmenta qualquer palavra que, sozinha, ultrapasse a largura */
+              const pedacos = [];
+              let restante = palavra;
+
+              while(restante && pdf.getTextWidth(restante) > largura){
+                let lo = 1, hi = restante.length, melhor = 1;
+                while(lo <= hi){
+                  const mid = Math.floor((lo + hi) / 2);
+                  if(pdf.getTextWidth(restante.slice(0, mid)) <= largura){
+                    melhor = mid;
+                    lo = mid + 1;
+                  } else {
+                    hi = mid - 1;
+                  }
+                }
+                pedacos.push(restante.slice(0, melhor));
+                restante = restante.slice(melhor);
+              }
+              if(restante) pedacos.push(restante);
+
+              pedacos.forEach(function(pedaco){
+                const candidato = linha ? linha + ' ' + pedaco : pedaco;
+                if(pdf.getTextWidth(candidato) <= largura){
+                  linha = candidato;
+                } else {
+                  if(linha) resultado.push(linha);
+                  linha = pedaco;
+                }
+              });
+            });
+
+            if(linha) resultado.push(linha);
+          });
+
+          return resultado;
+        }
+
+        function escreverBlocoTexto(texto, opts){
+          opts = opts || {};
+          const fontSize = opts.fontSize || 11;
+          const lineHeight = opts.lineHeight || 1.45;
+          const indent = opts.indent || 0;
+          const maxW = CW - indent;
+          pdf.setFont('helvetica', opts.bold ? 'bold' : 'normal');
+          pdf.setFontSize(fontSize);
+          pdf.setTextColor.apply(pdf, opts.color || [27,42,28]);
+
+          const linhas = quebrarTextoSeguro(texto || '', maxW);
+          const lh = fontSize * lineHeight;
+
+          linhas.forEach(function(linha){
+            garantirEspaco(lh + 3);
+            pdf.text(linha, ML + indent, y);
+            y += lh;
+          });
+          y += opts.after || 5;
+        }
+
+        /* Cabeçalho da questão */
+        garantirEspaco(130); /* cabeçalho + enunciado + início da resposta ficam juntos */
+        pdf.setFillColor(47,107,58);
+        pdf.roundedRect(ML, y, CW, 24, 5, 5, 'F');
+        pdf.setFont('helvetica','bold');
+        pdf.setFontSize(11);
+        pdf.setTextColor(255,255,255);
+        pdf.text('QUESTÃO ' + num, ML + 12, y + 16);
+        y += 24 + 18;
+
+        /* Enunciado */
+        escreverBlocoTexto(enunc, {fontSize:11, bold:true, lineHeight:1.42, after:8});
+
+        /* Resposta */
+        garantirEspaco(56);
+        pdf.setFont('helvetica','bold');
+        pdf.setFontSize(9);
+        pdf.setTextColor(47,107,58);
+        pdf.text('RESPOSTA DO ALUNO(A)', ML, y);
+        y += 15;
+
+        const resposta = valor || '(sem resposta)';
+        pdf.setFont('helvetica','normal'); pdf.setFontSize(11); /* mede com a mesma fonte usada para desenhar */
+        const respLinhas = quebrarTextoSeguro(resposta, CW - 24);
+        const respLH = 11 * 1.55;
+
+        respLinhas.forEach(function(linha, idx){
+          garantirEspaco(respLH + 8);
+          /* fundo suave por linha para manter o aspecto de box sem cortar conteúdo */
+          pdf.setFillColor(234,243,228);
+          pdf.rect(ML, y - 11, CW, respLH + 0.5, 'F');
+          pdf.setFont('helvetica','normal');
+          pdf.setFontSize(11);
+          pdf.setTextColor(27,42,28);
+          pdf.text(linha, ML + 10, y);
+          y += respLH;
+        });
+        y += 8;
+
+        /* Comentários apenas quando existirem (questões 1–6) */
+        if(coment){
+          garantirEspaco(56);
+          pdf.setFont('helvetica','bold');
+          pdf.setFontSize(9);
+          pdf.setTextColor(122,90,20);
+          pdf.text('COMENTÁRIO DO PROFESSOR', ML, y);
+          y += 15;
+
+          pdf.setFont('helvetica','normal'); pdf.setFontSize(10.5);
+          const comLinhas = quebrarTextoSeguro(coment, CW - 24);
+          const comLH = 10.5 * 1.55;
+          comLinhas.forEach(function(linha){
+            garantirEspaco(comLH + 8);
+            pdf.setFillColor(251,243,220);
+            pdf.rect(ML, y - 10, CW, comLH + 0.5, 'F');
+            pdf.setFont('helvetica','normal');
+            pdf.setFontSize(10.5);
+            pdf.setTextColor(94,67,16);
+            pdf.text(linha, ML + 10, y);
+            y += comLH;
+          });
+          y += 8;
+        }
+
+        /* separação entre questões */
+        garantirEspaco(12);
+        pdf.setDrawColor(211,224,200);
+        pdf.line(ML, y, ML + CW, y);
+        y += 12;
+      }
+    }
+
+    /* Rodapé em todas as páginas */
+    setP(94, 'Finalizando…'); await sleep(30);
+    const totalPages = pdf.getNumberOfPages();
+    for(let p=1; p<=totalPages; p++){
+      pdf.setPage(p);
+      const fEl = document.createElement('div');
+      fEl.style.cssText = 'width:' + Math.round(CW) + 'px;height:22px;background:#eef2f9;display:flex;align-items:center;justify-content:space-between;padding:0 28px;font-size:10px;color:#888;font-family:Arial,sans-serif;position:absolute;left:-9999px;top:0';
+      fEl.innerHTML = '<span>Constituição Cidadã · ' + esc(nome) + '</span><span>Página ' + p + ' de ' + totalPages + '</span>';
+      document.body.appendChild(fEl);
+      const fc = await html2canvas(fEl, {scale:2, logging:false, backgroundColor:'#eef2f9'});
+      document.body.removeChild(fEl);
+      const fUrl = fc.toDataURL('image/jpeg', .9), fH = (fc.height / fc.width) * CW;
+      pdf.setFillColor(241,245,238); pdf.rect(ML, PH-fH, CW, fH, 'F');
+      pdf.addImage(fUrl, 'JPEG', ML, PH-fH, CW, fH);
+    }
+
+    setP(100, 'Salvando…'); await sleep(200);
+    const safeName = nome.replace(/[^a-zA-Z0-9_\-]/g, '_');
+    const nomeArq = 'Constituicao_Cidada_' + safeName + '.pdf';
+    const ehIOS = /iP(hone|ad|od)/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+    if(ehIOS && navigator.canShare){
+      /* iPhone/iPad: abre a folha de compartilhamento (Salvar em Arquivos) — mais confiável que download direto */
+      const blob = pdf.output('blob');
+      const arq = new File([blob], nomeArq, {type:'application/pdf'});
+      if(navigator.canShare({files:[arq]})){
+        try{ await navigator.share({files:[arq], title:'Constituição Cidadã'}); }
+        catch(e){ if(e && e.name !== 'AbortError') pdf.save(nomeArq); }
+      } else { pdf.save(nomeArq); }
+    } else {
+      pdf.save(nomeArq);
+    }
+
+  } catch(err){
+    console.error(err);
+    alert('Erro ao gerar PDF: ' + err.message);
+  } finally {
+    const ov = document.getElementById('pdf-overlay');
+    if(ov) document.body.removeChild(ov);
+  }
+}
+
+/* ===== PROTEÇÃO ANTI-COLA ===== */
+(function () {
+  const CAMPOS_PROTEGIDOS = document.querySelectorAll('textarea.dissertativa, .campo-resposta');
+  const LIMITE_BLOCO = 25;
+
+  function bloquear(e) {
+    e.preventDefault();
+    mostrarToast('Colar não permitido nesta atividade.');
+  }
+
+  CAMPOS_PROTEGIDOS.forEach(function (campo) {
+    ['paste', 'copy', 'cut', 'drop', 'dragover', 'contextmenu'].forEach(function (evt) {
+      campo.addEventListener(evt, bloquear);
+    });
+
+    campo.addEventListener('beforeinput', function (e) {
+      if (e.inputType === 'insertFromPaste' || e.inputType === 'insertFromDrop') {
+        e.preventDefault();
+        mostrarToast('Colar não permitido nesta atividade.');
+      }
+    });
+
+    let valorAnterior = campo.value;
+    campo.addEventListener('input', function (e) {
+      const diferenca = campo.value.length - valorAnterior.length;
+      /* Em celulares, ditado por voz, autocorreção e teclado deslizante inserem várias palavras de uma vez
+         (inputType = insertText/insertCompositionText/insertReplacementText...). Só bloqueia quando o navegador
+         não informa o tipo ou indica colar/arrastar — colar já é barrado no beforeinput/paste acima. */
+      const tipo = e.inputType || '';
+      const suspeito = (tipo === '' || tipo === 'insertFromPaste' || tipo === 'insertFromDrop' || tipo === 'insertFromYank');
+      if (diferenca >= LIMITE_BLOCO && suspeito) {
+        campo.value = valorAnterior;
+        mostrarToast('Colar não permitido nesta atividade.');
+      } else {
+        valorAnterior = campo.value;
+      }
+    });
+  });
+
+  function mostrarToast(mensagem) {
+    let toast = document.getElementById('anti-cola-toast');
+    if (!toast) {
+      toast = document.createElement('div');
+      toast.id = 'anti-cola-toast';
+      toast.style.cssText =
+        'position:fixed;bottom:24px;left:50%;transform:translateX(-50%);' +
+        'background:#333;color:#fff;padding:10px 20px;border-radius:8px;' +
+        'font-size:14px;z-index:9999;opacity:0;transition:opacity .3s;';
+      document.body.appendChild(toast);
+    }
+    toast.textContent = mensagem;
+    toast.style.opacity = '1';
+    clearTimeout(toast._timeout);
+    toast._timeout = setTimeout(function () {
+      toast.style.opacity = '0';
+    }, 2500);
+  }
+})();
+</script>
+
+
+
+
+</body>
+</html>

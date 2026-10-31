@@ -286,6 +286,14 @@ details.prof .in{padding:0 22px 16px;font-size:16px}
 @media(max-width:480px){.anistia-float{width:42%;margin-left:13px;}}
 @media print{.anistia-float{transform:none;box-shadow:none;}}
 
+/* Voto feminino: box à esquerda com título, imagem e link do PDF */
+.voto-box{float:left;width:clamp(150px,30%,225px);margin:5px 23px 14px 0;padding:10px 10px 12px;background:#fff;border:1px solid #c5bba7;border-top:4px solid var(--gold);border-radius:10px;text-align:center;font-family:var(--sans);}
+.voto-box h5{margin:0 0 8px;font:700 13px/1.3 var(--display);color:var(--navy);}
+.voto-box img{width:100%;height:auto;display:block;border-radius:6px;}
+.voto-box a.voto-pdf{display:block;margin-top:9px;font:600 12px/1.4 var(--sans);color:var(--navy);text-decoration:underline;}
+.voto-box a.voto-pdf:hover,.voto-box a.voto-pdf:focus-visible{color:var(--gold);outline:none;}
+@media(max-width:480px){.voto-box{width:46%;margin-right:13px;}}
+
 /* Infográfico do bipartidarismo: miniatura 3D e texto contornando */
 .bipartidarismo-float{float:right;display:block;width:clamp(145px,29%,215px);margin:5px 0 14px 23px;position:relative;border-radius:10px;transform:perspective(850px) rotateY(-7deg) rotateX(2deg);box-shadow:9px 12px 20px #12304a40,2px 3px 0 #c5bba7;transition:transform .25s,box-shadow .25s;}
 .bipartidarismo-float img{display:block;width:100%;height:auto;border-radius:10px;border:2px solid #fff;}
@@ -480,13 +488,6 @@ a.card-img-btn{text-decoration:none}
 <style>
 /* Linha do tempo dos direitos: miniatura 3D à direita do texto, abre carrossel em nova aba */
 .ld-row{display:flow-root}
-.ld-fig{float:right;width:clamp(150px,30%,225px);margin:5px 0 16px 26px;text-align:center}
-.ld-3d{display:block;border-radius:11px;transform:perspective(850px) rotateY(-9deg) rotateX(2deg);box-shadow:10px 14px 24px #12304a55,3px 3px 0 #c5bba7;transition:transform .25s,box-shadow .25s;position:relative}
-.ld-3d img{display:block;width:100%;height:auto;border-radius:11px;border:2px solid #fff}
-.ld-3d:hover,.ld-3d:focus-visible{transform:perspective(850px) rotateY(0) rotateX(0) scale(1.04);box-shadow:12px 18px 28px #12304a66;outline:2px solid var(--gold);outline-offset:3px}
-.ld-hint{display:block;margin-top:12px;font:600 12.5px/1.4 var(--sans);color:var(--navy2)}
-@media(max-width:480px){.ld-fig{width:43%;margin-left:12px}}
-@media print{.ld-3d{transform:none;box-shadow:none}.ld-hint{display:none}}
 </style>
 </head>
 <body>
@@ -759,6 +760,7 @@ a.card-img-btn{text-decoration:none}
 </a>
 <h3>Leis que ampliam a cidadania</h3>
 <p>Em <em>Cidadania no Brasil: o longo caminho</em>, José Murilo de Carvalho (2002) mostra que, no Brasil, muitos direitos chegaram “de cima para baixo”: foram concedidos pelo Estado em momentos em que a participação popular era limitada, como aconteceu com os direitos trabalhistas na década de 1930. Disso nasceu o que o autor chama de <b>estadania</b>, uma cultura “orientada mais para o Estado do que para a representação”: o governo é visto como um distribuidor de favores e de benefícios, e não como algo que os cidadãos escolhem, fiscalizam e cobram. A cidadania plena, ao contrário, depende da participação e da organização da sociedade.</p>
+<aside class="voto-box" aria-label="Sobre o livro O voto feminino no Brasil"><h5>Sobre o livro: O voto feminino no Brasil</h5><a id="votoLink" href="img/votofeminino.webp" target="_blank" rel="noopener noreferrer" aria-label="Abrir a imagem do livro O voto feminino no Brasil em nova aba" style="display:block"><img alt="Capa do livro O voto feminino no Brasil" loading="lazy" src="img/votofeminino.webp"/></a><a class="voto-pdf" href="https://www.camara.leg.br/midias/file/2020/11/voto-feminino-brasil-2ed-marques.pdf" rel="noopener noreferrer" target="_blank">Baixe o PDF do livro</a></aside>
 <p>Mas essa não é a história completa. A pesquisadora Evelina Dagnino (1994) defende que, a partir das décadas de 1970 e 1980, os movimentos sociais de grupos excluídos, como o movimento negro, o movimento de mulheres e os movimentos populares das periferias, construíram uma <b>nova cidadania</b>. Em vez de esperar que os direitos fossem concedidos, essas pessoas passaram a lutar pelo “direito a ter direitos”: exigiram que suas necessidades fossem reconhecidas como direitos e que elas próprias participassem das decisões. Os dois autores ajudam a entender que a cidadania não é um presente do Estado, e sim uma conquista coletiva.</p>
 <p>Essa luta atravessa a história do país. Durante a ditadura militar, direitos civis e políticos foram restringidos; com a redemocratização, a sociedade voltou a se organizar e participou da elaboração da Constituição de 1988, que reconheceu a igualdade e criou instrumentos para combater o preconceito. Depois dela, outras leis detalharam esses direitos para grupos que historicamente sofreram exclusão, como populações negras, indígenas, mulheres, pessoas LGBTQIA+, pessoas com deficiência, camponeses e populações pobres. Conhecer essas leis ajuda a perceber que a cidadania é uma conquista em constante construção.</p>
 <h4>O caminho da criminalização do racismo</h4>
@@ -767,8 +769,23 @@ a.card-img-btn{text-decoration:none}
 <h4>Direitos de grupos específicos</h4>
 <p>A igualdade prevista na Constituição precisou ser detalhada em leis específicas, porque nem todos os grupos enfrentam as mesmas barreiras. O Estatuto da Criança e do Adolescente (1990) reconheceu crianças e jovens como pessoas com direitos próprios. O Estatuto do Idoso (2003), hoje chamado Estatuto da Pessoa Idosa, e o Estatuto da Pessoa com Deficiência (2015) estabeleceram obrigações do Estado e da sociedade para que essas pessoas exerçam plenamente a cidadania. A Lei Maria da Penha (2006) e a Lei do Feminicídio (2015) enfrentam a violência contra as mulheres, e as leis 10.639 (2003) e 11.645 (2008) levaram a história afro-brasileira e indígena para as escolas.</p>
 <div class="ld-row">
-<figure class="ld-fig"><a class="ld-3d" id="ldLink" href="img/linhadireitos1.webp" target="_blank" rel="noopener noreferrer" aria-label="Abrir em nova aba as 3 imagens da linha do tempo dos direitos, em carrossel"><img src="img/linhadireitos1.webp" alt="Infográfico: Leis que ampliam a cidadania no Brasil, linha do tempo de 1930 a 1988" loading="lazy"/></a>
-<span class="ld-hint">Clique para abrir o carrossel (1930 a 2025)</span></figure>
+<div aria-label="Carrossel da linha do tempo dos direitos, de 1930 a 2025" aria-roledescription="carrossel" class="partidos-carousel car" id="ldCar" role="region" tabindex="0">
+<div class="car-view"><div class="car-track">
+<div class="car-slide" role="group" aria-roledescription="slide" aria-label="1 de 3" data-cap="1930 a 1988: do Estado que concede direitos à redemocratização">
+<button type="button" class="cid-thumb" data-gal="linhadireitos" data-zoom="img/linhadireitos1.webp" data-alt="Leis que ampliam a cidadania no Brasil (1930 a 1988)" aria-label="Ampliar imagem 1 de 3: 1930 a 1988: do Estado que concede direitos à redemocratização">
+<img src="img/linhadireitos1.webp" alt="Leis que ampliam a cidadania no Brasil (1930 a 1988)" loading="lazy"/><span class="cid-hint">🔍 Clique para ampliar</span></button></div>
+<div class="car-slide" role="group" aria-roledescription="slide" aria-label="2 de 3" data-cap="1989 a 2010: reconhecimento de direitos e combate às desigualdades">
+<button type="button" class="cid-thumb" data-gal="linhadireitos" data-zoom="img/linhadireitos2.webp" data-alt="Leis que ampliam a cidadania no Brasil (1989 a 2010)" aria-label="Ampliar imagem 2 de 3: 1989 a 2010: reconhecimento de direitos e combate às desigualdades">
+<img src="img/linhadireitos2.webp" alt="Leis que ampliam a cidadania no Brasil (1989 a 2010)" loading="lazy"/><span class="cid-hint">🔍 Clique para ampliar</span></button></div>
+<div class="car-slide" role="group" aria-roledescription="slide" aria-label="3 de 3" data-cap="2011 a 2025: ampliação de direitos e novas garantias">
+<button type="button" class="cid-thumb" data-gal="linhadireitos" data-zoom="img/linhadireitos3.webp" data-alt="Leis que ampliam a cidadania no Brasil (2011 a 2025)" aria-label="Ampliar imagem 3 de 3: 2011 a 2025: ampliação de direitos e novas garantias">
+<img src="img/linhadireitos3.webp" alt="Leis que ampliam a cidadania no Brasil (2011 a 2025)" loading="lazy"/><span class="cid-hint">🔍 Clique para ampliar</span></button></div>
+</div></div>
+<button type="button" class="car-nav prev" aria-label="Imagem anterior">‹</button>
+<button type="button" class="car-nav next" aria-label="Próxima imagem">›</button>
+<div class="car-dots"><button class="car-dot" aria-label="Ir à imagem 1" type="button"></button><button class="car-dot" aria-label="Ir à imagem 2" type="button"></button><button class="car-dot" aria-label="Ir à imagem 3" type="button"></button></div>
+<span class="partidos-caption" id="ld-caption" aria-live="polite"></span>
+</div>
 <h4>Direitos políticos e sociais: um processo contínuo</h4>
 <p>Outros direitos também foram ampliados aos poucos. O voto dos analfabetos só foi garantido em 1985, e a Constituição de 1988 estendeu o voto facultativo aos jovens de 16 e 17 anos. No campo social, a CLT (1943), o 13º salário (1962) e o SUS (1990) mostram como direitos do trabalho e da saúde foram sendo incorporados. Mesmo depois de escritos em lei, esses direitos precisam ser exercidos na prática, e por isso novas leis continuam sendo aprovadas, como as de 2023 e 2025 indicadas na tabela.</p>
 <h4>Linha do tempo dos direitos, de 1930 a 2025</h4>
@@ -1271,7 +1288,7 @@ a.card-img-btn{text-decoration:none}
 
 (function(){
   var car=document.getElementById('car');if(!car)return;
-  var track=car.querySelector('.car-track'),slides=car.querySelectorAll('.car-slide'),dots=document.querySelectorAll('.car-dot'),cap=document.getElementById('carCap');
+  var track=car.querySelector('.car-track'),slides=car.querySelectorAll('.car-slide'),dots=car.querySelectorAll('.car-dot'),cap=document.getElementById('carCap');
   var n=slides.length,i=0;
   function go(k){i=(k+n)%n;track.style.transform='translateX(-'+(i*100)+'%)';
     slides.forEach(function(s,j){var on=j===i;s.setAttribute('aria-hidden',on?'false':'true');s.querySelector('button').tabIndex=on?0:-1});
@@ -1293,6 +1310,25 @@ a.card-img-btn{text-decoration:none}
   var car=document.getElementById('partidosCar');if(!car)return;
   var track=car.querySelector('.car-track'),slides=Array.from(car.querySelectorAll('.car-slide')),
       dots=Array.from(car.querySelectorAll('.car-dot')),caption=document.getElementById('partidos-caption'),i=0;
+  function go(k){i=(k+slides.length)%slides.length;track.style.transform='translateX(-'+(i*100)+'%)';
+    slides.forEach(function(sl,j){sl.setAttribute('aria-hidden',j===i?'false':'true');sl.querySelector('button').tabIndex=j===i?0:-1});
+    dots.forEach(function(d,j){d.classList.toggle('on',j===i)});
+    caption.textContent=(i+1)+' de '+slides.length+' · '+slides[i].dataset.cap+' · clique para ampliar';}
+  car.querySelector('.prev').addEventListener('click',function(){go(i-1)});
+  car.querySelector('.next').addEventListener('click',function(){go(i+1)});
+  dots.forEach(function(d,j){d.addEventListener('click',function(){go(j)})});
+  car.addEventListener('keydown',function(e){if(e.key==='ArrowLeft'){go(i-1);e.preventDefault()}else if(e.key==='ArrowRight'){go(i+1);e.preventDefault()}});
+  var sx=null,sy=0;
+  track.addEventListener('pointerdown',function(e){sx=e.clientX;sy=e.clientY});
+  track.addEventListener('pointerup',function(e){if(sx===null)return;var dx=e.clientX-sx;if(Math.abs(dx)>45&&Math.abs(dx)>Math.abs(e.clientY-sy))go(dx<0?i+1:i-1);sx=null});
+  track.addEventListener('pointercancel',function(){sx=null});
+  go(0);
+})();
+
+(function(){
+  var car=document.getElementById('ldCar');if(!car)return;
+  var track=car.querySelector('.car-track'),slides=Array.from(car.querySelectorAll('.car-slide')),
+      dots=Array.from(car.querySelectorAll('.car-dot')),caption=document.getElementById('ld-caption'),i=0;
   function go(k){i=(k+slides.length)%slides.length;track.style.transform='translateX(-'+(i*100)+'%)';
     slides.forEach(function(sl,j){sl.setAttribute('aria-hidden',j===i?'false':'true');sl.querySelector('button').tabIndex=j===i?0:-1});
     dots.forEach(function(d,j){d.classList.toggle('on',j===i)});
@@ -1430,47 +1466,15 @@ d.addEventListener('click',function(e){if(e.target===d)d.close()});});})();
 </script>
 <script>
 (function(){
-  var a=document.getElementById('ldLink');
+  var a=document.getElementById('votoLink');
   if(!a)return;
-  var files=['img/linhadireitos1.webp','img/linhadireitos2.webp','img/linhadireitos3.webp'];
-  var caps=['1930 a 1988: do Estado que concede direitos à redemocratização','1989 a 2010: reconhecimento de direitos e combate às desigualdades','2011 a 2025: ampliação de direitos e novas garantias'];
   a.addEventListener('click',function(e){
     e.preventDefault();
-    var urls=files.map(function(f){return new URL(f,document.baseURI).href});
+    var src=new URL(a.getAttribute('href'),document.baseURI).href;
+    var pdf='https://www.camara.leg.br/midias/file/2020/11/voto-feminino-brasil-2ed-marques.pdf';
     var w=window.open('','_blank');
-    if(!w){window.open(urls[0],'_blank');return}
-    var page='<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Leis que ampliam a cidadania no Brasil</title><style>'
-    +'*{box-sizing:border-box}html,body{height:100%}body{margin:0;background:#12304a;color:#fff;font-family:system-ui,sans-serif;display:flex;flex-direction:column;align-items:center;padding:14px 12px;gap:10px}'
-    +'.stage{flex:1;min-height:0;width:100%;max-width:1000px;display:flex;align-items:center;justify-content:center;gap:10px}'
-    +'.view{flex:1;min-width:0;height:100%;overflow:hidden;position:relative;touch-action:pan-y}'
-    +'.track{display:flex;height:100%;transition:transform .4s ease}'
-    +'.slide{flex:0 0 100%;height:100%;display:flex;align-items:center;justify-content:center;overflow:auto}'
-    +'.slide img{max-width:100%;max-height:100%;width:auto;height:auto;border-radius:10px;box-shadow:0 12px 40px #0008;display:block;margin:auto;cursor:zoom-in}'
-    +'.slide.zoom{align-items:flex-start}.slide.zoom img{max-height:none;width:min(100%,900px);cursor:zoom-out}'
-    +'button.nav{flex:0 0 auto;width:46px;height:46px;border-radius:50%;border:2px solid #ffffff66;background:#ffffff1c;color:#fff;font-size:24px;line-height:1;cursor:pointer}'
-    +'button.nav:hover,button.nav:focus-visible{background:#b8842b;border-color:#b8842b;outline:none}'
-    +'.cap{margin:0;font-size:16px;text-align:center;line-height:1.4;max-width:820px}'
-    +'.dots{display:flex;gap:10px;align-items:center}.dots button{width:12px;height:12px;border-radius:50%;border:0;background:#ffffff55;padding:0;cursor:pointer}.dots button.on{background:#f2c14e;transform:scale(1.25)}'
-    +'.cnt{font-size:13px;opacity:.8}'
-    +'@media(max-width:560px){button.nav{width:36px;height:36px;font-size:20px}}'
-    +'@media(prefers-reduced-motion:reduce){.track{transition:none}}'
-    +'</style></head><body>'
-    +'<div class="stage"><button class="nav" id="pv" aria-label="Imagem anterior">&#8249;</button><div class="view" id="vw"><div class="track" id="tk"></div></div><button class="nav" id="nx" aria-label="Próxima imagem">&#8250;</button></div>'
-    +'<p class="cap" id="cp" aria-live="polite"></p><div class="dots" id="dt"></div><div class="cnt" id="ct"></div>'
-    +'<script>'
-    +'var U='+JSON.stringify(urls).replace(/</g,'\\u003c')+',C='+JSON.stringify(caps).replace(/</g,'\\u003c')+',i=0;'
-    +'var tk=document.getElementById("tk"),dt=document.getElementById("dt"),cp=document.getElementById("cp"),ct=document.getElementById("ct");'
-    +'U.forEach(function(u,n){var s=document.createElement("div");s.className="slide";var im=new Image();im.src=u;im.alt="Infográfico "+(n+1)+" de "+U.length+": "+C[n];im.onclick=function(){s.classList.toggle("zoom")};s.appendChild(im);tk.appendChild(s);'
-    +'var b=document.createElement("button");b.setAttribute("aria-label","Ir para a imagem "+(n+1));b.onclick=function(){go(n)};dt.appendChild(b)});'
-    +'function go(n){i=(n+U.length)%U.length;tk.style.transform="translateX(-"+(i*100)+"%)";cp.textContent=C[i];ct.textContent=(i+1)+" / "+U.length;'
-    +'Array.prototype.forEach.call(dt.children,function(b,k){b.className=k===i?"on":""});Array.prototype.forEach.call(tk.children,function(s){s.classList.remove("zoom");s.scrollTop=0})}'
-    +'document.getElementById("pv").onclick=function(){go(i-1)};document.getElementById("nx").onclick=function(){go(i+1)};'
-    +'document.addEventListener("keydown",function(e){if(e.key==="ArrowLeft")go(i-1);else if(e.key==="ArrowRight")go(i+1)});'
-    +'var x0=null,vw=document.getElementById("vw");vw.addEventListener("touchstart",function(e){x0=e.touches[0].clientX},{passive:true});'
-    +'vw.addEventListener("touchend",function(e){if(x0===null)return;var d=e.changedTouches[0].clientX-x0;if(Math.abs(d)>50)go(d<0?i+1:i-1);x0=null});'
-    +'go(0);'
-    +'<\/script></body></html>';
-    w.document.write(page);
+    if(!w){window.open(src,'_blank');return}
+    w.document.write('<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>O voto feminino no Brasil</title><style>body{margin:0;background:#12304a;color:#fff;font-family:system-ui,sans-serif;display:flex;flex-direction:column;align-items:center;padding:24px 16px;min-height:100vh;box-sizing:border-box}img{max-width:100%;max-height:78vh;height:auto;border-radius:10px;box-shadow:0 12px 40px #0008}p{max-width:820px;font-size:18px;line-height:1.6;margin:18px 0 0;text-align:center}a{color:#f2c14e}</style></head><body><img src="'+src+'" alt="Capa do livro O voto feminino no Brasil"><p>O voto feminino no Brasil. Livro publicado pela Câmara dos Deputados.</p><p><a href="'+pdf+'" target="_blank" rel="noopener noreferrer">Baixe o PDF do livro</a></p></body></html>');
     w.document.close();
     try{w.opener=null}catch(_){}
   });

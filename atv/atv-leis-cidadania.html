@@ -1,0 +1,1075 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Atividade 9º ano · Leis que ampliam a cidadania</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#2b1b4a; --navy-2:#432b73; --blue:#7c3aed; --blue-soft:#f1eafe;
+    --teal:#9333ea; --gold:#f5a524; --bg:#eef2f7; --card:#ffffff;
+    --ink:#0f172a; --muted:#64748b; --line:#e2e8f0;
+    --ok:#059669; --ok-bg:#ecfdf5; --bad:#dc2626; --bad-bg:#fef2f2;
+    --radius:18px; --shadow:0 10px 30px -12px rgba(43,27,74,.25);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--ink);line-height:1.5;min-height:100vh;-webkit-font-smoothing:antialiased}
+  button{font-family:inherit;cursor:pointer}
+  .hidden{display:none!important}
+
+  /* utilitários usados pelos gráficos/tabelas das questões */
+  svg{display:block}
+  .w-full{width:100%}.h-auto{height:auto}.text-xs{font-size:12px}
+  .max-w-md{max-width:28rem}.mx-auto{margin-left:auto;margin-right:auto}
+  .bg-slate-50{background:#f8fafc}.p-4{padding:1rem}.rounded-xl{border-radius:12px}
+  .border{border:1px solid}.border-slate-200{border-color:var(--line)}
+  .font-bold{font-weight:700}.text-slate-700{color:#334155}.text-center{text-align:center}.mb-2{margin-bottom:.5rem}
+
+  /* ---------- Topbar ---------- */
+  .topbar{background:var(--navy);color:#fff;border-bottom:4px solid var(--gold)}
+  .topbar-in{max-width:1080px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;gap:14px}
+  .brand-mark{width:40px;height:40px;border-radius:11px;background:linear-gradient(135deg,var(--gold),#f97316);display:grid;place-items:center;font-weight:900;font-size:14px;color:#1b1204;flex:none}
+  .brand-txt small{display:block;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:#c3b3e0;font-weight:600}
+  .brand-txt strong{font-size:14.5px;font-weight:700}
+  .topbar .student{margin-left:auto;text-align:right;font-size:12px;color:#dcd0f0;line-height:1.35}
+  .topbar .student b{color:#fff;font-weight:700;display:block;font-size:13px}
+
+  .wrap{max-width:1080px;margin:0 auto;padding:24px 20px 56px}
+
+  /* ---------- Capa ---------- */
+  .cover{display:grid;grid-template-columns:1.1fr .9fr;background:var(--card);border-radius:24px;overflow:hidden;box-shadow:var(--shadow);border:1px solid var(--line)}
+  .cover-left{background:linear-gradient(160deg,var(--navy) 0%,var(--navy-2) 60%,#5a3a96 100%);color:#fff;padding:44px 40px;position:relative;overflow:hidden}
+  .cover-left::after{content:"";position:absolute;right:-90px;bottom:-90px;width:300px;height:300px;border-radius:50%;background:rgba(245,165,36,.12)}
+  .cover-left::before{content:"";position:absolute;right:40px;bottom:120px;width:90px;height:90px;border-radius:50%;border:12px solid rgba(255,255,255,.06)}
+  .pill{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:6px 12px;border-radius:99px;background:rgba(245,165,36,.18);color:var(--gold);border:1px solid rgba(245,165,36,.4)}
+  .cover-left h1{font-size:36px;line-height:1.12;font-weight:900;margin:18px 0 8px;letter-spacing:-.02em}
+  .cover-left h1 span{color:var(--gold)}
+  .cover-left .sub{font-size:15px;color:#dcd0f0;max-width:30rem}
+  .desc-box{margin-top:26px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);border-radius:16px;padding:18px 20px;position:relative;z-index:1}
+  .desc-box .tag{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+  .desc-box .tag b{background:var(--gold);color:#1b1204;font-weight:900;font-size:13px;padding:3px 10px;border-radius:8px}
+  .desc-box .tag span{font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:#c3b3e0;font-weight:700}
+  .desc-box p{font-size:14px;color:#efe8fa;font-style:italic}
+  .steps{margin-top:18px;display:grid;gap:9px;position:relative;z-index:1}
+  .steps div{display:flex;gap:11px;align-items:flex-start;font-size:13px;color:#e3d9f3}
+  .steps i{font-style:normal;flex:none;width:22px;height:22px;border-radius:50%;background:rgba(255,255,255,.14);display:grid;place-items:center;font-size:11px;font-weight:800;color:#fff}
+  .cover-right{padding:44px 38px;display:flex;flex-direction:column;justify-content:center}
+  .cover-right h2{font-size:22px;font-weight:800;color:var(--navy);letter-spacing:-.01em}
+  .cover-right .lead{font-size:13.5px;color:var(--muted);margin:4px 0 22px}
+  label.f{display:block;font-size:11.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#475569;margin-bottom:6px}
+  .inp{width:100%;font:inherit;font-size:15.5px;padding:13px 15px;border:2px solid var(--line);border-radius:12px;background:#f8fafc;color:var(--ink);outline:none;transition:.15s}
+  .inp:focus{border-color:var(--blue);background:#fff;box-shadow:0 0 0 4px rgba(124,58,237,.12)}
+  .inp.err{border-color:var(--bad);background:var(--bad-bg)}
+  .field{margin-bottom:16px}
+  .errmsg{font-size:12px;color:var(--bad);font-weight:600;margin-top:5px;min-height:16px}
+  .btn-primary{width:100%;margin-top:6px;padding:15px 20px;border:0;border-radius:13px;background:linear-gradient(135deg,var(--blue),#6d28d9);color:#fff;font-weight:800;font-size:15.5px;letter-spacing:.01em;box-shadow:0 10px 20px -8px rgba(124,58,237,.6);transition:.15s}
+  .btn-primary:hover{transform:translateY(-1px);filter:brightness(1.06)}
+  .meta-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+  .meta-row span{font-size:12px;font-weight:600;color:#475569;background:#f1f5f9;padding:6px 11px;border-radius:99px}
+
+  /* ---------- Cabeçalho do simulado ---------- */
+  .qhead{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px 22px;box-shadow:var(--shadow);margin-bottom:16px}
+  .qhead-top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+  .qhead h2{font-size:17px;font-weight:800;color:var(--navy)}
+  .qhead .chips{display:flex;gap:7px;flex-wrap:wrap}
+  .chip{font-size:11px;font-weight:700;padding:4px 10px;border-radius:99px;background:var(--blue-soft);color:#5b21b6;border:1px solid #ddd0fb}
+  .chip.gold{background:#fff7e6;color:#9a5b00;border-color:#fde1a6}
+  .chip.teal{background:#fdeaf3;color:#9d174d;border-color:#f9c3dc}
+  .bar{height:8px;border-radius:99px;background:#e8edf4;overflow:hidden;margin-top:14px}
+  .bar>div{height:100%;width:0;background:linear-gradient(90deg,var(--teal),var(--blue));border-radius:99px;transition:width .3s}
+  .bar-txt{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);font-weight:600;margin-top:7px}
+
+  .nav{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px;box-shadow:var(--shadow);margin-bottom:16px}
+  .nav-grid{display:grid;grid-template-columns:repeat(10,1fr);gap:8px}
+  .nb{border:2px solid var(--line);background:#f8fafc;border-radius:11px;padding:7px 0;font-weight:800;font-size:13px;color:#475569;transition:.12s;display:flex;flex-direction:column;align-items:center;line-height:1.15}
+  .nb small{font-size:9.5px;font-weight:600;opacity:.8}
+  .nb:hover{border-color:#94a3b8}
+  .nb.cur{border-color:var(--blue);box-shadow:0 0 0 3px rgba(124,58,237,.15);color:var(--blue)}
+  .nb.ans{background:var(--blue-soft);border-color:#c4aef5;color:#4c1d95}
+  .nb.cur.ans{border-color:var(--blue)}
+  .nb.ok{background:var(--ok);border-color:var(--ok);color:#fff}
+  .nb.no{background:var(--bad);border-color:var(--bad);color:#fff}
+  .nb.cur.ok,.nb.cur.no{box-shadow:0 0 0 3px rgba(43,27,74,.25)}
+
+  /* ---------- Cartão da questão ---------- */
+  .qcard{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:30px 32px}
+  .qmeta{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;padding-bottom:14px;border-bottom:1px solid var(--line);margin-bottom:18px}
+  .qmeta .l{display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+  .qnum{background:var(--navy);color:#fff;font-weight:800;font-size:12px;padding:5px 11px;border-radius:9px}
+  .qtheme{font-size:12.5px;color:var(--muted);font-weight:600}
+  .qtype{font-size:12px;color:var(--muted);font-weight:600}
+  .qcard h3{font-size:21px;font-weight:800;color:var(--navy);letter-spacing:-.01em;line-height:1.25}
+  .cf{margin-top:12px;background:#fff7e6;border:1px solid #fde1a6;border-left:5px solid var(--gold);border-radius:12px;padding:12px 16px;font-size:13.5px;color:#5c3a00}
+  .cf b{display:block;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#9a5b00;margin-bottom:3px}
+  .support{font-size:14.5px;color:#334155;margin-top:10px;text-align:justify}
+  .tbl-wrap{margin:18px 0}
+  .tbl-cap{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:8px}
+  .tbl-cap b{font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:#334155}
+  .tbl-cap span{font-size:11.5px;color:#94a3b8}
+  .tbl-box{overflow-x:auto;border:1px solid var(--line);border-radius:13px}
+  table.t{width:100%;border-collapse:collapse;font-size:14px;background:#fff}
+  table.t thead{background:var(--navy);color:#fff}
+  table.t th{padding:10px 14px;text-align:left;font-weight:700;font-size:12.5px}
+  table.t td{padding:10px 14px;border-top:1px solid #edf1f6}
+  table.t tbody tr:nth-child(even){background:#f8fafc}
+  table.t td:first-child{font-weight:800;color:var(--navy)}
+  table.t td:last-child{font-weight:700;color:var(--blue)}
+  table.t.num td:not(:first-child){font-weight:700;color:var(--blue)}
+  .stim{margin:18px 0}
+  .prompt{background:linear-gradient(135deg,var(--navy),var(--navy-2));color:#fff;padding:16px 20px;border-radius:14px;font-size:15px;font-weight:600;margin:20px 0 16px;border-left:5px solid var(--gold)}
+  .opts{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .opt{text-align:left;background:#fff;border:2px solid var(--line);border-radius:16px;padding:14px;transition:.14s;display:block;width:100%;color:inherit}
+  .opt:hover:not([disabled]){border-color:#a98af0;transform:translateY(-1px)}
+  .opt .oh{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+  .badge{width:30px;height:30px;border-radius:9px;background:#eef2f7;color:#334155;font-weight:800;font-size:13px;display:grid;place-items:center}
+  .opt .lb{font-size:12px;font-weight:600;color:#94a3b8}
+  .opt .body{background:#f8fafc;border:1px solid #edf1f6;border-radius:11px;padding:8px}
+  .opt.sel{border-color:var(--blue);background:#f8f4ff;box-shadow:0 0 0 4px rgba(124,58,237,.12)}
+  .opt.sel .badge{background:var(--blue);color:#fff}
+  .opt.right{border-color:var(--ok);background:var(--ok-bg);box-shadow:0 0 0 3px rgba(5,150,105,.18)}
+  .opt.right .badge{background:var(--ok);color:#fff}
+  .opt.wrong{border-color:var(--bad);background:var(--bad-bg);box-shadow:0 0 0 3px rgba(220,38,38,.15)}
+  .opt.wrong .badge{background:var(--bad);color:#fff}
+  .opt[disabled]{cursor:default}
+  table.m{width:100%;border-collapse:collapse;font-size:13px}
+  table.m th{background:#e2e8f0;color:#475569;padding:6px 8px;font-size:11.5px;font-weight:700;text-align:left}
+  table.m th:not(:first-child),table.m td:not(:first-child){text-align:right}
+  table.m td{padding:6px 8px;border-bottom:1px solid #e9eef5}
+  table.m td:first-child{font-weight:800}
+  table.m td:not(:first-child){font-weight:700;color:var(--blue)}
+
+  .fb{margin-top:22px;border-radius:16px;padding:18px 20px;border:1px solid}
+  .fb.ok{background:var(--ok-bg);border-color:#a7e3c9;color:#064e3b}
+  .fb.no{background:var(--bad-bg);border-color:#f6b8b8;color:#7f1d1d}
+  .fb h4{font-size:15px;font-weight:800;margin-bottom:6px}
+  .fb p{font-size:14px}
+  .fb .diag{margin-top:10px;background:rgba(255,255,255,.75);border-radius:11px;padding:11px 13px;font-size:13px;color:#334155}
+  .fb .diag b{display:block;color:var(--ink);margin-bottom:3px}
+
+  .qfoot{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-top:26px;padding-top:18px;border-top:1px solid var(--line)}
+  .btn{padding:11px 20px;border-radius:12px;border:2px solid var(--line);background:#fff;font-weight:700;font-size:13.5px;color:#334155;transition:.12s}
+  .btn:hover:not([disabled]){border-color:#94a3b8;background:#f8fafc}
+  .btn[disabled]{opacity:.4;cursor:not-allowed}
+  .btn.finish{background:linear-gradient(135deg,var(--teal),#7e22ce);color:#fff;border-color:transparent;box-shadow:0 10px 20px -8px rgba(147,51,234,.6)}
+  .btn.finish:hover:not([disabled]){filter:brightness(1.06);background:linear-gradient(135deg,var(--teal),#7e22ce)}
+  .btn.navy{background:var(--navy);color:#fff;border-color:var(--navy)}
+  .btn.navy:hover:not([disabled]){background:var(--navy-2)}
+  .hint{font-size:12.5px;color:var(--muted);font-weight:600}
+
+  /* ---------- Resultado ---------- */
+  .result{background:var(--card);border:1px solid var(--line);border-radius:24px;box-shadow:var(--shadow);overflow:hidden}
+  .res-hero{background:linear-gradient(160deg,var(--navy),var(--navy-2));color:#fff;padding:34px 36px;display:grid;grid-template-columns:auto 1fr;gap:34px;align-items:center}
+  .ring{position:relative;width:190px;height:190px}
+  .ring svg{width:190px;height:190px;transform:rotate(-90deg)}
+  .ring .c{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+  .ring .c b{font-size:52px;font-weight:900;line-height:1;letter-spacing:-.03em}
+  .ring .c span{font-size:13px;color:#c3b3e0;font-weight:600;margin-top:3px}
+  .res-hero .who small{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#c3b3e0;font-weight:700}
+  .res-hero .who h2{font-size:26px;font-weight:900;margin:2px 0 4px;letter-spacing:-.01em}
+  .res-hero .who p{color:#dcd0f0;font-size:14px}
+  .level{display:inline-block;margin-top:14px;padding:7px 14px;border-radius:99px;font-weight:800;font-size:13px}
+  .res-body{padding:28px 36px 34px}
+  .res-body h3{font-size:12px;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);font-weight:800;margin-bottom:12px}
+  .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:26px}
+  .stat{background:#f8fafc;border:1px solid var(--line);border-radius:14px;padding:14px 16px}
+  .stat b{display:block;font-size:26px;font-weight:900;color:var(--navy);line-height:1.1}
+  .stat span{font-size:12px;color:var(--muted);font-weight:600}
+  .perf{display:grid;gap:12px;margin-bottom:26px}
+  .perf-row .top{display:flex;justify-content:space-between;font-size:13px;font-weight:700;color:#334155;margin-bottom:5px}
+  .perf-row .tr{height:10px;background:#e8edf4;border-radius:99px;overflow:hidden}
+  .perf-row .tr>div{height:100%;border-radius:99px;background:linear-gradient(90deg,var(--teal),var(--blue))}
+  .qgrid{display:grid;grid-template-columns:repeat(10,1fr);gap:8px;margin-bottom:26px}
+  .qg{border-radius:11px;padding:9px 0;text-align:center;font-weight:800;font-size:13px;color:#fff}
+  .qg small{display:block;font-size:10px;font-weight:700;opacity:.9}
+  .qg.ok{background:var(--ok)}.qg.no{background:var(--bad)}
+  .res-actions{display:flex;gap:12px;flex-wrap:wrap}
+  .btn.save{background:linear-gradient(135deg,var(--blue),#6d28d9);color:#fff;border-color:transparent;box-shadow:0 10px 20px -8px rgba(124,58,237,.6);display:inline-flex;align-items:center;gap:8px}
+  .btn.save:hover{filter:brightness(1.06);background:linear-gradient(135deg,var(--blue),#6d28d9)}
+  .toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(20px);background:var(--navy);color:#fff;padding:12px 20px;border-radius:12px;font-size:13.5px;font-weight:600;opacity:0;pointer-events:none;transition:.25s;z-index:50;box-shadow:var(--shadow)}
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+  .review-banner{background:#fff7e6;border:1px solid #fde1a6;color:#7a4a00;border-radius:14px;padding:12px 18px;margin-bottom:16px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;font-size:13.5px;font-weight:600}
+  .foot{text-align:center;font-size:12px;color:#94a3b8;margin-top:26px}
+
+  @media (max-width:860px){
+    .cover{grid-template-columns:1fr}
+    .cover-left,.cover-right{padding:30px 24px}
+    .cover-left h1{font-size:29px}
+    .res-hero{grid-template-columns:1fr;justify-items:center;text-align:center;padding:28px 22px}
+    .res-body{padding:24px 20px 28px}
+  }
+  .opts:not(.txt) .opt:last-child:nth-child(odd){grid-column:1/-1;justify-self:center;width:calc(50% - 7px)}
+  .opts.txt{grid-template-columns:1fr;gap:10px}
+  .opt.tx{display:flex;gap:14px;align-items:center;padding:13px 16px}
+  .opt.tx .t{font-size:15px;color:#1e293b;line-height:1.45}
+  .opt.tx .badge{flex:none}
+  table.t.plain td:last-child{font-weight:500;color:#334155}
+  @media (max-width:640px){
+    .opts{grid-template-columns:1fr}
+    .opts:not(.txt) .opt:last-child:nth-child(odd){width:100%}
+    .qcard{padding:22px 18px}
+    .qcard h3{font-size:18px}
+    .nav-grid,.qgrid{grid-template-columns:repeat(5,1fr)}
+    .stats{grid-template-columns:1fr}
+    .topbar .student{display:none}
+    .wrap{padding:16px 12px 40px}
+  }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-in">
+    <div class="brand-mark" style="font-size:11px;letter-spacing:.02em">9º</div>
+    <div class="brand-txt">
+      <small>Colégio Estadual Rodolfo de Oliveira · 2026</small>
+      <strong>Atividade · Leis que ampliam a cidadania</strong>
+    </div>
+    <div class="student hidden" id="top-student"><b id="top-name"></b><span id="top-turma"></span></div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <!-- CAPA -->
+  <section id="view-cover" class="cover">
+    <div class="cover-left">
+      <span class="pill">Atividade · 9º ano · História</span>
+      <h1>Leis que <span>ampliam</span> a <span>cidadania</span></h1>
+      <p class="sub">Dez questões sobre como os direitos foram conquistados no Brasil, da estadania à nova cidadania, e sobre as leis que combatem o racismo e protegem grupos específicos.</p>
+      <div class="desc-box">
+        <div class="tag"><b>EF09HI23 · 25 · 26</b><span>Habilidades em foco</span></div>
+        <p>Identificar direitos civis, políticos e sociais; relacionar as conquistas de direitos à atuação dos movimentos sociais; e analisar a violência e a discriminação contra grupos marginalizados.</p>
+      </div>
+      <div class="steps">
+        <div><i>1</i><span>Leia com atenção o trecho de apoio e a situação apresentada em cada questão.</span></div>
+        <div><i>2</i><span>Descubra qual ideia, lei ou direito está em jogo e quem lutou por ele.</span></div>
+        <div><i>3</i><span>Compare todas as alternativas com o texto antes de marcar sua resposta.</span></div>
+      </div>
+    </div>
+    <div class="cover-right">
+      <h2>Identificação do estudante</h2>
+      <p class="lead">Preencha os campos abaixo para iniciar a atividade.</p>
+      <form id="cover-form" autocomplete="off" novalidate>
+        <div class="field">
+          <label class="f" for="in-name">Nome completo</label>
+          <input class="inp" id="in-name" type="text" placeholder="Digite seu nome" maxlength="70">
+          <div class="errmsg" id="err-name"></div>
+        </div>
+        <div class="field">
+          <label class="f" for="in-turma">Turma</label>
+          <input class="inp" id="in-turma" type="text" placeholder="Ex.: 9º A" maxlength="20">
+          <div class="errmsg" id="err-turma"></div>
+        </div>
+        <button type="submit" class="btn-primary">Iniciar atividade →</button>
+      </form>
+      <div class="meta-row">
+        <span>10 questões</span><span>Alternativas A–D</span><span>9º ano · Ensino Fundamental</span><span>Nota de 0 a 10</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- SIMULADO / REVISÃO -->
+  <section id="view-quiz" class="hidden">
+    <div id="review-banner" class="review-banner hidden">
+      <span>Modo revisão: veja o gabarito comentado de cada questão.</span>
+      <button class="btn navy" onclick="showResult()">← Voltar ao resultado</button>
+    </div>
+    <div class="qhead">
+      <div class="qhead-top">
+        <h2>Leis que ampliam a cidadania</h2>
+        <div class="chips"><span class="chip gold">EF09HI23 · 25 · 26</span><span class="chip teal">Cidadania · Direitos</span></div>
+      </div>
+      <div class="bar"><div id="bar-fill"></div></div>
+      <div class="bar-txt"><span id="bar-left">0 de 10 respondidas</span><span id="bar-right"></span></div>
+    </div>
+    <nav class="nav" aria-label="Navegação de questões"><div class="nav-grid" id="nav-grid"></div></nav>
+    <main id="qcard" class="qcard"></main>
+  </section>
+
+  <!-- RESULTADO -->
+  <section id="view-result" class="hidden"></section>
+
+  <div class="foot">Colégio Estadual Rodolfo de Oliveira · Atividade · Leis que ampliam a cidadania · 2026</div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const questions = [
+  {
+    "title": "Questão 1: Um benefício que vem “de cima”",
+    "theme": "Estadania (Carvalho, 2002)",
+    "hab": "EF09HI23",
+    "comp": 1,
+    "skill": "Compreender a noção de estadania",
+    "source": "CARVALHO, José Murilo de. Cidadania no Brasil: o longo caminho, 2002 (adaptado)",
+    "cf": "Para José Murilo de Carvalho, muitos direitos chegaram ao Brasil “de cima para baixo”: foram concedidos pelo Estado em momentos em que a participação popular era limitada, como os direitos trabalhistas da década de 1930. Disso nasceu a estadania, uma cultura “orientada mais para o Estado do que para a representação”.",
+    "supportText": "Em uma cidade, o prefeito inaugura um posto de atendimento e afirma, em discurso, que o serviço é “um presente do governo para o povo”. Os moradores não participaram da decisão e nem sabem a quem recorrer se o serviço deixar de funcionar.",
+    "prompt": "Segundo a ideia de estadania, o governo, nessa situação, é visto como",
+    "options": [
+      {
+        "id": "A",
+        "label": "",
+        "text": "um representante escolhido e fiscalizado pelos moradores, que passam a cobrar a prestação de contas."
+      },
+      {
+        "id": "B",
+        "label": "",
+        "text": "um distribuidor de favores e de benefícios, e não algo que os cidadãos escolhem, fiscalizam e cobram."
+      },
+      {
+        "id": "C",
+        "label": "",
+        "text": "um parceiro que divide as decisões com a comunidade, o que revela uma cidadania plena e participativa."
+      },
+      {
+        "id": "D",
+        "label": "",
+        "text": "um poder fraco, que perdeu a capacidade de conceder direitos porque a sociedade se organizou sozinha."
+      }
+    ],
+    "correctOption": "B",
+    "explanation": {
+      "correct": "Na estadania, o governo aparece como quem distribui favores e benefícios, e não como algo que os cidadãos escolhem, fiscalizam e cobram. No caso do posto, o serviço é apresentado como “presente”, e os moradores não participaram da decisão nem têm meios de cobrar.",
+      "distractors": "A alternativa A está errada: descreve o oposto da estadania, pois nela os cidadãos não escolhem nem fiscalizam. A alternativa C está errada: a participação e a divisão das decisões caracterizam a cidadania plena, e não a estadania. A alternativa D está errada: na estadania o Estado continua sendo o centro, e é ele quem concede os benefícios."
+    },
+    "id": 1,
+    "type": "enem"
+  },
+  {
+    "title": "Questão 2: O que significa “direito a ter direitos”",
+    "theme": "Nova cidadania (Dagnino, 1994)",
+    "hab": "EF09HI25",
+    "comp": 2,
+    "skill": "Relacionar conquistas de direitos à atuação dos movimentos sociais",
+    "source": "DAGNINO, Evelina. Os movimentos sociais e a emergência de uma nova noção de cidadania, 1994 (adaptado)",
+    "cf": "A pesquisadora Evelina Dagnino defende que, a partir das décadas de 1970 e 1980, os movimentos sociais de grupos excluídos, como o movimento negro, o movimento de mulheres e os movimentos populares das periferias, construíram uma nova cidadania.",
+    "supportText": "Nos anos 1980, moradores de bairros de periferia, mulheres e militantes do movimento negro passaram a se organizar para reivindicar mudanças, em vez de esperar que o governo decidisse sozinho o que seria concedido.",
+    "prompt": "A expressão “direito a ter direitos”, usada por Dagnino, indica que esses grupos",
+    "options": [
+      {
+        "id": "A",
+        "label": "",
+        "text": "esperaram que as autoridades concedessem benefícios, como ocorreu com a legislação trabalhista dos anos 1930."
+      },
+      {
+        "id": "B",
+        "label": "",
+        "text": "abriram mão de participar das decisões para que o Estado definisse sozinho as suas necessidades."
+      },
+      {
+        "id": "C",
+        "label": "",
+        "text": "limitaram-se a defender direitos já garantidos em lei, sem propor o reconhecimento de novas necessidades."
+      },
+      {
+        "id": "D",
+        "label": "",
+        "text": "exigiram que suas necessidades fossem reconhecidas como direitos e participaram das decisões."
+      }
+    ],
+    "correctOption": "D",
+    "explanation": {
+      "correct": "Para Dagnino, esses movimentos não esperaram a concessão de direitos: lutaram para que suas necessidades fossem reconhecidas como direitos e para participar das decisões. É nisso que consiste o “direito a ter direitos”.",
+      "distractors": "A alternativa A está errada: esperar a concessão é a lógica da cidadania “de cima para baixo”, descrita por Carvalho. A alternativa B está errada: os grupos exigiram participação nas decisões, e não abriram mão dela. A alternativa C está errada: a luta incluía o reconhecimento de necessidades que ainda não eram tratadas como direitos."
+    },
+    "id": 2,
+    "type": "enem"
+  },
+  {
+    "title": "Questão 3: Dois cenários, duas ideias de cidadania",
+    "theme": "Estadania × nova cidadania",
+    "hab": "EF09HI25",
+    "comp": 2,
+    "skill": "Relacionar conquistas de direitos à atuação dos movimentos sociais",
+    "source": "Texto “Leis que ampliam a cidadania” (adaptado)",
+    "cf": "Os dois autores ajudam a entender que a cidadania não é um presente do Estado, e sim uma conquista coletiva.",
+    "supportText": "Cenário 1: em 1932, em um momento de participação popular limitada, o governo federal estabelece a carteira de trabalho e a jornada de oito horas na indústria e no comércio. Cenário 2: nos anos 1980, associações de moradores da periferia se organizam e exigem participar das decisões sobre os serviços do bairro.",
+    "prompt": "Relacionando os cenários às ideias de Carvalho e de Dagnino, o Cenário 1 e o Cenário 2 ilustram, respectivamente,",
+    "options": [
+      {
+        "id": "A",
+        "label": "",
+        "text": "a cidadania concedida “de cima para baixo” e a nova cidadania, construída pela luta e pela participação."
+      },
+      {
+        "id": "B",
+        "label": "",
+        "text": "a nova cidadania, construída pela luta, e a cidadania concedida “de cima para baixo” pelo Estado."
+      },
+      {
+        "id": "C",
+        "label": "",
+        "text": "a cidadania concedida “de cima para baixo” nos dois cenários, pois ambos dependem do Estado para existir."
+      },
+      {
+        "id": "D",
+        "label": "",
+        "text": "a nova cidadania nos dois cenários, pois ambos resultam de uma conquista coletiva dos trabalhadores."
+      }
+    ],
+    "correctOption": "A",
+    "explanation": {
+      "correct": "O Cenário 1 lembra o que Carvalho descreve: direitos trabalhistas concedidos pelo Estado em um momento de participação limitada. O Cenário 2 lembra a nova cidadania de Dagnino: grupos que se organizam e exigem participar das decisões.",
+      "distractors": "A alternativa B está errada: inverte a relação entre os cenários e as ideias dos autores. A alternativa C está errada: no Cenário 2 os moradores é que se organizam e cobram, e não esperam a concessão. A alternativa D está errada: no Cenário 1 os direitos foram concedidos pelo Estado, e não conquistados pela mobilização dos trabalhadores."
+    },
+    "id": 3,
+    "type": "enem"
+  },
+  {
+    "title": "Questão 4: Do pedido de 1946 à lei de 1951",
+    "theme": "Criminalização do racismo",
+    "hab": "EF09HI26",
+    "comp": 3,
+    "skill": "Analisar a violência e a discriminação contra populações marginalizadas",
+    "source": "Texto “Leis que ampliam a cidadania” (adaptado)",
+    "cf": "Na década de 1940, a militância negra, como a de Abdias do Nascimento, diretor do jornal Quilombo (1948), propôs incluir na Constituição de 1946 um dispositivo que proibisse o racismo; a proposta não foi aprovada.",
+    "supportText": "Em 1951, por pressão dos movimentos negros e depois de episódios de discriminação de grande repercussão, o Congresso aprovou a Lei Afonso Arinos.",
+    "prompt": "O principal limite da Lei Afonso Arinos (1951) foi que ela",
+    "options": [
+      {
+        "id": "A",
+        "label": "",
+        "text": "proibiu o racismo apenas no texto constitucional, sem criar nenhuma punição para quem o praticasse na vida cotidiana."
+      },
+      {
+        "id": "B",
+        "label": "",
+        "text": "foi aprovada sem relação com a atuação dos movimentos negros, apenas por iniciativa espontânea do próprio governo."
+      },
+      {
+        "id": "C",
+        "label": "",
+        "text": "tratou o racismo como contravenção penal, infração de menor gravidade punida com multa ou prisão simples."
+      },
+      {
+        "id": "D",
+        "label": "",
+        "text": "tornou o racismo crime inafiançável e imprescritível, mas somente para atos praticados por agentes públicos."
+      }
+    ],
+    "correctOption": "C",
+    "explanation": {
+      "correct": "A Lei Afonso Arinos tornou a prática do racismo uma contravenção penal, isto é, uma infração de menor gravidade, punida com multa ou prisão simples. O racismo só passaria a ser crime, sujeito à pena de prisão, com a Constituição de 1988.",
+      "distractors": "A alternativa A está errada: a lei de 1951 previa punição, ainda que leve. A alternativa B está errada: ela foi aprovada por pressão dos movimentos negros. A alternativa D está errada: a condição de crime inafiançável e imprescritível só veio com a Constituição de 1988, e vale para todos."
+    },
+    "id": 4,
+    "type": "enem"
+  },
+  {
+    "title": "Questão 5: O réu que pede fiança",
+    "theme": "Racismo: crime inafiançável e imprescritível",
+    "hab": "EF09HI26",
+    "comp": 3,
+    "skill": "Analisar a violência e a discriminação contra populações marginalizadas",
+    "source": "Texto “Leis que ampliam a cidadania” (adaptado)",
+    "cf": "Só com a Constituição de 1988 o racismo passou a ser crime, sujeito à pena de prisão. Hoje, ele é inafiançável e imprescritível: o acusado não pode pagar fiança para responder em liberdade e o crime não “vence” com o passar do tempo.",
+    "supportText": "Um homem é acusado de racismo por atos praticados há mais de trinta anos. Seu advogado afirma que o crime “já venceu” com o passar do tempo e pede que ele responda ao processo em liberdade, mediante o pagamento de fiança.",
+    "prompt": "De acordo com a Constituição de 1988, o argumento do advogado",
+    "options": [
+      {
+        "id": "A",
+        "label": "",
+        "text": "está correto, pois o racismo é um crime comum, que admite fiança e prescreve com o passar dos anos."
+      },
+      {
+        "id": "B",
+        "label": "",
+        "text": "está errado, pois o racismo é inafiançável e imprescritível: não admite fiança nem “vence” com o tempo."
+      },
+      {
+        "id": "C",
+        "label": "",
+        "text": "está correto apenas quanto à fiança, pois o crime é imprescritível, mas o réu pode pagá-la e esperar em liberdade."
+      },
+      {
+        "id": "D",
+        "label": "",
+        "text": "está errado, pois o racismo é apenas uma contravenção penal, punida com multa ou prisão simples."
+      }
+    ],
+    "correctOption": "B",
+    "explanation": {
+      "correct": "Pela Constituição de 1988, o racismo é crime inafiançável e imprescritível. Por isso, o acusado não pode pagar fiança para responder em liberdade, e o passar do tempo não faz o crime “vencer”.",
+      "distractors": "A alternativa A está errada: trata o racismo como crime comum, o que a Constituição de 1988 não faz. A alternativa C está errada: se o crime é inafiançável, a fiança não é permitida. A alternativa D está errada: a contravenção penal era o tratamento da Lei Afonso Arinos, de 1951, superado em 1988."
+    },
+    "id": 5,
+    "type": "enem"
+  },
+  {
+    "title": "Questão 6: Cada lei, uma contribuição",
+    "theme": "Leis contra o racismo e a desigualdade racial",
+    "hab": "EF09HI26",
+    "comp": 3,
+    "skill": "Analisar a violência e a discriminação contra populações marginalizadas",
+    "source": "Texto “Leis que ampliam a cidadania” (adaptado)",
+    "cf": "A Lei Caó (1989) definiu os crimes de preconceito de raça ou de cor e, em 2023, a injúria racial passou a ser tratada como crime de racismo. O Estatuto da Igualdade Racial (2010) e a Lei de Cotas (2012) completam esse conjunto.",
+    "supportText": "Uma turma do 9º ano monta um mural com as leis que enfrentam o racismo e a desigualdade racial e precisa indicar a contribuição de cada uma.",
+    "prompt": "Qual alternativa associa corretamente a lei à sua contribuição?",
+    "options": [
+      {
+        "id": "A",
+        "label": "",
+        "text": "Lei Caó (1989): reservou vagas para a população negra nas universidades federais e nos concursos."
+      },
+      {
+        "id": "B",
+        "label": "",
+        "text": "Estatuto da Igualdade Racial (2010): definiu os crimes de preconceito de raça ou de cor e suas penas."
+      },
+      {
+        "id": "C",
+        "label": "",
+        "text": "Lei Afonso Arinos (1951): tornou o racismo crime inafiançável e imprescritível em todo o país."
+      },
+      {
+        "id": "D",
+        "label": "",
+        "text": "Lei de Cotas (2012): garantiu o acesso de estudantes negros, indígenas e de escolas públicas às universidades."
+      }
+    ],
+    "correctOption": "D",
+    "explanation": {
+      "correct": "A Lei de Cotas (2012) é uma política de acesso: garante vagas a estudantes negros, indígenas e de escolas públicas nas universidades e no ensino federal, o que ajuda a enfrentar a desigualdade racial na educação.",
+      "distractors": "A alternativa A está errada: a Lei Caó (1989) definiu os crimes de preconceito de raça ou de cor, e não reservou vagas. A alternativa B está errada: o Estatuto da Igualdade Racial (2010) estabeleceu políticas públicas de valorização e de acesso, e a definição dos crimes é da Lei Caó. A alternativa C está errada: a Lei Afonso Arinos tratou o racismo como contravenção penal, e a Constituição de 1988 o tornou inafiançável e imprescritível."
+    },
+    "id": 6,
+    "type": "enem"
+  },
+  {
+    "title": "Questão 7: Quatro situações, leis diferentes",
+    "theme": "Direitos de grupos específicos",
+    "hab": "EF09HI26",
+    "comp": 3,
+    "skill": "Analisar a violência e a discriminação contra populações marginalizadas",
+    "source": "Texto “Leis que ampliam a cidadania” (adaptado)",
+    "cf": "A igualdade prevista na Constituição precisou ser detalhada em leis específicas, porque nem todos os grupos enfrentam as mesmas barreiras.",
+    "supportText": "Em um bairro, quatro situações chegam ao conselho comunitário: (I) um adolescente de 15 anos é impedido de se matricular na escola; (II) uma mulher sofre violência doméstica; (III) um cadeirante não consegue entrar na escola por falta de rampa; (IV) uma pessoa idosa tem seus direitos desrespeitados em uma agência.",
+    "prompt": "As leis estudadas que tratam diretamente das situações II e III são, respectivamente,",
+    "options": [
+      {
+        "id": "A",
+        "label": "",
+        "text": "a Lei Maria da Penha (2006) e o Estatuto da Pessoa com Deficiência (2015)."
+      },
+      {
+        "id": "B",
+        "label": "",
+        "text": "a Lei Maria da Penha (2006) e o Estatuto do Idoso (2003), hoje Estatuto da Pessoa Idosa."
+      },
+      {
+        "id": "C",
+        "label": "",
+        "text": "o Estatuto da Criança e do Adolescente (1990) e o Estatuto da Pessoa com Deficiência (2015)."
+      },
+      {
+        "id": "D",
+        "label": "",
+        "text": "a Lei do Feminicídio (2015) e a Lei 11.645 (2008), que trata da história indígena nas escolas."
+      }
+    ],
+    "correctOption": "A",
+    "explanation": {
+      "correct": "A violência doméstica é enfrentada pela Lei Maria da Penha (2006), e a falta de acessibilidade na escola é tema do Estatuto da Pessoa com Deficiência (2015), que prevê medidas de inclusão em áreas como educação e acessibilidade.",
+      "distractors": "A alternativa B está errada: o Estatuto do Idoso protege as pessoas idosas, e não trata da acessibilidade do cadeirante. A alternativa C está errada: o ECA (1990) trata de crianças e jovens, o que corresponde à situação I, e não à violência doméstica contra a mulher. A alternativa D está errada: a Lei do Feminicídio trata do homicídio de mulheres por razões de gênero, e a Lei 11.645 trata do ensino da história e da cultura indígena."
+    },
+    "id": 7,
+    "type": "enem"
+  },
+  {
+    "title": "Questão 8: Seu Antônio e a neta Camila",
+    "theme": "Direitos políticos: o voto",
+    "hab": "EF09HI23",
+    "comp": 1,
+    "skill": "Identificar direitos civis, políticos e sociais",
+    "source": "Texto “Leis que ampliam a cidadania” (adaptado)",
+    "cf": "O voto dos analfabetos só foi garantido em 1985, e a Constituição de 1988 estendeu o voto facultativo aos jovens de 16 e 17 anos.",
+    "supportText": "Seu Antônio nunca aprendeu a ler e, durante boa parte da vida, não pôde votar. Hoje, sua neta Camila, de 16 anos, já pode tirar o título de eleitor, e o voto é facultativo para ela.",
+    "prompt": "As mudanças que permitiram que Seu Antônio e Camila pudessem votar foram, respectivamente,",
+    "options": [
+      {
+        "id": "A",
+        "label": "",
+        "text": "o Código Eleitoral de 1932, que criou o voto secreto, e a Constituição de 1934, que garantiu o voto das mulheres no país."
+      },
+      {
+        "id": "B",
+        "label": "",
+        "text": "a CLT de 1943, que reuniu a legislação trabalhista, e o SUS de 1990, que garantiu o direito à saúde."
+      },
+      {
+        "id": "C",
+        "label": "",
+        "text": "a garantia do voto aos analfabetos, em 1985, e a Constituição de 1988, que estendeu o voto facultativo aos jovens."
+      },
+      {
+        "id": "D",
+        "label": "",
+        "text": "a Constituição de 1988, que garantiu o voto aos analfabetos, e uma lei de 1985, que estendeu o voto facultativo aos jovens."
+      }
+    ],
+    "correctOption": "C",
+    "explanation": {
+      "correct": "O voto dos analfabetos foi garantido em 1985, o que permitiu a Seu Antônio votar. A Constituição de 1988 estendeu o voto facultativo aos jovens de 16 e 17 anos, caso de Camila. Ambos são direitos políticos, ligados à participação na vida política.",
+      "distractors": "A alternativa A está errada: o voto secreto e o voto feminino não tratam dos analfabetos nem dos jovens de 16 e 17 anos. A alternativa B está errada: CLT e SUS são direitos sociais, ligados ao trabalho e à saúde. A alternativa D está errada: inverte as datas e as normas, pois o voto dos analfabetos é de 1985 e o voto facultativo aos jovens é de 1988."
+    },
+    "id": 8,
+    "type": "enem"
+  },
+  {
+    "title": "Questão 9: Um salário a mais e um atendimento de saúde",
+    "theme": "Direitos sociais: trabalho e saúde",
+    "hab": "EF09HI23",
+    "comp": 1,
+    "skill": "Identificar direitos civis, políticos e sociais",
+    "source": "Texto “Leis que ampliam a cidadania” (adaptado)",
+    "cf": "No campo social, a CLT (1943), o 13º salário (1962) e o SUS (1990) mostram como direitos do trabalho e da saúde foram sendo incorporados.",
+    "supportText": "Dona Lúcia, trabalhadora de Aparecida de Goiânia, tem seus direitos de trabalho reunidos em uma legislação específica, recebe o 13º salário no fim do ano e é atendida em uma unidade do SUS quando adoece.",
+    "prompt": "Esses direitos de Dona Lúcia são classificados como sociais porque",
+    "options": [
+      {
+        "id": "A",
+        "label": "",
+        "text": "garantem a ela a liberdade de se expressar e de circular pelo país sem sofrer nenhuma discriminação."
+      },
+      {
+        "id": "B",
+        "label": "",
+        "text": "permitem que ela participe da vida política do país, votando e sendo votada nas eleições."
+      },
+      {
+        "id": "C",
+        "label": "",
+        "text": "protegem a sua vida privada e a sua propriedade, que são direitos civis fundamentais para todos."
+      },
+      {
+        "id": "D",
+        "label": "",
+        "text": "asseguram condições de vida e de trabalho, como proteção ao trabalhador e acesso à saúde."
+      }
+    ],
+    "correctOption": "D",
+    "explanation": {
+      "correct": "CLT, 13º salário e SUS asseguram condições de vida e de trabalho: proteção ao trabalhador e acesso à saúde. Por isso são direitos sociais.",
+      "distractors": "A alternativa A está errada: liberdade de expressão e de circulação, e o combate à discriminação, são direitos civis. A alternativa B está errada: votar e ser votado são direitos políticos. A alternativa C está errada: vida privada e propriedade também são direitos civis, e não é isso que CLT, 13º salário e SUS protegem."
+    },
+    "id": 9,
+    "type": "enem"
+  },
+  {
+    "title": "Questão 10: A rampa que só existe no papel",
+    "theme": "Cidadania em constante construção",
+    "hab": "EF09HI25",
+    "comp": 2,
+    "skill": "Relacionar conquistas de direitos à atuação dos movimentos sociais",
+    "source": "Texto “Leis que ampliam a cidadania” (adaptado)",
+    "cf": "Mesmo depois de escritos em lei, os direitos precisam ser exercidos na prática, e por isso novas leis continuam sendo aprovadas. Conhecer essas leis ajuda a perceber que a cidadania é uma conquista em constante construção.",
+    "supportText": "Na sua escola ou no seu bairro, uma lei garante rampas de acesso para pessoas com deficiência, mas muitas calçadas e portas continuam sem adaptação. Os moradores decidem se organizar para cobrar da prefeitura o cumprimento da lei.",
+    "prompt": "Essa situação mostra que a cidadania é “uma conquista em constante construção”, porque",
+    "options": [
+      {
+        "id": "A",
+        "label": "",
+        "text": "mesmo escritos em lei, os direitos precisam ser exercidos, e a sociedade precisa conhecê-los e cobrá-los."
+      },
+      {
+        "id": "B",
+        "label": "",
+        "text": "a aprovação da lei encerra a luta por direitos, e o que falta depende apenas da boa vontade do governante."
+      },
+      {
+        "id": "C",
+        "label": "",
+        "text": "somente as pessoas diretamente afetadas pela falta de rampas têm legitimidade para reivindicar esse direito."
+      },
+      {
+        "id": "D",
+        "label": "",
+        "text": "a Constituição de 1988 perdeu a validade, e novas leis precisam substituí-la a cada nova geração de brasileiros."
+      }
+    ],
+    "correctOption": "A",
+    "explanation": {
+      "correct": "A lei garante o direito, mas ele só se realiza quando é exercido na prática. Por isso a sociedade se organiza, conhece a lei e cobra seu cumprimento, e novas leis continuam sendo aprovadas. É isso que faz da cidadania uma conquista em constante construção.",
+      "distractors": "A alternativa B está errada: a aprovação da lei não encerra a luta, pois o direito precisa ser exercido. A alternativa C está errada: a cidadania é uma conquista coletiva, e toda a sociedade pode participar da cobrança. A alternativa D está errada: a Constituição de 1988 continua em vigor, e as novas leis detalham seus princípios."
+    },
+    "id": 10,
+    "type": "enem"
+  }
+];
+
+
+// ===================== Estado =====================
+const TOTAL = questions.length;
+let student = { name: '', turma: '' };
+let cur = 0;
+let mode = 'cover';               // cover | quiz | result | review
+const answers = new Array(TOTAL).fill(null);
+let finishedAt = null;
+
+const $ = id => document.getElementById(id);
+function show(view){
+  ['cover','quiz','result'].forEach(v => $('view-' + v).classList.toggle('hidden', v !== view));
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+function toast(msg){
+  const t = $('toast'); t.textContent = msg; t.classList.add('show');
+  clearTimeout(toast._t); toast._t = setTimeout(() => t.classList.remove('show'), 2600);
+}
+function fmtNota(n){ return n.toFixed(1).replace('.', ','); }
+function esc(s){ return String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+
+// ===================== Capa =====================
+$('cover-form').addEventListener('submit', e => {
+  e.preventDefault();
+  const n = $('in-name').value.trim().replace(/\s+/g, ' ');
+  const t = $('in-turma').value.trim();
+  $('err-name').textContent = ''; $('err-turma').textContent = '';
+  $('in-name').classList.remove('err'); $('in-turma').classList.remove('err');
+  let ok = true;
+  if (n.length < 5 || !n.includes(' ')) { $('err-name').textContent = 'Digite seu nome e sobrenome.'; $('in-name').classList.add('err'); ok = false; }
+  if (!t) { $('err-turma').textContent = 'Informe sua turma.'; $('in-turma').classList.add('err'); ok = false; }
+  if (!ok) return;
+  student = { name: n, turma: t };
+  $('top-name').textContent = n; $('top-turma').textContent = 'Turma ' + t;
+  $('top-student').classList.remove('hidden');
+  startQuiz();
+});
+
+function startQuiz(){
+  answers.fill(null); cur = 0; finishedAt = null; mode = 'quiz';
+  $('review-banner').classList.add('hidden');
+  show('quiz'); renderAll();
+}
+
+// ===================== Simulado =====================
+function renderAll(){ renderNav(); renderQuestion(); renderProgress(); }
+
+function renderProgress(){
+  const n = answers.filter(a => a !== null).length;
+  $('bar-fill').style.width = (n / TOTAL * 100) + '%';
+  $('bar-left').textContent = mode === 'review' ? 'Revisão das questões' : `${n} de ${TOTAL} respondidas`;
+  $('bar-right').textContent = mode === 'review' ? '' : (n === TOTAL ? 'Pronto para finalizar' : `Faltam ${TOTAL - n}`);
+}
+
+function renderNav(){
+  const g = $('nav-grid'); g.innerHTML = '';
+  questions.forEach((q, i) => {
+    const b = document.createElement('button');
+    let cls = 'nb';
+    let sub;
+    if (mode === 'review') {
+      const ok = answers[i] === q.correctOption;
+      cls += ok ? ' ok' : ' no'; sub = ok ? 'Certa' : 'Errada';
+    } else {
+      sub = answers[i] ? answers[i] : '—';
+      if (answers[i]) cls += ' ans';
+    }
+    if (i === cur) cls += ' cur';
+    b.className = cls;
+    b.innerHTML = `Q${i + 1}<small>${sub}</small>`;
+    b.onclick = () => go(i);
+    g.appendChild(b);
+  });
+}
+
+function optionBody(opt){
+  if (opt.svg) return `<div class="body">${opt.svg}</div>`;
+  if (opt.tableData) {
+    const head = opt.tableHead || ['Ano/Período', 'Valor'];
+    const rows = opt.tableData.map(r => `<tr>${r.map(c => `<td>${c}</td>`).join('')}</tr>`).join('');
+    return `<div class="body"><table class="m"><thead><tr>${head.map(h => `<th>${h}</th>`).join('')}</tr></thead><tbody>${rows}</tbody></table></div>`;
+  }
+  return '';
+}
+
+function renderQuestion(){
+  const q = questions[cur];
+  const review = mode === 'review';
+  const sel = answers[cur];
+
+  let tableHtml = '';
+  if (q.table) {
+    const heads = q.table.columns.map(c => `<th>${c}</th>`).join('');
+    const nc = q.table.columns.length;
+    const rows = q.table.rows.map(r => `<tr>${r.map((c, k) => `<td${(k > 0 && k < nc - 1 && !q.table.numeric) ? ' style="font-weight:500;color:#475569"' : ''}>${c}</td>`).join('')}</tr>`).join('');
+    tableHtml = `<div class="tbl-wrap"><div class="tbl-cap"><b>${q.table.title}</b><span>Fonte: ${q.source}</span></div>
+      <div class="tbl-box"><table class="t${q.table.numeric ? ' num' : ''}${q.table.plain ? ' plain' : ''}"><thead><tr>${heads}</tr></thead><tbody>${rows}</tbody></table></div></div>`;
+  }
+  const stim = q.stimulusSvg ? `<div class="stim">${q.stimulusSvg}<div style="text-align:center;font-size:11.5px;color:#94a3b8;margin-top:6px">Fonte: ${q.source}</div></div>` : '';
+
+  const textMode = q.options.every(o => o.text);
+  const opts = q.options.map(o => {
+    let c = 'opt';
+    if (review) {
+      if (o.id === q.correctOption) c += ' right';
+      else if (o.id === sel) c += ' wrong';
+    } else if (o.id === sel) c += ' sel';
+    if (textMode) return `<button class="${c} tx" ${review ? 'disabled' : ''} onclick="pick('${o.id}')" aria-pressed="${o.id === sel}"><span class="badge">${o.id}</span><span class="t">${o.text}</span></button>`;
+    return `<button class="${c}" ${review ? 'disabled' : ''} onclick="pick('${o.id}')" aria-pressed="${o.id === sel}">
+      <div class="oh"><span class="badge">${o.id}</span><span class="lb">${o.label}</span></div>${optionBody(o)}</button>`;
+  }).join('');
+
+  let fb = '';
+  if (review) {
+    const ok = sel === q.correctOption;
+    fb = `<div class="fb ${ok ? 'ok' : 'no'}">
+      <h4>${ok ? 'Você acertou!' : 'Você marcou a alternativa ' + sel + '.'} Gabarito: alternativa ${q.correctOption}</h4>
+      <p>${q.explanation.correct}</p>
+      <div class="diag"><b>Por que as outras alternativas estão erradas?</b>${q.explanation.distractors}</div></div>`;
+  }
+
+  const answered = answers.filter(a => a !== null).length;
+  const last = cur === TOTAL - 1;
+  let right = '';
+  if (!review) {
+    if (last) {
+      right = `<button class="btn finish" onclick="finish()" ${answered < TOTAL ? 'disabled' : ''}>Finalizar atividade ✓</button>`;
+    } else {
+      right = `<button class="btn navy" onclick="go(${cur + 1})">Próxima →</button>`;
+    }
+  } else if (!last) {
+    right = `<button class="btn navy" onclick="go(${cur + 1})">Próxima →</button>`;
+  } else {
+    right = `<button class="btn navy" onclick="showResult()">Voltar ao resultado</button>`;
+  }
+  const hint = (!review && answered < TOTAL) ? `<span class="hint">Faltam ${TOTAL - answered} questão(ões) para finalizar</span>` : '<span></span>';
+
+  $('qcard').innerHTML = `
+    <div class="qmeta">
+      <div class="l"><span class="qnum">Questão ${q.id} de ${TOTAL}</span><span class="chip gold">${q.hab}</span><span class="qtheme">${q.theme}</span></div>
+      <span class="qtype">${q.skill}</span>
+    </div>
+    <h3>${q.title}</h3>
+    ${q.cf ? `<div class="cf"><b>Ideia-chave</b>${q.cf}</div>` : ''}
+    <p class="support">${q.supportText}</p>
+    ${tableHtml}${stim}
+    <div class="prompt">${q.prompt}</div>
+    <div class="opts${textMode ? ' txt' : ''}">${opts}</div>
+    ${fb}
+    <div class="qfoot">
+      <button class="btn" onclick="go(${cur - 1})" ${cur === 0 ? 'disabled' : ''}>← Anterior</button>
+      ${hint}
+      ${right}
+    </div>`;
+}
+
+function pick(id){
+  if (mode !== 'quiz') return;
+  answers[cur] = id;
+  renderAll();
+}
+function go(i){
+  if (i < 0 || i >= TOTAL) return;
+  cur = i; renderAll();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+function finish(){
+  if (answers.some(a => a === null)) { toast('Responda todas as questões para finalizar.'); return; }
+  finishedAt = new Date();
+  showResult();
+}
+
+// ===================== Resultado =====================
+function calc(){
+  const hits = questions.map((q, i) => answers[i] === q.correctOption);
+  const acertos = hits.filter(Boolean).length;
+  const nota = acertos / TOTAL * 10;
+  const byComp = {};
+  questions.forEach((q, i) => {
+    const c = q.comp; byComp[c] = byComp[c] || { ok: 0, n: 0 };
+    byComp[c].n++; if (hits[i]) byComp[c].ok++;
+  });
+  return { hits, acertos, nota, byComp };
+}
+const COMPS = [[1, 'EF09HI23 · Direitos civis, políticos e sociais'], [2, 'EF09HI25 · Direitos e movimentos sociais'], [3, 'EF09HI26 · Racismo e grupos marginalizados']];
+function levelOf(nota){
+  if (nota >= 9) return { t: 'Excelente domínio das habilidades', bg: '#d1fae5', fg: '#065f46', c: '#10b981' };
+  if (nota >= 7) return { t: 'Bom desempenho', bg: '#dbeafe', fg: '#5b21b6', c: '#8b5cf6' };
+  if (nota >= 5) return { t: 'Em desenvolvimento: continue praticando', bg: '#fef3c7', fg: '#92400e', c: '#f59e0b' };
+  return { t: 'Atenção: reforce as habilidades da prova', bg: '#fee2e2', fg: '#991b1b', c: '#ef4444' };
+}
+function fmtDate(d){ return d.toLocaleDateString('pt-BR') + ' às ' + d.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }); }
+
+function showResult(){
+  mode = 'result';
+  const { hits, acertos, nota, byComp } = calc();
+  const lv = levelOf(nota);
+  const C = 2 * Math.PI * 80;
+  const perf = COMPS.filter(p => byComp[p[0]]).map(([k, label]) => {
+    const b = byComp[k], pc = Math.round(b.ok / b.n * 100);
+    return `<div class="perf-row"><div class="top"><span>${label}</span><span>${b.ok} de ${b.n} (${pc}%)</span></div><div class="tr"><div style="width:${pc}%"></div></div></div>`;
+  }).join('');
+  const grid = hits.map((h, i) => `<div class="qg ${h ? 'ok' : 'no'}">Q${i + 1}<small>${questions[i].hab} · ${h ? 'Certa' : 'Errada'}</small></div>`).join('');
+
+  $('view-result').innerHTML = `
+    <div class="result">
+      <div class="res-hero">
+        <div class="ring">
+          <svg viewBox="0 0 190 190"><circle cx="95" cy="95" r="80" fill="none" stroke="rgba(255,255,255,.14)" stroke-width="14"/>
+            <circle cx="95" cy="95" r="80" fill="none" stroke="${lv.c}" stroke-width="14" stroke-linecap="round" stroke-dasharray="${C}" stroke-dashoffset="${C * (1 - nota / 10)}"/></svg>
+          <div class="c"><b>${fmtNota(nota)}</b><span>de 10</span></div>
+        </div>
+        <div class="who">
+          <small>Resultado da atividade</small>
+          <h2>${esc(student.name)}</h2>
+          <p>Turma ${esc(student.turma)} · ${fmtDate(finishedAt || new Date())}</p>
+          <span class="level" style="background:${lv.bg};color:${lv.fg}">${lv.t}</span>
+        </div>
+      </div>
+      <div class="res-body">
+        <div class="stats">
+          <div class="stat"><b>${acertos}</b><span>questões corretas</span></div>
+          <div class="stat"><b>${TOTAL - acertos}</b><span>questões incorretas</span></div>
+          <div class="stat"><b>${Math.round(acertos / TOTAL * 100)}%</b><span>de aproveitamento</span></div>
+        </div>
+        <h3>Desempenho por habilidade</h3>
+        <div class="perf">${perf}</div>
+        <h3>Questão por questão</h3>
+        <div class="qgrid">${grid}</div>
+        <div class="res-actions">
+          <button class="btn save" onclick="saveImage()">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0l-4-4m4 4l4-4"/><path d="M4 17v2a2 2 0 002 2h12a2 2 0 002-2v-2"/></svg>
+            Salvar resultado como imagem</button>
+          <button class="btn navy" onclick="startReview()">Revisar questões e gabarito</button>
+          <button class="btn" onclick="restart()">Refazer atividade</button>
+        </div>
+      </div>
+    </div>`;
+  show('result');
+}
+function startReview(){
+  mode = 'review'; cur = 0;
+  $('review-banner').classList.remove('hidden');
+  show('quiz'); renderAll();
+}
+function restart(){
+  mode = 'quiz'; answers.fill(null); cur = 0; finishedAt = null;
+  $('review-banner').classList.add('hidden');
+  show('quiz'); renderAll();
+}
+
+// ===================== Imagem do resultado (canvas) =====================
+function rr(ctx, x, y, w, h, r){
+  ctx.beginPath();
+  ctx.moveTo(x + r, y); ctx.arcTo(x + w, y, x + w, y + h, r); ctx.arcTo(x + w, y + h, x, y + h, r);
+  ctx.arcTo(x, y + h, x, y, r); ctx.arcTo(x, y, x + w, y, r); ctx.closePath();
+}
+function fit(ctx, text, maxW){
+  if (ctx.measureText(text).width <= maxW) return text;
+  while (text.length > 1 && ctx.measureText(text + '…').width > maxW) text = text.slice(0, -1);
+  return text.trim() + '…';
+}
+async function saveImage(){
+  try { if (document.fonts && document.fonts.ready) await document.fonts.ready; } catch(e){}
+  const { hits, acertos, nota, byComp } = calc();
+  const lv = levelOf(nota);
+  const W = 1080, H = 1520, S = 1;
+  const cv = document.createElement('canvas'); cv.width = W; cv.height = H;
+  const x = cv.getContext('2d');
+  const F = 'Inter, "Segoe UI", Roboto, Arial, sans-serif';
+
+  // fundo
+  x.fillStyle = '#eef2f7'; x.fillRect(0, 0, W, H);
+  // cabeçalho
+  const g = x.createLinearGradient(0, 0, W, 300); g.addColorStop(0, '#2b1b4a'); g.addColorStop(1, '#5a3a96');
+  x.fillStyle = g; x.fillRect(0, 0, W, 300);
+  x.fillStyle = '#f5a524'; x.fillRect(0, 296, W, 8);
+  x.save(); x.beginPath(); x.rect(0, 0, W, 296); x.clip(); x.fillStyle = 'rgba(245,165,36,.14)'; x.beginPath(); x.arc(W - 40, 300, 170, 0, 7); x.fill(); x.restore();
+  x.textBaseline = 'alphabetic'; x.textAlign = 'left';
+  x.fillStyle = '#c3b3e0'; x.font = `700 22px ${F}`;
+  x.fillText('COLÉGIO ESTADUAL RODOLFO DE OLIVEIRA · 2026', 70, 92);
+  x.fillStyle = '#fff'; x.font = `900 66px ${F}`;
+  x.fillText('Atividade · 9º ano', 70, 170);
+  x.fillStyle = '#f5a524'; x.font = `800 30px ${F}`;
+  x.fillText('História · EF09HI23, EF09HI25 e EF09HI26', 70, 222);
+  x.fillStyle = '#dcd0f0'; x.font = `500 22px ${F}`;
+  x.fillText('Leis que ampliam a cidadania', 70, 262);
+
+  // cartão do estudante
+  x.save(); x.shadowColor = 'rgba(43,27,74,.18)'; x.shadowBlur = 30; x.shadowOffsetY = 12;
+  x.fillStyle = '#fff'; rr(x, 50, 340, W - 100, 190, 26); x.fill(); x.restore();
+  x.fillStyle = '#64748b'; x.font = `700 19px ${F}`;
+  x.fillText('ESTUDANTE', 90, 392);
+  x.fillStyle = '#2b1b4a'; x.font = `800 38px ${F}`;
+  x.fillText(fit(x, student.name, W - 180), 90, 440);
+  x.fillStyle = '#64748b'; x.font = `700 19px ${F}`;
+  x.fillText('TURMA', 90, 485); x.fillText('DATA', 380, 485);
+  x.fillStyle = '#2b1b4a'; x.font = `700 24px ${F}`;
+  x.fillText(fit(x, student.turma, 250), 175, 486);
+  x.fillText(fmtDate(finishedAt || new Date()), 450, 486);
+
+  // cartão da nota
+  x.save(); x.shadowColor = 'rgba(43,27,74,.18)'; x.shadowBlur = 30; x.shadowOffsetY = 12;
+  x.fillStyle = '#fff'; rr(x, 50, 560, W - 100, 480, 26); x.fill(); x.restore();
+  const cx = 290, cy = 780, R = 140;
+  x.lineWidth = 28; x.lineCap = 'round';
+  x.strokeStyle = '#e8edf4'; x.beginPath(); x.arc(cx, cy, R, 0, Math.PI * 2); x.stroke();
+  if (nota > 0) { x.strokeStyle = lv.c; x.beginPath(); x.arc(cx, cy, R, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * (nota / 10)); x.stroke(); }
+  x.textAlign = 'center'; x.fillStyle = '#2b1b4a'; x.font = `900 96px ${F}`;
+  x.fillText(fmtNota(nota), cx, cy + 22);
+  x.fillStyle = '#64748b'; x.font = `600 26px ${F}`; x.fillText('de 10', cx, cy + 64);
+
+  x.textAlign = 'left';
+  x.fillStyle = '#64748b'; x.font = `700 19px ${F}`; x.fillText('NOTA FINAL', 500, 650);
+  x.fillStyle = '#2b1b4a'; x.font = `900 52px ${F}`; x.fillText(`${acertos} de ${TOTAL} acertos`, 500, 712);
+  x.fillStyle = '#475569'; x.font = `600 25px ${F}`; x.fillText(`Aproveitamento: ${Math.round(acertos / TOTAL * 100)}%`, 500, 756);
+  // selo do nível
+  x.font = `800 22px ${F}`;
+  const lt = lv.t, lw = Math.min(x.measureText(lt).width + 44, W - 500 - 80);
+  x.fillStyle = lv.bg; rr(x, 500, 792, lw, 52, 26); x.fill();
+  x.fillStyle = lv.fg; x.fillText(fit(x, lt, lw - 44), 522, 826);
+
+  // desempenho por tipo
+  const types = COMPS.filter(p => byComp[p[0]]).map(p => [p[0], p[1].split(' · ')[0]]);
+  let by = 880;
+  types.forEach(([k, label]) => {
+    const b = byComp[k], pc = b.ok / b.n;
+    x.fillStyle = '#334155'; x.font = `700 20px ${F}`; x.fillText(label, 500, by);
+    x.textAlign = 'right'; x.fillText(`${b.ok}/${b.n}`, W - 90, by); x.textAlign = 'left';
+    x.fillStyle = '#e8edf4'; rr(x, 500, by + 10, W - 590, 14, 7); x.fill();
+    if (pc > 0) { x.fillStyle = '#9333ea'; rr(x, 500, by + 10, Math.max(14, (W - 590) * pc), 14, 7); x.fill(); }
+    by += 50;
+  });
+
+  // grade de questões
+  x.save(); x.shadowColor = 'rgba(43,27,74,.18)'; x.shadowBlur = 30; x.shadowOffsetY = 12;
+  x.fillStyle = '#fff'; rr(x, 50, 1070, W - 100, 330, 26); x.fill(); x.restore();
+  x.fillStyle = '#64748b'; x.font = `700 19px ${F}`; x.fillText('DESEMPENHO QUESTÃO A QUESTÃO', 90, 1125);
+  const cols = 5, gw = 164, gh = 100, gap = 18, gx = 90, gy = 1152;
+  hits.forEach((h, i) => {
+    const px = gx + (i % cols) * (gw + gap), py = gy + Math.floor(i / cols) * (gh + gap);
+    x.fillStyle = h ? '#059669' : '#dc2626'; rr(x, px, py, gw, gh, 18); x.fill();
+    x.fillStyle = '#fff'; x.textAlign = 'left'; x.font = `800 28px ${F}`; x.fillText('Q' + (i + 1), px + 20, py + 42);
+    // ícone ✓ / ✗ desenhado
+    x.strokeStyle = '#fff'; x.lineWidth = 7; x.lineCap = 'round'; x.lineJoin = 'round';
+    const ix = px + gw - 52, iy = py + 28;
+    x.beginPath();
+    if (h) { x.moveTo(ix, iy + 18); x.lineTo(ix + 12, iy + 30); x.lineTo(ix + 34, iy + 4); }
+    else { x.moveTo(ix + 2, iy + 4); x.lineTo(ix + 30, iy + 32); x.moveTo(ix + 30, iy + 4); x.lineTo(ix + 2, iy + 32); }
+    x.stroke();
+    x.fillStyle = 'rgba(255,255,255,.92)'; x.font = `700 16px ${F}`; x.fillText(questions[i].hab + ' · ' + (h ? 'Certa' : 'Errada'), px + 20, py + 80);
+  });
+
+  // rodapé
+  x.textAlign = 'center'; x.fillStyle = '#94a3b8'; x.font = `600 20px ${F}`;
+  x.fillText('Atividade · Leis que ampliam a cidadania · Colégio Estadual Rodolfo de Oliveira · 2026', W / 2, 1460);
+
+  const safe = student.name.normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-zA-Z0-9]+/g, '_').replace(/^_|_$/g, '').toLowerCase() || 'aluno';
+  const fname = `resultado_leis_cidadania_${safe}.png`;
+  cv.toBlob(blob => {
+    if (!blob) { toast('Não foi possível gerar a imagem.'); return; }
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a'); a.href = url; a.download = fname;
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 4000);
+    toast('Imagem salva: ' + fname);
+  }, 'image/png');
+}
+</script>
+</body>
+</html>

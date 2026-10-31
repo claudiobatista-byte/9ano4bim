@@ -1,0 +1,1075 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Atividade 9º ano · Direitos civis, políticos e sociais</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#0f2a4a; --navy-2:#173a63; --blue:#2563eb; --blue-soft:#e8f0fe;
+    --teal:#0d9488; --gold:#f5a524; --bg:#eef2f7; --card:#ffffff;
+    --ink:#0f172a; --muted:#64748b; --line:#e2e8f0;
+    --ok:#059669; --ok-bg:#ecfdf5; --bad:#dc2626; --bad-bg:#fef2f2;
+    --radius:18px; --shadow:0 10px 30px -12px rgba(15,42,74,.25);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--ink);line-height:1.5;min-height:100vh;-webkit-font-smoothing:antialiased}
+  button{font-family:inherit;cursor:pointer}
+  .hidden{display:none!important}
+
+  /* utilitários usados pelos gráficos/tabelas das questões */
+  svg{display:block}
+  .w-full{width:100%}.h-auto{height:auto}.text-xs{font-size:12px}
+  .max-w-md{max-width:28rem}.mx-auto{margin-left:auto;margin-right:auto}
+  .bg-slate-50{background:#f8fafc}.p-4{padding:1rem}.rounded-xl{border-radius:12px}
+  .border{border:1px solid}.border-slate-200{border-color:var(--line)}
+  .font-bold{font-weight:700}.text-slate-700{color:#334155}.text-center{text-align:center}.mb-2{margin-bottom:.5rem}
+
+  /* ---------- Topbar ---------- */
+  .topbar{background:var(--navy);color:#fff;border-bottom:4px solid var(--gold)}
+  .topbar-in{max-width:1080px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;gap:14px}
+  .brand-mark{width:40px;height:40px;border-radius:11px;background:linear-gradient(135deg,var(--gold),#f97316);display:grid;place-items:center;font-weight:900;font-size:14px;color:#1b1204;flex:none}
+  .brand-txt small{display:block;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:#9fb6d3;font-weight:600}
+  .brand-txt strong{font-size:14.5px;font-weight:700}
+  .topbar .student{margin-left:auto;text-align:right;font-size:12px;color:#c7d6ea;line-height:1.35}
+  .topbar .student b{color:#fff;font-weight:700;display:block;font-size:13px}
+
+  .wrap{max-width:1080px;margin:0 auto;padding:24px 20px 56px}
+
+  /* ---------- Capa ---------- */
+  .cover{display:grid;grid-template-columns:1.1fr .9fr;background:var(--card);border-radius:24px;overflow:hidden;box-shadow:var(--shadow);border:1px solid var(--line)}
+  .cover-left{background:linear-gradient(160deg,var(--navy) 0%,var(--navy-2) 60%,#1e4d82 100%);color:#fff;padding:44px 40px;position:relative;overflow:hidden}
+  .cover-left::after{content:"";position:absolute;right:-90px;bottom:-90px;width:300px;height:300px;border-radius:50%;background:rgba(245,165,36,.12)}
+  .cover-left::before{content:"";position:absolute;right:40px;bottom:120px;width:90px;height:90px;border-radius:50%;border:12px solid rgba(255,255,255,.06)}
+  .pill{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:6px 12px;border-radius:99px;background:rgba(245,165,36,.18);color:var(--gold);border:1px solid rgba(245,165,36,.4)}
+  .cover-left h1{font-size:36px;line-height:1.12;font-weight:900;margin:18px 0 8px;letter-spacing:-.02em}
+  .cover-left h1 span{color:var(--gold)}
+  .cover-left .sub{font-size:15px;color:#c7d6ea;max-width:30rem}
+  .desc-box{margin-top:26px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);border-radius:16px;padding:18px 20px;position:relative;z-index:1}
+  .desc-box .tag{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+  .desc-box .tag b{background:var(--gold);color:#1b1204;font-weight:900;font-size:13px;padding:3px 10px;border-radius:8px}
+  .desc-box .tag span{font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:#9fb6d3;font-weight:700}
+  .desc-box p{font-size:14px;color:#e6eefa;font-style:italic}
+  .steps{margin-top:18px;display:grid;gap:9px;position:relative;z-index:1}
+  .steps div{display:flex;gap:11px;align-items:flex-start;font-size:13px;color:#d3e0f1}
+  .steps i{font-style:normal;flex:none;width:22px;height:22px;border-radius:50%;background:rgba(255,255,255,.14);display:grid;place-items:center;font-size:11px;font-weight:800;color:#fff}
+  .cover-right{padding:44px 38px;display:flex;flex-direction:column;justify-content:center}
+  .cover-right h2{font-size:22px;font-weight:800;color:var(--navy);letter-spacing:-.01em}
+  .cover-right .lead{font-size:13.5px;color:var(--muted);margin:4px 0 22px}
+  label.f{display:block;font-size:11.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#475569;margin-bottom:6px}
+  .inp{width:100%;font:inherit;font-size:15.5px;padding:13px 15px;border:2px solid var(--line);border-radius:12px;background:#f8fafc;color:var(--ink);outline:none;transition:.15s}
+  .inp:focus{border-color:var(--blue);background:#fff;box-shadow:0 0 0 4px rgba(37,99,235,.12)}
+  .inp.err{border-color:var(--bad);background:var(--bad-bg)}
+  .field{margin-bottom:16px}
+  .errmsg{font-size:12px;color:var(--bad);font-weight:600;margin-top:5px;min-height:16px}
+  .btn-primary{width:100%;margin-top:6px;padding:15px 20px;border:0;border-radius:13px;background:linear-gradient(135deg,var(--blue),#1d4ed8);color:#fff;font-weight:800;font-size:15.5px;letter-spacing:.01em;box-shadow:0 10px 20px -8px rgba(37,99,235,.6);transition:.15s}
+  .btn-primary:hover{transform:translateY(-1px);filter:brightness(1.06)}
+  .meta-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+  .meta-row span{font-size:12px;font-weight:600;color:#475569;background:#f1f5f9;padding:6px 11px;border-radius:99px}
+
+  /* ---------- Cabeçalho do simulado ---------- */
+  .qhead{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px 22px;box-shadow:var(--shadow);margin-bottom:16px}
+  .qhead-top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+  .qhead h2{font-size:17px;font-weight:800;color:var(--navy)}
+  .qhead .chips{display:flex;gap:7px;flex-wrap:wrap}
+  .chip{font-size:11px;font-weight:700;padding:4px 10px;border-radius:99px;background:var(--blue-soft);color:#1e40af;border:1px solid #c7dafc}
+  .chip.gold{background:#fff7e6;color:#9a5b00;border-color:#fde1a6}
+  .chip.teal{background:#e6f7f5;color:#0b6e65;border-color:#b6e8e2}
+  .bar{height:8px;border-radius:99px;background:#e8edf4;overflow:hidden;margin-top:14px}
+  .bar>div{height:100%;width:0;background:linear-gradient(90deg,var(--teal),var(--blue));border-radius:99px;transition:width .3s}
+  .bar-txt{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);font-weight:600;margin-top:7px}
+
+  .nav{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px;box-shadow:var(--shadow);margin-bottom:16px}
+  .nav-grid{display:grid;grid-template-columns:repeat(10,1fr);gap:8px}
+  .nb{border:2px solid var(--line);background:#f8fafc;border-radius:11px;padding:7px 0;font-weight:800;font-size:13px;color:#475569;transition:.12s;display:flex;flex-direction:column;align-items:center;line-height:1.15}
+  .nb small{font-size:9.5px;font-weight:600;opacity:.8}
+  .nb:hover{border-color:#94a3b8}
+  .nb.cur{border-color:var(--blue);box-shadow:0 0 0 3px rgba(37,99,235,.15);color:var(--blue)}
+  .nb.ans{background:var(--blue-soft);border-color:#9db9f3;color:#1e3a8a}
+  .nb.cur.ans{border-color:var(--blue)}
+  .nb.ok{background:var(--ok);border-color:var(--ok);color:#fff}
+  .nb.no{background:var(--bad);border-color:var(--bad);color:#fff}
+  .nb.cur.ok,.nb.cur.no{box-shadow:0 0 0 3px rgba(15,42,74,.25)}
+
+  /* ---------- Cartão da questão ---------- */
+  .qcard{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:30px 32px}
+  .qmeta{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;padding-bottom:14px;border-bottom:1px solid var(--line);margin-bottom:18px}
+  .qmeta .l{display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+  .qnum{background:var(--navy);color:#fff;font-weight:800;font-size:12px;padding:5px 11px;border-radius:9px}
+  .qtheme{font-size:12.5px;color:var(--muted);font-weight:600}
+  .qtype{font-size:12px;color:var(--muted);font-weight:600}
+  .qcard h3{font-size:21px;font-weight:800;color:var(--navy);letter-spacing:-.01em;line-height:1.25}
+  .cf{margin-top:12px;background:#fff7e6;border:1px solid #fde1a6;border-left:5px solid var(--gold);border-radius:12px;padding:12px 16px;font-size:13.5px;color:#5c3a00}
+  .cf b{display:block;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#9a5b00;margin-bottom:3px}
+  .support{font-size:14.5px;color:#334155;margin-top:10px;text-align:justify}
+  .tbl-wrap{margin:18px 0}
+  .tbl-cap{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:8px}
+  .tbl-cap b{font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:#334155}
+  .tbl-cap span{font-size:11.5px;color:#94a3b8}
+  .tbl-box{overflow-x:auto;border:1px solid var(--line);border-radius:13px}
+  table.t{width:100%;border-collapse:collapse;font-size:14px;background:#fff}
+  table.t thead{background:var(--navy);color:#fff}
+  table.t th{padding:10px 14px;text-align:left;font-weight:700;font-size:12.5px}
+  table.t td{padding:10px 14px;border-top:1px solid #edf1f6}
+  table.t tbody tr:nth-child(even){background:#f8fafc}
+  table.t td:first-child{font-weight:800;color:var(--navy)}
+  table.t td:last-child{font-weight:700;color:var(--blue)}
+  table.t.num td:not(:first-child){font-weight:700;color:var(--blue)}
+  .stim{margin:18px 0}
+  .prompt{background:linear-gradient(135deg,var(--navy),var(--navy-2));color:#fff;padding:16px 20px;border-radius:14px;font-size:15px;font-weight:600;margin:20px 0 16px;border-left:5px solid var(--gold)}
+  .opts{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .opt{text-align:left;background:#fff;border:2px solid var(--line);border-radius:16px;padding:14px;transition:.14s;display:block;width:100%;color:inherit}
+  .opt:hover:not([disabled]){border-color:#7aa2f5;transform:translateY(-1px)}
+  .opt .oh{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+  .badge{width:30px;height:30px;border-radius:9px;background:#eef2f7;color:#334155;font-weight:800;font-size:13px;display:grid;place-items:center}
+  .opt .lb{font-size:12px;font-weight:600;color:#94a3b8}
+  .opt .body{background:#f8fafc;border:1px solid #edf1f6;border-radius:11px;padding:8px}
+  .opt.sel{border-color:var(--blue);background:#f5f8ff;box-shadow:0 0 0 4px rgba(37,99,235,.12)}
+  .opt.sel .badge{background:var(--blue);color:#fff}
+  .opt.right{border-color:var(--ok);background:var(--ok-bg);box-shadow:0 0 0 3px rgba(5,150,105,.18)}
+  .opt.right .badge{background:var(--ok);color:#fff}
+  .opt.wrong{border-color:var(--bad);background:var(--bad-bg);box-shadow:0 0 0 3px rgba(220,38,38,.15)}
+  .opt.wrong .badge{background:var(--bad);color:#fff}
+  .opt[disabled]{cursor:default}
+  table.m{width:100%;border-collapse:collapse;font-size:13px}
+  table.m th{background:#e2e8f0;color:#475569;padding:6px 8px;font-size:11.5px;font-weight:700;text-align:left}
+  table.m th:not(:first-child),table.m td:not(:first-child){text-align:right}
+  table.m td{padding:6px 8px;border-bottom:1px solid #e9eef5}
+  table.m td:first-child{font-weight:800}
+  table.m td:not(:first-child){font-weight:700;color:var(--blue)}
+
+  .fb{margin-top:22px;border-radius:16px;padding:18px 20px;border:1px solid}
+  .fb.ok{background:var(--ok-bg);border-color:#a7e3c9;color:#064e3b}
+  .fb.no{background:var(--bad-bg);border-color:#f6b8b8;color:#7f1d1d}
+  .fb h4{font-size:15px;font-weight:800;margin-bottom:6px}
+  .fb p{font-size:14px}
+  .fb .diag{margin-top:10px;background:rgba(255,255,255,.75);border-radius:11px;padding:11px 13px;font-size:13px;color:#334155}
+  .fb .diag b{display:block;color:var(--ink);margin-bottom:3px}
+
+  .qfoot{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-top:26px;padding-top:18px;border-top:1px solid var(--line)}
+  .btn{padding:11px 20px;border-radius:12px;border:2px solid var(--line);background:#fff;font-weight:700;font-size:13.5px;color:#334155;transition:.12s}
+  .btn:hover:not([disabled]){border-color:#94a3b8;background:#f8fafc}
+  .btn[disabled]{opacity:.4;cursor:not-allowed}
+  .btn.finish{background:linear-gradient(135deg,var(--teal),#0f766e);color:#fff;border-color:transparent;box-shadow:0 10px 20px -8px rgba(13,148,136,.6)}
+  .btn.finish:hover:not([disabled]){filter:brightness(1.06);background:linear-gradient(135deg,var(--teal),#0f766e)}
+  .btn.navy{background:var(--navy);color:#fff;border-color:var(--navy)}
+  .btn.navy:hover:not([disabled]){background:var(--navy-2)}
+  .hint{font-size:12.5px;color:var(--muted);font-weight:600}
+
+  /* ---------- Resultado ---------- */
+  .result{background:var(--card);border:1px solid var(--line);border-radius:24px;box-shadow:var(--shadow);overflow:hidden}
+  .res-hero{background:linear-gradient(160deg,var(--navy),var(--navy-2));color:#fff;padding:34px 36px;display:grid;grid-template-columns:auto 1fr;gap:34px;align-items:center}
+  .ring{position:relative;width:190px;height:190px}
+  .ring svg{width:190px;height:190px;transform:rotate(-90deg)}
+  .ring .c{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+  .ring .c b{font-size:52px;font-weight:900;line-height:1;letter-spacing:-.03em}
+  .ring .c span{font-size:13px;color:#9fb6d3;font-weight:600;margin-top:3px}
+  .res-hero .who small{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#9fb6d3;font-weight:700}
+  .res-hero .who h2{font-size:26px;font-weight:900;margin:2px 0 4px;letter-spacing:-.01em}
+  .res-hero .who p{color:#c7d6ea;font-size:14px}
+  .level{display:inline-block;margin-top:14px;padding:7px 14px;border-radius:99px;font-weight:800;font-size:13px}
+  .res-body{padding:28px 36px 34px}
+  .res-body h3{font-size:12px;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);font-weight:800;margin-bottom:12px}
+  .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:26px}
+  .stat{background:#f8fafc;border:1px solid var(--line);border-radius:14px;padding:14px 16px}
+  .stat b{display:block;font-size:26px;font-weight:900;color:var(--navy);line-height:1.1}
+  .stat span{font-size:12px;color:var(--muted);font-weight:600}
+  .perf{display:grid;gap:12px;margin-bottom:26px}
+  .perf-row .top{display:flex;justify-content:space-between;font-size:13px;font-weight:700;color:#334155;margin-bottom:5px}
+  .perf-row .tr{height:10px;background:#e8edf4;border-radius:99px;overflow:hidden}
+  .perf-row .tr>div{height:100%;border-radius:99px;background:linear-gradient(90deg,var(--teal),var(--blue))}
+  .qgrid{display:grid;grid-template-columns:repeat(10,1fr);gap:8px;margin-bottom:26px}
+  .qg{border-radius:11px;padding:9px 0;text-align:center;font-weight:800;font-size:13px;color:#fff}
+  .qg small{display:block;font-size:10px;font-weight:700;opacity:.9}
+  .qg.ok{background:var(--ok)}.qg.no{background:var(--bad)}
+  .res-actions{display:flex;gap:12px;flex-wrap:wrap}
+  .btn.save{background:linear-gradient(135deg,var(--blue),#1d4ed8);color:#fff;border-color:transparent;box-shadow:0 10px 20px -8px rgba(37,99,235,.6);display:inline-flex;align-items:center;gap:8px}
+  .btn.save:hover{filter:brightness(1.06);background:linear-gradient(135deg,var(--blue),#1d4ed8)}
+  .toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(20px);background:var(--navy);color:#fff;padding:12px 20px;border-radius:12px;font-size:13.5px;font-weight:600;opacity:0;pointer-events:none;transition:.25s;z-index:50;box-shadow:var(--shadow)}
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+  .review-banner{background:#fff7e6;border:1px solid #fde1a6;color:#7a4a00;border-radius:14px;padding:12px 18px;margin-bottom:16px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;font-size:13.5px;font-weight:600}
+  .foot{text-align:center;font-size:12px;color:#94a3b8;margin-top:26px}
+
+  @media (max-width:860px){
+    .cover{grid-template-columns:1fr}
+    .cover-left,.cover-right{padding:30px 24px}
+    .cover-left h1{font-size:29px}
+    .res-hero{grid-template-columns:1fr;justify-items:center;text-align:center;padding:28px 22px}
+    .res-body{padding:24px 20px 28px}
+  }
+  .opts:not(.txt) .opt:last-child:nth-child(odd){grid-column:1/-1;justify-self:center;width:calc(50% - 7px)}
+  .opts.txt{grid-template-columns:1fr;gap:10px}
+  .opt.tx{display:flex;gap:14px;align-items:center;padding:13px 16px}
+  .opt.tx .t{font-size:15px;color:#1e293b;line-height:1.45}
+  .opt.tx .badge{flex:none}
+  table.t.plain td:last-child{font-weight:500;color:#334155}
+  @media (max-width:640px){
+    .opts{grid-template-columns:1fr}
+    .opts:not(.txt) .opt:last-child:nth-child(odd){width:100%}
+    .qcard{padding:22px 18px}
+    .qcard h3{font-size:18px}
+    .nav-grid,.qgrid{grid-template-columns:repeat(5,1fr)}
+    .stats{grid-template-columns:1fr}
+    .topbar .student{display:none}
+    .wrap{padding:16px 12px 40px}
+  }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-in">
+    <div class="brand-mark" style="font-size:11px;letter-spacing:.02em">9º</div>
+    <div class="brand-txt">
+      <small>Colégio Estadual Rodolfo de Oliveira · 2026</small>
+      <strong>Atividade · Direitos civis, políticos e sociais</strong>
+    </div>
+    <div class="student hidden" id="top-student"><b id="top-name"></b><span id="top-turma"></span></div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <!-- CAPA -->
+  <section id="view-cover" class="cover">
+    <div class="cover-left">
+      <span class="pill">Atividade · 9º ano · História</span>
+      <h1>Direitos <span>civis</span>, <span>políticos</span> e <span>sociais</span></h1>
+      <p class="sub">Dez questões sobre os direitos que formam a cidadania no Brasil, a partir de trechos e situações da Constituição de 1988.</p>
+      <div class="desc-box">
+        <div class="tag"><b>EF09HI23</b><span>Habilidade em foco</span></div>
+        <p>Identificar direitos civis, políticos e sociais expressos na Constituição de 1988 e relacioná-los à noção de cidadania.</p>
+      </div>
+      <div class="steps">
+        <div><i>1</i><span>Leia com atenção o trecho da Constituição e a situação apresentada.</span></div>
+        <div><i>2</i><span>Descubra qual direito está em jogo: de liberdade, de participação ou de condições de vida.</span></div>
+        <div><i>3</i><span>Compare todas as alternativas com o texto antes de marcar sua resposta.</span></div>
+      </div>
+    </div>
+    <div class="cover-right">
+      <h2>Identificação do estudante</h2>
+      <p class="lead">Preencha os campos abaixo para iniciar a atividade.</p>
+      <form id="cover-form" autocomplete="off" novalidate>
+        <div class="field">
+          <label class="f" for="in-name">Nome completo</label>
+          <input class="inp" id="in-name" type="text" placeholder="Digite seu nome" maxlength="70">
+          <div class="errmsg" id="err-name"></div>
+        </div>
+        <div class="field">
+          <label class="f" for="in-turma">Turma</label>
+          <input class="inp" id="in-turma" type="text" placeholder="Ex.: 9º A" maxlength="20">
+          <div class="errmsg" id="err-turma"></div>
+        </div>
+        <button type="submit" class="btn-primary">Iniciar atividade →</button>
+      </form>
+      <div class="meta-row">
+        <span>10 questões</span><span>Alternativas A–D</span><span>9º ano · Ensino Fundamental</span><span>Nota de 0 a 10</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- SIMULADO / REVISÃO -->
+  <section id="view-quiz" class="hidden">
+    <div id="review-banner" class="review-banner hidden">
+      <span>Modo revisão: veja o gabarito comentado de cada questão.</span>
+      <button class="btn navy" onclick="showResult()">← Voltar ao resultado</button>
+    </div>
+    <div class="qhead">
+      <div class="qhead-top">
+        <h2>Direitos civis, políticos e sociais</h2>
+        <div class="chips"><span class="chip gold">EF09HI23</span><span class="chip teal">Cidadania · CF/88</span></div>
+      </div>
+      <div class="bar"><div id="bar-fill"></div></div>
+      <div class="bar-txt"><span id="bar-left">0 de 10 respondidas</span><span id="bar-right"></span></div>
+    </div>
+    <nav class="nav" aria-label="Navegação de questões"><div class="nav-grid" id="nav-grid"></div></nav>
+    <main id="qcard" class="qcard"></main>
+  </section>
+
+  <!-- RESULTADO -->
+  <section id="view-result" class="hidden"></section>
+
+  <div class="foot">Colégio Estadual Rodolfo de Oliveira · Atividade · Direitos civis, políticos e sociais · 2026</div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const questions = [
+  {
+    "title": "Questão 1: O cartaz no mural da escola",
+    "theme": "Direitos civis (CF/88, Art. 5º)",
+    "hab": "EF09HI23",
+    "comp": 1,
+    "skill": "Identificar direitos civis, políticos e sociais",
+    "source": "Constituição da República Federativa do Brasil, 1988 (texto adaptado)",
+    "cf": "O Art. 5º da Constituição de 1988 afirma que “todos são iguais perante a lei, sem distinção de qualquer natureza” e que “é livre a manifestação do pensamento, sendo vedado o anonimato”.",
+    "supportText": "Mariana, estudante do 9º ano, escreveu e assinou um cartaz criticando a falta de ônibus no seu bairro e o afixou no mural da escola, com autorização da coordenação. Um colega disse que ela não poderia fazer isso por ser menor de idade.",
+    "prompt": "A atitude de Mariana é o exercício de um direito",
+    "options": [
+      {
+        "id": "A",
+        "label": "",
+        "text": "político, pois a crítica trata de um serviço público e só pode ser feita por quem tem título de eleitor."
+      },
+      {
+        "id": "B",
+        "label": "",
+        "text": "social, pois o tema do cartaz é o transporte, serviço garantido por políticas públicas do município."
+      },
+      {
+        "id": "C",
+        "label": "",
+        "text": "civil, pois a livre manifestação do pensamento é garantida a todas as pessoas, até às menores."
+      },
+      {
+        "id": "D",
+        "label": "",
+        "text": "restrito aos adultos, pois quem é menor de idade ainda não possui direitos garantidos pela lei."
+      }
+    ],
+    "correctOption": "C",
+    "explanation": {
+      "correct": "Expressar uma opinião de forma livre e identificada é uma liberdade individual, ou seja, um direito civil. O Art. 5º vale para todas as pessoas, sem distinção, e a idade não impede essa manifestação.",
+      "distractors": "A alternativa A está errada: o título de eleitor é necessário para votar, não para manifestar uma opinião. A alternativa B está errada: o assunto do cartaz é o transporte, mas o direito exercido por Mariana é o de se expressar, não o de receber um serviço. A alternativa D está errada: crianças e adolescentes também têm direitos garantidos pela Constituição."
+    },
+    "id": 1,
+    "type": "enem"
+  },
+  {
+    "title": "Questão 2: Uma família que se muda",
+    "theme": "Direitos civis (CF/88, Art. 5º)",
+    "hab": "EF09HI23",
+    "comp": 1,
+    "skill": "Identificar direitos civis, políticos e sociais",
+    "source": "Constituição da República Federativa do Brasil, 1988 (texto adaptado)",
+    "cf": "O Art. 5º, inciso XV, da Constituição de 1988 afirma: “é livre a locomoção no território nacional em tempo de paz, podendo qualquer pessoa, nos termos da lei, nele entrar, permanecer ou dele sair com seus bens”.",
+    "supportText": "Dona Rosa e sua família saíram do Maranhão e foram morar em Aparecida de Goiânia em busca de emprego. Um vizinho afirmou que “gente de fora” não poderia morar no bairro.",
+    "prompt": "De acordo com a Constituição, Dona Rosa e sua família têm o direito de",
+    "options": [
+      {
+        "id": "A",
+        "label": "",
+        "text": "se mudar e morar em qualquer parte do país, pois a locomoção é livre em tempo de paz."
+      },
+      {
+        "id": "B",
+        "label": "",
+        "text": "se mudar para qualquer lugar do país, desde que a prefeitura do novo município autorize a moradia."
+      },
+      {
+        "id": "C",
+        "label": "",
+        "text": "se mudar apenas para o estado onde seus pais nasceram."
+      },
+      {
+        "id": "D",
+        "label": "",
+        "text": "mudar de cidade apenas se forem eleitores, pois a liberdade de locomoção é um direito político."
+      }
+    ],
+    "correctOption": "A",
+    "explanation": {
+      "correct": "A liberdade de ir e vir é um direito civil: qualquer pessoa pode circular, entrar, permanecer ou sair de qualquer parte do território nacional, sem precisar de permissão para fixar residência.",
+      "distractors": "A alternativa B está errada: o texto não exige autorização da prefeitura para a pessoa morar onde quiser. A alternativa C está errada: a Constituição não limita a moradia ao lugar de nascimento. A alternativa D está errada: a locomoção é um direito civil e vale para todas as pessoas, e não apenas para eleitores."
+    },
+    "id": 2,
+    "type": "enem"
+  },
+  {
+    "title": "Questão 3: Uma loja que recusa um cliente",
+    "theme": "Direitos civis (CF/88, Art. 5º)",
+    "hab": "EF09HI23",
+    "comp": 1,
+    "skill": "Identificar direitos civis, políticos e sociais",
+    "source": "Constituição da República Federativa do Brasil, 1988 (texto adaptado)",
+    "cf": "O Art. 5º, inciso XLII, da Constituição de 1988 estabelece que “a prática do racismo constitui crime inafiançável e imprescritível, sujeito à pena de reclusão, nos termos da lei”.",
+    "supportText": "Um jovem negro foi impedido de entrar em uma loja de roupas por causa da cor da pele. O dono afirmou que a loja é propriedade dele e que atende quem quiser.",
+    "prompt": "De acordo com a Constituição, a atitude do dono da loja",
+    "options": [
+      {
+        "id": "A",
+        "label": "",
+        "text": "é crime de racismo, mas afiançável e com prazo para prescrever, como outros crimes comuns."
+      },
+      {
+        "id": "B",
+        "label": "",
+        "text": "é apenas uma falta de educação, pois em propriedade privada o dono decide, sem restrições, quem pode entrar."
+      },
+      {
+        "id": "C",
+        "label": "",
+        "text": "é permitida, pois a igualdade perante a lei vale apenas para atos do governo, e não entre particulares."
+      },
+      {
+        "id": "D",
+        "label": "",
+        "text": "é crime de racismo, inafiançável e imprescritível, pois fere a igualdade de todos perante a lei."
+      }
+    ],
+    "correctOption": "D",
+    "explanation": {
+      "correct": "O racismo é crime e fere a igualdade perante a lei, um dos principais direitos civis. O direito de propriedade não autoriza discriminar pessoas.",
+      "distractors": "A alternativa A está errada: a Constituição diz que o racismo é inafiançável e imprescritível. A alternativa B está errada: o direito de propriedade não está acima da igualdade: discriminar por cor é crime. A alternativa C está errada: o Art. 5º garante a igualdade a todas as pessoas, em todas as situações."
+    },
+    "id": 3,
+    "type": "enem"
+  },
+  {
+    "title": "Questão 4: Três pessoas da mesma família",
+    "theme": "Direitos políticos (CF/88, Art. 14)",
+    "hab": "EF09HI23",
+    "comp": 1,
+    "skill": "Identificar direitos civis, políticos e sociais",
+    "source": "Constituição da República Federativa do Brasil, 1988 (texto adaptado)",
+    "cf": "O Art. 14 da Constituição de 1988 estabelece que a soberania popular é exercida pelo voto direto e secreto, com valor igual para todos. O voto é obrigatório para os maiores de 18 anos e facultativo para os maiores de 16 e menores de 18 anos e para os maiores de 70 anos.",
+    "supportText": "Júlia tem 16 anos e acabou de tirar o título de eleitor. Seu avô, Antônio, tem 72 anos, e seu irmão, Rafael, tem 19 anos e trabalha como entregador.",
+    "prompt": "De acordo com a Constituição, é correto afirmar que",
+    "options": [
+      {
+        "id": "A",
+        "label": "",
+        "text": "os três têm direito ao voto, e, por terem título de eleitor, os três são obrigados a votar."
+      },
+      {
+        "id": "B",
+        "label": "",
+        "text": "os três têm direito ao voto, mas apenas Rafael é obrigado a votar."
+      },
+      {
+        "id": "C",
+        "label": "",
+        "text": "apenas Rafael tem direito ao voto, pois Júlia e Antônio não têm a idade exigida."
+      },
+      {
+        "id": "D",
+        "label": "",
+        "text": "apenas Rafael pode votar, pois esse direito depende de ter trabalho e renda."
+      }
+    ],
+    "correctOption": "B",
+    "explanation": {
+      "correct": "Aos 16 anos (Júlia) e depois dos 70 anos (Antônio), votar é um direito facultativo: a pessoa pode escolher votar ou não. A partir dos 18 anos (Rafael), o voto passa a ser obrigatório. Os três exercem direitos políticos.",
+      "distractors": "A alternativa A está errada: o voto é facultativo para quem tem 16 ou 17 anos e para quem tem mais de 70. A alternativa C está errada: a Constituição permite o voto de quem tem 16 anos ou mais, inclusive depois dos 70. A alternativa D está errada: o sufrágio é universal e o voto tem valor igual para todos, sem exigir renda ou emprego."
+    },
+    "id": 4,
+    "type": "enem"
+  },
+  {
+    "title": "Questão 5: Assinaturas por um projeto de lei",
+    "theme": "Direitos políticos (CF/88, Art. 14)",
+    "hab": "EF09HI23",
+    "comp": 1,
+    "skill": "Identificar direitos civis, políticos e sociais",
+    "source": "Constituição da República Federativa do Brasil, 1988 (texto adaptado)",
+    "cf": "O Art. 14 da Constituição de 1988 afirma que a soberania popular é exercida pelo voto e, nos termos da lei, mediante plebiscito, referendo e iniciativa popular.",
+    "supportText": "Moradores de uma cidade reuniram assinaturas de eleitores para apresentar à Câmara Municipal um projeto de lei sobre o transporte coletivo.",
+    "prompt": "Essa mobilização é um exemplo do exercício de um direito",
+    "options": [
+      {
+        "id": "A",
+        "label": "",
+        "text": "político, pois a iniciativa popular permite que os cidadãos proponham leis diretamente."
+      },
+      {
+        "id": "B",
+        "label": "",
+        "text": "civil, pois o único objetivo é proteger a liberdade de reunião dos moradores."
+      },
+      {
+        "id": "C",
+        "label": "",
+        "text": "político, mas a Constituição reserva a proposta de leis apenas a vereadores e deputados."
+      },
+      {
+        "id": "D",
+        "label": "",
+        "text": "social, pois seu objetivo é receber um benefício individual do Estado."
+      }
+    ],
+    "correctOption": "A",
+    "explanation": {
+      "correct": "A iniciativa popular é uma forma de participação direta nas decisões públicas, prevista no Art. 14. Por isso, é um direito político.",
+      "distractors": "A alternativa B está errada: a mobilização vai além de reunir pessoas: ela propõe uma lei, o que é participação política. A alternativa C está errada: o Art. 14 prevê a iniciativa popular justamente para os cidadãos proporem leis. A alternativa D está errada: o projeto busca mudar uma política pública para todos, não obter um benefício individual."
+    },
+    "id": 5,
+    "type": "enem"
+  },
+  {
+    "title": "Questão 6: Quem pode ser candidato",
+    "theme": "Direitos políticos (CF/88, Art. 14)",
+    "hab": "EF09HI23",
+    "comp": 1,
+    "skill": "Identificar direitos civis, políticos e sociais",
+    "source": "Constituição da República Federativa do Brasil, 1988 (texto adaptado)",
+    "cf": "O Art. 14 da Constituição de 1988 inclui, entre as condições para ser candidato, a filiação a um partido político e uma idade mínima: 18 anos para vereador e 21 anos para prefeito.",
+    "supportText": "Pedro tem 19 anos e Sofia tem 20. Os dois estão filiados a partidos políticos. Pedro quer ser candidato a vereador e Sofia, a prefeita da cidade.",
+    "prompt": "De acordo com o texto, nas próximas eleições",
+    "options": [
+      {
+        "id": "A",
+        "label": "",
+        "text": "os dois poderão se candidatar, pois 18 anos é a idade mínima para qualquer cargo."
+      },
+      {
+        "id": "B",
+        "label": "",
+        "text": "só poderão se candidatar pessoas que já exerceram algum mandato eleitoral anterior."
+      },
+      {
+        "id": "C",
+        "label": "",
+        "text": "nenhum dos dois poderá se candidatar, pois é preciso ter mais de 30 anos para qualquer cargo eletivo."
+      },
+      {
+        "id": "D",
+        "label": "",
+        "text": "Pedro poderá se candidatar a vereador, mas Sofia ainda não poderá se candidatar a prefeita."
+      }
+    ],
+    "correctOption": "D",
+    "explanation": {
+      "correct": "Pedro já atingiu a idade mínima para vereador (18 anos). Sofia ainda não completou os 21 anos exigidos para prefeito, embora já possa votar e se filiar a um partido.",
+      "distractors": "A alternativa A está errada: a idade mínima muda conforme o cargo: para prefeito, são 21 anos. A alternativa B está errada: ter exercido mandato não é condição para ser candidato; é possível concorrer pela primeira vez. A alternativa C está errada: a idade de 30 anos vale para governador, e não para vereador ou prefeito."
+    },
+    "id": 6,
+    "type": "enem"
+  },
+  {
+    "title": "Questão 7: Fundando um partido",
+    "theme": "Direitos políticos (CF/88, Art. 17)",
+    "hab": "EF09HI23",
+    "comp": 1,
+    "skill": "Identificar direitos civis, políticos e sociais",
+    "source": "Constituição da República Federativa do Brasil, 1988 (texto adaptado)",
+    "cf": "O Art. 17 da Constituição de 1988 afirma: “É livre a criação, fusão, incorporação e extinção de partidos políticos, resguardados a soberania nacional, o regime democrático, o pluripartidarismo, os direitos fundamentais da pessoa humana”.",
+    "supportText": "Um grupo de cidadãos que defende mais investimentos em transporte público decidiu organizar um novo partido político.",
+    "prompt": "De acordo com o texto, a criação de partidos políticos no Brasil",
+    "options": [
+      {
+        "id": "A",
+        "label": "",
+        "text": "é livre e totalmente sem limites, pois não precisa respeitar nenhuma condição prevista no texto."
+      },
+      {
+        "id": "B",
+        "label": "",
+        "text": "é livre, desde que respeite a soberania nacional, o regime democrático e o pluripartidarismo."
+      },
+      {
+        "id": "C",
+        "label": "",
+        "text": "só é permitida a dois partidos por vez, para facilitar a escolha do eleitor nas eleições."
+      },
+      {
+        "id": "D",
+        "label": "",
+        "text": "depende de autorização do governo, que pode extinguir partidos de oposição."
+      }
+    ],
+    "correctOption": "B",
+    "explanation": {
+      "correct": "A Constituição garante a liberdade de organizar partidos, que é um direito político, mas pede respeito à soberania, à democracia e ao pluripartidarismo.",
+      "distractors": "A alternativa A está errada: o texto estabelece limites: soberania nacional, regime democrático e pluripartidarismo. A alternativa C está errada: a Constituição protege o pluripartidarismo, isto é, a existência de vários partidos. A alternativa D está errada: a criação é livre, e não depende de autorização do governo."
+    },
+    "id": 7,
+    "type": "enem"
+  },
+  {
+    "title": "Questão 8: O posto de saúde do bairro",
+    "theme": "Direitos sociais (CF/88, Art. 196)",
+    "hab": "EF09HI23",
+    "comp": 1,
+    "skill": "Identificar direitos civis, políticos e sociais",
+    "source": "Constituição da República Federativa do Brasil, 1988 (texto adaptado)",
+    "cf": "O Art. 196 da Constituição de 1988 afirma: “A saúde é direito de todos e dever do Estado, garantido mediante políticas sociais e econômicas [...] e ao acesso universal e igualitário às ações e serviços para sua promoção, proteção e recuperação.”",
+    "supportText": "Dona Lúcia, aposentada, faz consultas e recebe medicamentos em um posto de saúde do bairro sem pagar nada. Neste mês, a prefeitura também organizou uma campanha de vacinação aberta a toda a população, sem exigir comprovante de renda ou de contribuição.",
+    "prompt": "Segundo o texto, o direito à saúde se concretiza por meio de",
+    "options": [
+      {
+        "id": "A",
+        "label": "",
+        "text": "políticas públicas do Estado, mas oferecidas somente a quem contribui para a previdência social."
+      },
+      {
+        "id": "B",
+        "label": "",
+        "text": "ações voluntárias de igrejas e associações, sem responsabilidade do Estado."
+      },
+      {
+        "id": "C",
+        "label": "",
+        "text": "políticas públicas do Estado, oferecidas de forma universal e igualitária a toda a população."
+      },
+      {
+        "id": "D",
+        "label": "",
+        "text": "serviços comprados no mercado por quem pode pagar, como um direito individual de propriedade."
+      }
+    ],
+    "correctOption": "C",
+    "explanation": {
+      "correct": "O Art. 196 diz que a saúde é dever do Estado e deve ser garantida por políticas públicas de acesso universal e igualitário, como o SUS. O direito social se torna realidade por meio desses serviços.",
+      "distractors": "A alternativa A está errada: o texto fala em acesso universal, sem a condição de contribuir. A alternativa B está errada: o texto afirma que a saúde é dever do Estado. A alternativa D está errada: a Constituição define a saúde como direito de todos, independentemente da capacidade de pagar."
+    },
+    "id": 8,
+    "type": "enem"
+  },
+  {
+    "title": "Questão 9: A chegada do bebê",
+    "theme": "Direitos sociais (CF/88, Art. 7º)",
+    "hab": "EF09HI23",
+    "comp": 1,
+    "skill": "Identificar direitos civis, políticos e sociais",
+    "source": "Constituição da República Federativa do Brasil, 1988 (texto adaptado)",
+    "cf": "O Art. 7º da Constituição de 1988 garante aos trabalhadores a “licença à gestante, sem prejuízo do emprego e do salário, com a duração de cento e vinte dias”.",
+    "supportText": "Rita trabalha com carteira assinada em uma empresa de Aparecida de Goiânia e está grávida. Uma colega disse que ela poderia perder o emprego ao se afastar para cuidar do bebê.",
+    "prompt": "De acordo com a Constituição, Rita tem direito a",
+    "options": [
+      {
+        "id": "A",
+        "label": "",
+        "text": "licença de 120 dias, sem perder o emprego nem o salário, como direito social do trabalho."
+      },
+      {
+        "id": "B",
+        "label": "",
+        "text": "licença de 120 dias, com o emprego garantido, mas sem receber o salário durante todo o período."
+      },
+      {
+        "id": "C",
+        "label": "",
+        "text": "licença apenas se a empresa concordar em liberá-la, pois depende de acordo com o empregador."
+      },
+      {
+        "id": "D",
+        "label": "",
+        "text": "nenhum direito, pois a gravidez é assunto particular da trabalhadora e pode motivar a sua demissão pela empresa."
+      }
+    ],
+    "correctOption": "A",
+    "explanation": {
+      "correct": "A licença-maternidade é um direito social do trabalhador, garantido pelo Art. 7º, que protege a mãe, a criança e o emprego durante o período de afastamento.",
+      "distractors": "A alternativa B está errada: o texto garante a licença sem prejuízo do emprego e do salário. A alternativa C está errada: é um direito da trabalhadora, e não uma concessão da empresa. A alternativa D está errada: a Constituição protege o emprego da gestante, e a gravidez não justifica demissão."
+    },
+    "id": 9,
+    "type": "enem"
+  },
+  {
+    "title": "Questão 10: Escola ou trabalho?",
+    "theme": "Direitos sociais (CF/88, Arts. 205 e 208)",
+    "hab": "EF09HI23",
+    "comp": 1,
+    "skill": "Identificar direitos civis, políticos e sociais",
+    "source": "Constituição da República Federativa do Brasil, 1988 (texto adaptado)",
+    "cf": "O Art. 205 da Constituição de 1988 afirma que “a educação, direito de todos e dever do Estado e da família”, visa ao pleno desenvolvimento da pessoa e ao seu preparo para o exercício da cidadania. O Art. 208 determina a educação básica obrigatória e gratuita dos 4 aos 17 anos.",
+    "supportText": "Thiago tem 15 anos e cursa o 9º ano. O pai dele disse que pretende tirá-lo da escola para trabalhar em tempo integral e ajudar nas despesas da casa.",
+    "prompt": "De acordo com a Constituição, essa situação mostra que a educação",
+    "options": [
+      {
+        "id": "A",
+        "label": "",
+        "text": "é dever apenas do Estado, de modo que a família não tem responsabilidade pela frequência escolar."
+      },
+      {
+        "id": "B",
+        "label": "",
+        "text": "é direito de Thiago e dever do Estado e da família, e a escola é obrigatória até os 17 anos."
+      },
+      {
+        "id": "C",
+        "label": "",
+        "text": "é obrigatória só até os 14 anos, de modo que Thiago já pode deixar a escola para trabalhar."
+      },
+      {
+        "id": "D",
+        "label": "",
+        "text": "é uma escolha de quem pode pagar por ela, sem nenhuma obrigação por parte do Estado."
+      }
+    ],
+    "correctOption": "B",
+    "explanation": {
+      "correct": "A educação é um direito social e um dever compartilhado entre Estado e família. Como a educação básica é obrigatória até os 17 anos, Thiago deve continuar estudando.",
+      "distractors": "A alternativa A está errada: o Art. 205 afirma que a educação é dever do Estado e também da família. A alternativa C está errada: a obrigatoriedade vai dos 4 aos 17 anos, e Thiago tem 15. A alternativa D está errada: a educação é direito de todos e dever do Estado, com oferta gratuita."
+    },
+    "id": 10,
+    "type": "enem"
+  }
+];
+
+
+// ===================== Estado =====================
+const TOTAL = questions.length;
+let student = { name: '', turma: '' };
+let cur = 0;
+let mode = 'cover';               // cover | quiz | result | review
+const answers = new Array(TOTAL).fill(null);
+let finishedAt = null;
+
+const $ = id => document.getElementById(id);
+function show(view){
+  ['cover','quiz','result'].forEach(v => $('view-' + v).classList.toggle('hidden', v !== view));
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+function toast(msg){
+  const t = $('toast'); t.textContent = msg; t.classList.add('show');
+  clearTimeout(toast._t); toast._t = setTimeout(() => t.classList.remove('show'), 2600);
+}
+function fmtNota(n){ return n.toFixed(1).replace('.', ','); }
+function esc(s){ return String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+
+// ===================== Capa =====================
+$('cover-form').addEventListener('submit', e => {
+  e.preventDefault();
+  const n = $('in-name').value.trim().replace(/\s+/g, ' ');
+  const t = $('in-turma').value.trim();
+  $('err-name').textContent = ''; $('err-turma').textContent = '';
+  $('in-name').classList.remove('err'); $('in-turma').classList.remove('err');
+  let ok = true;
+  if (n.length < 5 || !n.includes(' ')) { $('err-name').textContent = 'Digite seu nome e sobrenome.'; $('in-name').classList.add('err'); ok = false; }
+  if (!t) { $('err-turma').textContent = 'Informe sua turma.'; $('in-turma').classList.add('err'); ok = false; }
+  if (!ok) return;
+  student = { name: n, turma: t };
+  $('top-name').textContent = n; $('top-turma').textContent = 'Turma ' + t;
+  $('top-student').classList.remove('hidden');
+  startQuiz();
+});
+
+function startQuiz(){
+  answers.fill(null); cur = 0; finishedAt = null; mode = 'quiz';
+  $('review-banner').classList.add('hidden');
+  show('quiz'); renderAll();
+}
+
+// ===================== Simulado =====================
+function renderAll(){ renderNav(); renderQuestion(); renderProgress(); }
+
+function renderProgress(){
+  const n = answers.filter(a => a !== null).length;
+  $('bar-fill').style.width = (n / TOTAL * 100) + '%';
+  $('bar-left').textContent = mode === 'review' ? 'Revisão das questões' : `${n} de ${TOTAL} respondidas`;
+  $('bar-right').textContent = mode === 'review' ? '' : (n === TOTAL ? 'Pronto para finalizar' : `Faltam ${TOTAL - n}`);
+}
+
+function renderNav(){
+  const g = $('nav-grid'); g.innerHTML = '';
+  questions.forEach((q, i) => {
+    const b = document.createElement('button');
+    let cls = 'nb';
+    let sub;
+    if (mode === 'review') {
+      const ok = answers[i] === q.correctOption;
+      cls += ok ? ' ok' : ' no'; sub = ok ? 'Certa' : 'Errada';
+    } else {
+      sub = answers[i] ? answers[i] : '—';
+      if (answers[i]) cls += ' ans';
+    }
+    if (i === cur) cls += ' cur';
+    b.className = cls;
+    b.innerHTML = `Q${i + 1}<small>${sub}</small>`;
+    b.onclick = () => go(i);
+    g.appendChild(b);
+  });
+}
+
+function optionBody(opt){
+  if (opt.svg) return `<div class="body">${opt.svg}</div>`;
+  if (opt.tableData) {
+    const head = opt.tableHead || ['Ano/Período', 'Valor'];
+    const rows = opt.tableData.map(r => `<tr>${r.map(c => `<td>${c}</td>`).join('')}</tr>`).join('');
+    return `<div class="body"><table class="m"><thead><tr>${head.map(h => `<th>${h}</th>`).join('')}</tr></thead><tbody>${rows}</tbody></table></div>`;
+  }
+  return '';
+}
+
+function renderQuestion(){
+  const q = questions[cur];
+  const review = mode === 'review';
+  const sel = answers[cur];
+
+  let tableHtml = '';
+  if (q.table) {
+    const heads = q.table.columns.map(c => `<th>${c}</th>`).join('');
+    const nc = q.table.columns.length;
+    const rows = q.table.rows.map(r => `<tr>${r.map((c, k) => `<td${(k > 0 && k < nc - 1 && !q.table.numeric) ? ' style="font-weight:500;color:#475569"' : ''}>${c}</td>`).join('')}</tr>`).join('');
+    tableHtml = `<div class="tbl-wrap"><div class="tbl-cap"><b>${q.table.title}</b><span>Fonte: ${q.source}</span></div>
+      <div class="tbl-box"><table class="t${q.table.numeric ? ' num' : ''}${q.table.plain ? ' plain' : ''}"><thead><tr>${heads}</tr></thead><tbody>${rows}</tbody></table></div></div>`;
+  }
+  const stim = q.stimulusSvg ? `<div class="stim">${q.stimulusSvg}<div style="text-align:center;font-size:11.5px;color:#94a3b8;margin-top:6px">Fonte: ${q.source}</div></div>` : '';
+
+  const textMode = q.options.every(o => o.text);
+  const opts = q.options.map(o => {
+    let c = 'opt';
+    if (review) {
+      if (o.id === q.correctOption) c += ' right';
+      else if (o.id === sel) c += ' wrong';
+    } else if (o.id === sel) c += ' sel';
+    if (textMode) return `<button class="${c} tx" ${review ? 'disabled' : ''} onclick="pick('${o.id}')" aria-pressed="${o.id === sel}"><span class="badge">${o.id}</span><span class="t">${o.text}</span></button>`;
+    return `<button class="${c}" ${review ? 'disabled' : ''} onclick="pick('${o.id}')" aria-pressed="${o.id === sel}">
+      <div class="oh"><span class="badge">${o.id}</span><span class="lb">${o.label}</span></div>${optionBody(o)}</button>`;
+  }).join('');
+
+  let fb = '';
+  if (review) {
+    const ok = sel === q.correctOption;
+    fb = `<div class="fb ${ok ? 'ok' : 'no'}">
+      <h4>${ok ? 'Você acertou!' : 'Você marcou a alternativa ' + sel + '.'} Gabarito: alternativa ${q.correctOption}</h4>
+      <p>${q.explanation.correct}</p>
+      <div class="diag"><b>Por que as outras alternativas estão erradas?</b>${q.explanation.distractors}</div></div>`;
+  }
+
+  const answered = answers.filter(a => a !== null).length;
+  const last = cur === TOTAL - 1;
+  let right = '';
+  if (!review) {
+    if (last) {
+      right = `<button class="btn finish" onclick="finish()" ${answered < TOTAL ? 'disabled' : ''}>Finalizar atividade ✓</button>`;
+    } else {
+      right = `<button class="btn navy" onclick="go(${cur + 1})">Próxima →</button>`;
+    }
+  } else if (!last) {
+    right = `<button class="btn navy" onclick="go(${cur + 1})">Próxima →</button>`;
+  } else {
+    right = `<button class="btn navy" onclick="showResult()">Voltar ao resultado</button>`;
+  }
+  const hint = (!review && answered < TOTAL) ? `<span class="hint">Faltam ${TOTAL - answered} questão(ões) para finalizar</span>` : '<span></span>';
+
+  $('qcard').innerHTML = `
+    <div class="qmeta">
+      <div class="l"><span class="qnum">Questão ${q.id} de ${TOTAL}</span><span class="chip gold">${q.hab}</span><span class="qtheme">${q.theme}</span></div>
+      <span class="qtype">${q.skill}</span>
+    </div>
+    <h3>${q.title}</h3>
+    ${q.cf ? `<div class="cf"><b>Base constitucional</b>${q.cf}</div>` : ''}
+    <p class="support">${q.supportText}</p>
+    ${tableHtml}${stim}
+    <div class="prompt">${q.prompt}</div>
+    <div class="opts${textMode ? ' txt' : ''}">${opts}</div>
+    ${fb}
+    <div class="qfoot">
+      <button class="btn" onclick="go(${cur - 1})" ${cur === 0 ? 'disabled' : ''}>← Anterior</button>
+      ${hint}
+      ${right}
+    </div>`;
+}
+
+function pick(id){
+  if (mode !== 'quiz') return;
+  answers[cur] = id;
+  renderAll();
+}
+function go(i){
+  if (i < 0 || i >= TOTAL) return;
+  cur = i; renderAll();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+function finish(){
+  if (answers.some(a => a === null)) { toast('Responda todas as questões para finalizar.'); return; }
+  finishedAt = new Date();
+  showResult();
+}
+
+// ===================== Resultado =====================
+function calc(){
+  const hits = questions.map((q, i) => answers[i] === q.correctOption);
+  const acertos = hits.filter(Boolean).length;
+  const nota = acertos / TOTAL * 10;
+  const byComp = {};
+  questions.forEach((q, i) => {
+    const c = q.comp; byComp[c] = byComp[c] || { ok: 0, n: 0 };
+    byComp[c].n++; if (hits[i]) byComp[c].ok++;
+  });
+  return { hits, acertos, nota, byComp };
+}
+const COMPS = [[1, 'Habilidade EF09HI23 · Direitos civis, políticos e sociais']];
+function levelOf(nota){
+  if (nota >= 9) return { t: 'Excelente domínio das habilidades', bg: '#d1fae5', fg: '#065f46', c: '#10b981' };
+  if (nota >= 7) return { t: 'Bom desempenho', bg: '#dbeafe', fg: '#1e40af', c: '#3b82f6' };
+  if (nota >= 5) return { t: 'Em desenvolvimento: continue praticando', bg: '#fef3c7', fg: '#92400e', c: '#f59e0b' };
+  return { t: 'Atenção: reforce as habilidades da prova', bg: '#fee2e2', fg: '#991b1b', c: '#ef4444' };
+}
+function fmtDate(d){ return d.toLocaleDateString('pt-BR') + ' às ' + d.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }); }
+
+function showResult(){
+  mode = 'result';
+  const { hits, acertos, nota, byComp } = calc();
+  const lv = levelOf(nota);
+  const C = 2 * Math.PI * 80;
+  const perf = COMPS.filter(p => byComp[p[0]]).map(([k, label]) => {
+    const b = byComp[k], pc = Math.round(b.ok / b.n * 100);
+    return `<div class="perf-row"><div class="top"><span>${label}</span><span>${b.ok} de ${b.n} (${pc}%)</span></div><div class="tr"><div style="width:${pc}%"></div></div></div>`;
+  }).join('');
+  const grid = hits.map((h, i) => `<div class="qg ${h ? 'ok' : 'no'}">Q${i + 1}<small>${questions[i].hab} · ${h ? 'Certa' : 'Errada'}</small></div>`).join('');
+
+  $('view-result').innerHTML = `
+    <div class="result">
+      <div class="res-hero">
+        <div class="ring">
+          <svg viewBox="0 0 190 190"><circle cx="95" cy="95" r="80" fill="none" stroke="rgba(255,255,255,.14)" stroke-width="14"/>
+            <circle cx="95" cy="95" r="80" fill="none" stroke="${lv.c}" stroke-width="14" stroke-linecap="round" stroke-dasharray="${C}" stroke-dashoffset="${C * (1 - nota / 10)}"/></svg>
+          <div class="c"><b>${fmtNota(nota)}</b><span>de 10</span></div>
+        </div>
+        <div class="who">
+          <small>Resultado da atividade</small>
+          <h2>${esc(student.name)}</h2>
+          <p>Turma ${esc(student.turma)} · ${fmtDate(finishedAt || new Date())}</p>
+          <span class="level" style="background:${lv.bg};color:${lv.fg}">${lv.t}</span>
+        </div>
+      </div>
+      <div class="res-body">
+        <div class="stats">
+          <div class="stat"><b>${acertos}</b><span>questões corretas</span></div>
+          <div class="stat"><b>${TOTAL - acertos}</b><span>questões incorretas</span></div>
+          <div class="stat"><b>${Math.round(acertos / TOTAL * 100)}%</b><span>de aproveitamento</span></div>
+        </div>
+        <h3>Desempenho na habilidade</h3>
+        <div class="perf">${perf}</div>
+        <h3>Questão por questão</h3>
+        <div class="qgrid">${grid}</div>
+        <div class="res-actions">
+          <button class="btn save" onclick="saveImage()">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0l-4-4m4 4l4-4"/><path d="M4 17v2a2 2 0 002 2h12a2 2 0 002-2v-2"/></svg>
+            Salvar resultado como imagem</button>
+          <button class="btn navy" onclick="startReview()">Revisar questões e gabarito</button>
+          <button class="btn" onclick="restart()">Refazer atividade</button>
+        </div>
+      </div>
+    </div>`;
+  show('result');
+}
+function startReview(){
+  mode = 'review'; cur = 0;
+  $('review-banner').classList.remove('hidden');
+  show('quiz'); renderAll();
+}
+function restart(){
+  mode = 'quiz'; answers.fill(null); cur = 0; finishedAt = null;
+  $('review-banner').classList.add('hidden');
+  show('quiz'); renderAll();
+}
+
+// ===================== Imagem do resultado (canvas) =====================
+function rr(ctx, x, y, w, h, r){
+  ctx.beginPath();
+  ctx.moveTo(x + r, y); ctx.arcTo(x + w, y, x + w, y + h, r); ctx.arcTo(x + w, y + h, x, y + h, r);
+  ctx.arcTo(x, y + h, x, y, r); ctx.arcTo(x, y, x + w, y, r); ctx.closePath();
+}
+function fit(ctx, text, maxW){
+  if (ctx.measureText(text).width <= maxW) return text;
+  while (text.length > 1 && ctx.measureText(text + '…').width > maxW) text = text.slice(0, -1);
+  return text.trim() + '…';
+}
+async function saveImage(){
+  try { if (document.fonts && document.fonts.ready) await document.fonts.ready; } catch(e){}
+  const { hits, acertos, nota, byComp } = calc();
+  const lv = levelOf(nota);
+  const W = 1080, H = 1480, S = 1;
+  const cv = document.createElement('canvas'); cv.width = W; cv.height = H;
+  const x = cv.getContext('2d');
+  const F = 'Inter, "Segoe UI", Roboto, Arial, sans-serif';
+
+  // fundo
+  x.fillStyle = '#eef2f7'; x.fillRect(0, 0, W, H);
+  // cabeçalho
+  const g = x.createLinearGradient(0, 0, W, 300); g.addColorStop(0, '#0f2a4a'); g.addColorStop(1, '#1e4d82');
+  x.fillStyle = g; x.fillRect(0, 0, W, 300);
+  x.fillStyle = '#f5a524'; x.fillRect(0, 296, W, 8);
+  x.save(); x.beginPath(); x.rect(0, 0, W, 296); x.clip(); x.fillStyle = 'rgba(245,165,36,.14)'; x.beginPath(); x.arc(W - 40, 300, 170, 0, 7); x.fill(); x.restore();
+  x.textBaseline = 'alphabetic'; x.textAlign = 'left';
+  x.fillStyle = '#9fb6d3'; x.font = `700 22px ${F}`;
+  x.fillText('COLÉGIO ESTADUAL RODOLFO DE OLIVEIRA · 2026', 70, 92);
+  x.fillStyle = '#fff'; x.font = `900 66px ${F}`;
+  x.fillText('Atividade · 9º ano', 70, 170);
+  x.fillStyle = '#f5a524'; x.font = `800 30px ${F}`;
+  x.fillText('História · Habilidade EF09HI23', 70, 222);
+  x.fillStyle = '#c7d6ea'; x.font = `500 22px ${F}`;
+  x.fillText('Direitos civis, políticos e sociais', 70, 262);
+
+  // cartão do estudante
+  x.save(); x.shadowColor = 'rgba(15,42,74,.18)'; x.shadowBlur = 30; x.shadowOffsetY = 12;
+  x.fillStyle = '#fff'; rr(x, 50, 340, W - 100, 190, 26); x.fill(); x.restore();
+  x.fillStyle = '#64748b'; x.font = `700 19px ${F}`;
+  x.fillText('ESTUDANTE', 90, 392);
+  x.fillStyle = '#0f2a4a'; x.font = `800 38px ${F}`;
+  x.fillText(fit(x, student.name, W - 180), 90, 440);
+  x.fillStyle = '#64748b'; x.font = `700 19px ${F}`;
+  x.fillText('TURMA', 90, 485); x.fillText('DATA', 380, 485);
+  x.fillStyle = '#0f2a4a'; x.font = `700 24px ${F}`;
+  x.fillText(fit(x, student.turma, 250), 175, 486);
+  x.fillText(fmtDate(finishedAt || new Date()), 450, 486);
+
+  // cartão da nota
+  x.save(); x.shadowColor = 'rgba(15,42,74,.18)'; x.shadowBlur = 30; x.shadowOffsetY = 12;
+  x.fillStyle = '#fff'; rr(x, 50, 560, W - 100, 440, 26); x.fill(); x.restore();
+  const cx = 290, cy = 780, R = 140;
+  x.lineWidth = 28; x.lineCap = 'round';
+  x.strokeStyle = '#e8edf4'; x.beginPath(); x.arc(cx, cy, R, 0, Math.PI * 2); x.stroke();
+  if (nota > 0) { x.strokeStyle = lv.c; x.beginPath(); x.arc(cx, cy, R, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * (nota / 10)); x.stroke(); }
+  x.textAlign = 'center'; x.fillStyle = '#0f2a4a'; x.font = `900 96px ${F}`;
+  x.fillText(fmtNota(nota), cx, cy + 22);
+  x.fillStyle = '#64748b'; x.font = `600 26px ${F}`; x.fillText('de 10', cx, cy + 64);
+
+  x.textAlign = 'left';
+  x.fillStyle = '#64748b'; x.font = `700 19px ${F}`; x.fillText('NOTA FINAL', 500, 650);
+  x.fillStyle = '#0f2a4a'; x.font = `900 52px ${F}`; x.fillText(`${acertos} de ${TOTAL} acertos`, 500, 712);
+  x.fillStyle = '#475569'; x.font = `600 25px ${F}`; x.fillText(`Aproveitamento: ${Math.round(acertos / TOTAL * 100)}%`, 500, 756);
+  // selo do nível
+  x.font = `800 22px ${F}`;
+  const lt = lv.t, lw = Math.min(x.measureText(lt).width + 44, W - 500 - 80);
+  x.fillStyle = lv.bg; rr(x, 500, 792, lw, 52, 26); x.fill();
+  x.fillStyle = lv.fg; x.fillText(fit(x, lt, lw - 44), 522, 826);
+
+  // desempenho por tipo
+  const types = COMPS.filter(p => byComp[p[0]]).map(p => [p[0], 'Habilidade EF09HI23']);
+  let by = 884;
+  types.forEach(([k, label]) => {
+    const b = byComp[k], pc = b.ok / b.n;
+    x.fillStyle = '#334155'; x.font = `700 20px ${F}`; x.fillText(label, 500, by);
+    x.textAlign = 'right'; x.fillText(`${b.ok}/${b.n}`, W - 90, by); x.textAlign = 'left';
+    x.fillStyle = '#e8edf4'; rr(x, 500, by + 10, W - 590, 14, 7); x.fill();
+    if (pc > 0) { x.fillStyle = '#0d9488'; rr(x, 500, by + 10, Math.max(14, (W - 590) * pc), 14, 7); x.fill(); }
+    by += 56;
+  });
+
+  // grade de questões
+  x.save(); x.shadowColor = 'rgba(15,42,74,.18)'; x.shadowBlur = 30; x.shadowOffsetY = 12;
+  x.fillStyle = '#fff'; rr(x, 50, 1030, W - 100, 330, 26); x.fill(); x.restore();
+  x.fillStyle = '#64748b'; x.font = `700 19px ${F}`; x.fillText('DESEMPENHO QUESTÃO A QUESTÃO', 90, 1085);
+  const cols = 5, gw = 164, gh = 100, gap = 18, gx = 90, gy = 1112;
+  hits.forEach((h, i) => {
+    const px = gx + (i % cols) * (gw + gap), py = gy + Math.floor(i / cols) * (gh + gap);
+    x.fillStyle = h ? '#059669' : '#dc2626'; rr(x, px, py, gw, gh, 18); x.fill();
+    x.fillStyle = '#fff'; x.textAlign = 'left'; x.font = `800 28px ${F}`; x.fillText('Q' + (i + 1), px + 20, py + 42);
+    // ícone ✓ / ✗ desenhado
+    x.strokeStyle = '#fff'; x.lineWidth = 7; x.lineCap = 'round'; x.lineJoin = 'round';
+    const ix = px + gw - 52, iy = py + 28;
+    x.beginPath();
+    if (h) { x.moveTo(ix, iy + 18); x.lineTo(ix + 12, iy + 30); x.lineTo(ix + 34, iy + 4); }
+    else { x.moveTo(ix + 2, iy + 4); x.lineTo(ix + 30, iy + 32); x.moveTo(ix + 30, iy + 4); x.lineTo(ix + 2, iy + 32); }
+    x.stroke();
+    x.fillStyle = 'rgba(255,255,255,.92)'; x.font = `700 19px ${F}`; x.fillText(questions[i].hab + ' · ' + (h ? 'Certa' : 'Errada'), px + 20, py + 80);
+  });
+
+  // rodapé
+  x.textAlign = 'center'; x.fillStyle = '#94a3b8'; x.font = `600 20px ${F}`;
+  x.fillText('Atividade · Direitos civis, políticos e sociais · Colégio Estadual Rodolfo de Oliveira · 2026', W / 2, 1420);
+
+  const safe = student.name.normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-zA-Z0-9]+/g, '_').replace(/^_|_$/g, '').toLowerCase() || 'aluno';
+  const fname = `resultado_direitos_${safe}.png`;
+  cv.toBlob(blob => {
+    if (!blob) { toast('Não foi possível gerar a imagem.'); return; }
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a'); a.href = url; a.download = fname;
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 4000);
+    toast('Imagem salva: ' + fname);
+  }, 'image/png');
+}
+</script>
+</body>
+</html>

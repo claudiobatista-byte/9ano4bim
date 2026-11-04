@@ -1,0 +1,414 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>História · 9º Ano · Cartaz: Constituição de 1988, 38 anos depois</title>
+<style>
+:root{--navy:#1f2d3a;--teal:#1d5a3a;--gold:#c28a1e;--bg:#f2f4ef;--ink:#23303b;--line:#dde4da}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.6 'Segoe UI',Arial,sans-serif}
+header{background:linear-gradient(120deg,#1f2d3a,#1d5a3a);color:#fff;padding:52px 20px;text-align:center}
+header .tag{font-size:13px;letter-spacing:2px;text-transform:uppercase;color:#ffe3a4}
+h1{font-size:clamp(28px,5vw,46px);line-height:1.15;margin:15px auto;max-width:900px}
+header p{max-width:740px;margin:auto}
+main{max-width:1050px;margin:25px auto;padding:0 18px 60px}
+.card{background:#fff;border-radius:17px;padding:26px;margin:20px 0;box-shadow:0 6px 24px #1f2d3a12}
+h2{color:var(--navy);margin-top:0;font-size:24px}
+h3{margin:0 0 6px;font-size:17px;color:var(--navy)}
+.highlight{background:#e8f3ec;border-left:5px solid var(--teal);padding:18px;border-radius:9px}
+.notice{background:#fff6e2;padding:14px;border-radius:10px;border-left:4px solid var(--gold)}
+.muted{font-size:14px;color:#556470}
+.dados{width:100%;border-collapse:collapse;font-size:14px;margin:10px 0}.dados th,.dados td{border:1px solid var(--line);padding:7px 10px;text-align:left;vertical-align:top}.dados th{background:#f3f7f2;color:var(--navy)}
+.tbl{overflow-x:auto}
+.resumo{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:18px 0 0}
+.resumo div{background:#f3f7f2;border:1px solid var(--line);border-radius:12px;padding:12px 14px;font-size:14px}
+.resumo b{display:block;color:var(--teal);font-size:12px;letter-spacing:1px;text-transform:uppercase;margin-bottom:2px}
+.post{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#fff;display:flex;flex-direction:row}
+.post-art{flex:0 0 220px;background:linear-gradient(140deg,#8a6212,#d9a93f);display:flex;align-items:center;justify-content:center;flex-direction:column;text-align:center;color:#fff;padding:18px}
+.post-art .num{width:52px;height:52px;border-radius:50%;background:#ffffff2b;border:2px solid #fff;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:700;margin-bottom:8px}
+.post-art strong{font-size:20px;letter-spacing:1px}
+.post-body{padding:14px 18px 16px;font-size:15px;flex:1}
+.post-body p{margin:0 0 8px}.post-body ul{margin:6px 0 0;padding-left:20px}.post-body li{margin:3px 0}
+@media(max-width:820px){.post{flex-direction:column}.post-art{flex:none;aspect-ratio:2/1}}
+.passos{counter-reset:p;list-style:none;margin:0;padding:0}
+.passos li{counter-increment:p;position:relative;padding:4px 0 14px 52px;margin:0}
+.passos li::before{content:counter(p);position:absolute;left:0;top:2px;width:36px;height:36px;border-radius:50%;background:var(--navy);color:#fff;font-weight:700;display:flex;align-items:center;justify-content:center}
+.passos li:not(:last-child)::after{content:"";position:absolute;left:17px;top:40px;bottom:2px;width:2px;background:var(--line)}
+label{display:block;font-weight:700;margin:15px 0 4px}
+label small{display:block;font-weight:400;color:#556470;font-size:14px}
+input,textarea,select{width:100%;border:1px solid #b9c9bd;border-radius:9px;padding:12px;font:inherit;background:#fbfdfb}
+textarea{min-height:92px;resize:vertical}
+input:focus,textarea:focus,select:focus{outline:3px solid #7ac79a55;border-color:#1d5a3a}
+.grupo{border-left:4px solid var(--line);padding-left:16px;margin-top:20px}
+.grupo.gok{border-color:#2f8f4e}.grupo.gfalta{border-color:#d98a2b}.grupo.gv{border-color:var(--gold)}.grupo.g1{border-color:#1d5a3a}.grupo.g2{border-color:#3b7ea1}.grupo.g3{border-color:#a8573b}
+.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px;align-items:center}
+button{background:var(--navy);border:0;border-radius:9px;color:#fff;padding:13px 19px;font-weight:700;cursor:pointer;font-size:15px}
+button.secondary{background:var(--teal)}
+button:hover{filter:brightness(1.1)}
+button:focus-visible{outline:3px solid #7ac79a;outline-offset:2px}
+.prompt-box{width:100%;min-height:380px;font:14px/1.5 Consolas,'Courier New',monospace;background:#12251c;color:#e6f0ea;border:0;border-radius:12px;padding:18px;resize:vertical}
+.estado{display:inline-block;font-size:13px;font-weight:700;padding:3px 10px;border-radius:20px;background:#fff6e2;color:#8a6212}
+.estado.ok{background:#e1f4ea;color:#1d6b45}
+details{border:1px solid var(--line);border-radius:10px;padding:10px 14px;margin-top:14px;background:#fafcfa}
+summary{cursor:pointer;font-weight:700;color:var(--navy)}
+.prompt-item{border:1px solid var(--line);border-radius:14px;padding:16px;margin-top:18px;background:#fbfdfb}
+.prompt-head{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between;margin-bottom:10px}
+.checklist label{font-weight:500;display:flex;gap:10px;align-items:flex-start;margin:10px 0}
+.checklist input{width:auto;margin-top:6px}
+.progress{height:12px;background:#e2e9e4;border-radius:20px;overflow:hidden}
+.progress>div{height:100%;width:0;background:var(--teal);transition:width .2s}
+footer{text-align:center;color:#556470;font-size:13px;margin-top:25px}
+@media(max-width:820px){.resumo{grid-template-columns:1fr 1fr}.card{padding:19px}header{padding:40px 16px}}
+.cores{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:8px}
+.cor{background:#f3f7f2;border:1px solid var(--line);border-radius:12px;padding:10px;text-align:center;font-size:14px}
+.cor b{display:block;color:var(--navy)}.cor span.hex{display:block;font:13px Consolas,monospace;color:#556470;margin-top:4px}
+.cor input[type=color]{width:100%;height:58px;padding:2px;cursor:pointer;margin-top:6px}
+.fontes-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:10px;margin-top:8px}
+button.fonte-card{background:#fff;color:var(--ink);border:2px solid var(--line);border-radius:12px;padding:10px 12px;text-align:left;font-weight:400;font-size:15px}
+button.fonte-card[aria-pressed=true]{border-color:var(--teal);background:#e8f3ec}
+.fonte-card .ex{display:block;font-size:22px;line-height:1.2;margin-bottom:4px}
+.fonte-card small{display:block;font:12px 'Segoe UI',Arial,sans-serif;color:#556470}
+.prev{background:#f3f7f2;border-radius:8px;padding:8px 12px;margin-top:6px;min-height:0}.prev:empty{display:none}
+.custom{margin-top:8px}
+@media(max-width:560px){.cores{grid-template-columns:1fr 1fr}}
+</style><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Poppins:wght@400;700&family=Oswald:wght@400;600&family=Bebas+Neue&family=Playfair+Display:wght@400;700&family=Roboto+Slab:wght@400;700&family=Open+Sans:wght@400;700&family=Lato:wght@400;700&family=Roboto:wght@400;700&family=Nunito:wght@400;700&family=Merriweather:wght@400;700&family=Source+Sans+3:wght@400;700&display=swap"></head><body>
+
+<header><div class="tag">História · 9º Ano do Ensino Fundamental</div>
+<h1>A Constituição de 1988 faz 38 anos<br>O que já saiu do papel e o que ainda falta?</h1>
+<p>Missão: criar um cartaz em A4 que mostre, com dados oficiais, como estão hoje os direitos garantidos pela Constituição Cidadã e o que podemos fazer para que eles cheguem a todos.</p></header>
+
+<main>
+<section class="card"><h2>01 · Entenda o desafio</h2>
+<p>Em <strong>5 de outubro de 1988</strong>, depois de 21 anos de ditadura militar, o Brasil ganhou uma nova Constituição. Ela ficou conhecida como <strong>Constituição Cidadã</strong>, porque garante direitos para todas as pessoas: educação, saúde, trabalho, moradia, previdência social, entre outros.</p>
+<p>Escrever o direito na lei é o primeiro passo. O segundo é fazer o direito chegar na vida real: na sala de aula, no posto de saúde, no emprego, na casa de cada família. Passados <strong>38 anos</strong>, os números oficiais mostram avanços importantes e desafios que continuam.</p>
+<p class="highlight"><strong>Pergunta que orienta o seu cartaz:</strong> depois de 38 anos, <strong>o que já saiu do papel</strong> e <strong>o que ainda falta</strong> para os direitos da Constituição chegarem a todos?</p>
+<details><summary>Ideias para o seu cartaz</summary>
+<ul>
+<li><strong>Direitos sociais:</strong> o artigo 6º da Constituição lista educação, saúde, alimentação, trabalho, moradia, transporte, lazer, segurança, previdência social, proteção à maternidade e à infância e assistência aos desamparados.</li>
+<li><strong>Saúde:</strong> o artigo 196 diz que a saúde é direito de todos e dever do Estado. Daí nasceu o SUS.</li>
+<li><strong>Educação:</strong> o artigo 205 diz que a educação é direito de todos e dever do Estado e da família.</li>
+<li><strong>Previdência e assistência:</strong> os artigos 201 e 203 protegem quem trabalhou e quem precisa de apoio, como idosos e pessoas com deficiência.</li>
+<li><strong>Papel e realidade:</strong> um bom cartaz mostra o que a lei promete e o que os números dizem hoje.</li>
+<li><strong>Cidadania:</strong> o direito só funciona quando as pessoas o conhecem, cobram e ajudam a defender.</li>
+</ul></details>
+<div class="resumo">
+<div><b>Entrega</b>1 cartaz A4 vertical</div>
+<div><b>Tamanho</b>210 × 297 mm</div>
+<div><b>Trabalho</b>em dupla</div>
+<div><b>Dados</b>oficiais, com fonte e ano</div>
+</div></section>
+
+<section class="card"><h2>02 · Sua missão: o que o cartaz precisa ter</h2>
+<p>O cartaz é feito <strong>em dupla</strong>, impresso em <strong>A4 na vertical</strong> e fixado na escola (com autorização do professor). Ele deve <strong>mostrar o que já saiu do papel e o que ainda falta</strong> e <strong>convidar</strong> colegas, professores e funcionários a pensar nos direitos de 1988.</p>
+<div class="post"><div class="post-art"><span class="num">A4</span><strong>CARTAZ</strong></div><div class="post-body"><p><strong>Constituição de 1988: 38 anos depois</strong></p><ul>
+<li>Uma <strong>frase de chamada</strong> grande, que se leia de longe.</li>
+<li>Um bloco <strong>"Já saiu do papel"</strong>: um dado que mostra um avanço, com ano e fonte.</li>
+<li>Um bloco <strong>"Ainda falta"</strong>: um dado, sobre o mesmo direito, que mostra um desafio, com ano e fonte.</li>
+<li><strong>Três atitudes</strong> que qualquer pessoa pode ter para ajudar, começando com verbos de ação.</li>
+<li>O convite para participar: <strong>siga a hashtag, comente e deixe o seu recado no mural da escola com um post-it</strong>. No rodapé, a <strong>dupla, a turma e a escola</strong>.</li>
+</ul></div></div></section>
+
+<section class="card"><h2>03 · Como produzir: passo a passo</h2>
+<ol class="passos">
+<li><h3>Escolha um direito</h3>Pense em qual direito é mais importante para a sua turma: trabalho, moradia, educação, saúde, previdência ou combate à pobreza.</li>
+<li><h3>Leia o quadro de dados</h3>Na seção 04, cada direito tem dados que mostram <strong>o que já saiu do papel</strong> e <strong>o que ainda falta</strong>, do Brasil e de Goiás. Escolha <strong>um de cada</strong>.</li>
+<li><h3>Planeje</h3>Preencha a seção 04: autoria, nome da campanha, identidade visual, os dois dados, as atitudes e a frase de chamada.</li>
+<li><h3>Crie o cartaz com IA</h3>Na seção 05, copie o prompt completo e cole na ferramenta de IA (ChatGPT, Gemini, Copilot ou Canva com IA).</li>
+<li><h3>Monte e revise no Canva ou PowerPoint</h3>Deixe o cartaz em <strong>A4 vertical</strong>, com margem de 10 mm. Confira os números e a fonte no quadro de dados: a IA pode errar.</li>
+<li><h3>Entregue</h3>Marque a lista da seção 06 e entregue o arquivo conforme orientação do professor.</li>
+</ol>
+<p class="notice"><strong>Atenção:</strong> use só os dados do quadro (ou outros de fontes oficiais, como IBGE e ministérios), sempre com ano e fonte. Não use nomes, fotos ou casos de pessoas reais. A afixação do cartaz na escola depende de autorização do professor.</p></section>
+
+<section class="card"><h2>04 · Planeje o seu cartaz</h2>
+<p>Preencha os campos. Seu planejamento fica salvo neste navegador enquanto você trabalha e alimenta o prompt da seção 05.</p>
+
+<details open><summary>Quadro de dados oficiais: o que já saiu do papel e o que ainda falta, por direito</summary>
+<div id="quadro"></div>
+<p class="notice"><strong>Cuidado ao usar:</strong> cada pesquisa tem seu ano e seu método, então não compare números de pesquisas diferentes como se fossem iguais (por exemplo, o déficit habitacional de Goiás do IMB usa o CadÚnico e o do Brasil usa a Fundação João Pinheiro; as linhas de pobreza também variam). Dado não é culpa de ninguém: ele mostra uma situação para pensarmos em soluções. Os números foram lidos em matérias que citam as fontes oficiais, então confira cada um no site do órgão antes de colocar na arte.</p></details>
+
+<label for="nome">Nome da campanha</label><input id="nome" placeholder="Ex.: 38 anos de direitos: falta chegar para todos">
+<label for="publico">Quem você deseja conscientizar?</label><input id="publico" placeholder="Ex.: estudantes, professores e funcionários da escola">
+<label for="hashtag">Hashtag ou lema da campanha</label><input id="hashtag" placeholder="#Constituicao38Anos">
+
+<div class="grupo gv"><h3>Autoria (dupla)</h3><p class="muted" style="margin:0 0 4px">Aparece, pequena e discreta, no rodapé do cartaz.</p>
+<label for="aluno1">Nome do(a) estudante 1</label><input id="aluno1" placeholder="Nome e sobrenome">
+<label for="aluno2">Nome do(a) estudante 2</label><input id="aluno2" placeholder="Nome e sobrenome">
+<label for="turma">Turma</label><input id="turma" value="9º ano" placeholder="Ex.: 9º A">
+<label for="escola">Escola</label><input id="escola" value="Colégio Estadual Rodolfo de Oliveira" placeholder="Nome da escola">
+</div>
+
+<div class="grupo gv"><h3>Identidade visual</h3><p class="muted" style="margin:0 0 4px">Define a aparência do cartaz.</p>
+<label>Paleta de cores<small>Clique em cada quadrado para escolher a cor. A paleta já vem com uma sugestão que você pode trocar.</small></label>
+<div class="cores">
+<div class="cor"><b>Fundo</b><input type="color" id="cor1" value="#f7f3e8" aria-label="Cor de fundo"><span class="hex" id="hex1"></span></div>
+<div class="cor"><b>Títulos</b><input type="color" id="cor2" value="#1d5a3a" aria-label="Cor dos títulos"><span class="hex" id="hex2"></span></div>
+<div class="cor"><b>Destaques</b><input type="color" id="cor3" value="#c28a1e" aria-label="Cor dos destaques"><span class="hex" id="hex3"></span></div>
+<div class="cor"><b>Textos</b><input type="color" id="cor4" value="#23303b" aria-label="Cor dos textos"><span class="hex" id="hex4"></span></div>
+</div>
+<label>Fonte dos títulos<small>Clique na fonte que você quer usar. Cada cartão mostra um exemplo.</small></label>
+<div class="fontes-grid" id="gridT"></div><input type="hidden" id="fonteT" value="Montserrat">
+<label>Fonte dos textos</label>
+<div class="fontes-grid" id="gridC"></div><input type="hidden" id="fonteC" value="Open Sans">
+<label for="tipoimg">Tipo de imagem</label><select id="tipoimg"><option value="ilustracao">Ilustração (desenho, formas, símbolos)</option><option value="realista">Imagem realística de situação do cotidiano (aparência de fotografia, gerada por IA)</option></select>
+<label for="estilo">Detalhes do estilo da imagem<small>Ilustração: estilo do desenho. Realística: luz, enquadramento e ambiente. Sem rostos de pessoas reais.</small></label><input id="estilo" placeholder="Ex.: ilustração plana com formas geométricas; ou: fotografia realista, luz natural, ambiente escolar">
+<label for="clima">Sensação que o cartaz deve passar</label><input id="clima" placeholder="Ex.: esperançosa, firme e convidativa, sem passar medo">
+<label for="elemento">Elemento visual que reforça o tema<small>Um símbolo, selo ou moldura. Ex.: um livro aberto da Constituição, uma casa, um coração.</small></label><input id="elemento" placeholder="Ex.: livro da Constituição aberto com raios de sol">
+</div>
+
+<div class="grupo g1"><h3>1. Escolha o direito do seu cartaz</h3>
+<label for="direito">Qual direito será o foco?<small>O cartaz vai mostrar, sobre este direito, o que já saiu do papel e o que ainda falta.</small></label><select id="direito"></select></div>
+<div class="grupo gok"><h3>2. O que já saiu do papel</h3>
+<label for="dadoA">Escolha um dado que mostra um avanço<small id="dicaA">Escolha antes o direito em foco.</small></label><select id="dadoA"></select><div class="prev muted" id="prevA"></div>
+<label for="dadoAexp">Com as suas palavras: o que esse número mostra? (opcional)</label><input id="dadoAexp" placeholder="Ex.: cada vez mais brasileiros aprendem a ler e escrever"></div>
+<div class="grupo gfalta"><h3>3. O que ainda falta</h3>
+<label for="dadoF">Escolha um dado que mostra um desafio<small id="dicaF">Escolha antes o direito em foco.</small></label><select id="dadoF"></select><div class="prev muted" id="prevF"></div>
+<label for="dadoFexp">Com as suas palavras: o que esse número mostra? (opcional)</label><input id="dadoFexp" placeholder="Ex.: ainda há muita gente que precisa ser alcançada"></div>
+<div class="grupo g3"><h3>4. O que podemos fazer para o que falta chegar a todos?</h3><label>Três atitudes<small>Escolha frases prontas ou crie a sua própria atitude, começando com um verbo.</small></label>
+<select id="at1" aria-label="Atitude 1"></select><input class="custom" id="at1c" placeholder="Escreva a sua atitude 1 (comece com um verbo)" style="display:none">
+<select id="at2" aria-label="Atitude 2" style="margin-top:10px"></select><input class="custom" id="at2c" placeholder="Escreva a sua atitude 2 (comece com um verbo)" style="display:none">
+<select id="at3" aria-label="Atitude 3" style="margin-top:10px"></select><input class="custom" id="at3c" placeholder="Escreva a sua atitude 3 (comece com um verbo)" style="display:none"></div>
+
+<div class="grupo gv"><h3>Detalhes do cartaz</h3><p class="muted" style="margin:0 0 4px">Campos opcionais: se ficarem em branco, a IA propõe.</p>
+<label for="cartazchamada">Frase de chamada<small>Curta e forte, que se leia de longe.</small></label><input id="cartazchamada" placeholder="Ex.: 38 anos de direitos: o que já saiu do papel e o que ainda falta">
+<label for="cena4">Imagem principal do cartaz</label><input id="cena4" placeholder="Ex.: estudantes de costas lendo um grande livro aberto, com símbolos de escola, casa e hospital ao redor">
+</div>
+
+<label for="reflexao">Reflexão final: qual direito da Constituição de 1988 você acha mais urgente para a sua cidade? Por quê?</label><textarea id="reflexao" placeholder="Escreva com suas palavras..."></textarea>
+<div class="actions"><button type="button" onclick="copiarPlano()">Copiar planejamento</button><span id="feedback" class="muted" role="status" aria-live="polite"></span></div>
+</section>
+
+<section class="card"><h2>05 · Prompt pronto: crie o cartaz com IA</h2>
+<p>Copie o prompt abaixo e cole na ferramenta de IA. Ele usa as informações do seu planejamento.</p>
+<p class="muted">Os trechos entre [colchetes] são campos da seção 04 que ainda estão em branco. Complete-os antes de colar na IA.</p>
+<div class="prompt-item"><div class="prompt-head"><h3 style="margin:0">Prompt do Cartaz A4 · Constituição de 1988, 38 anos depois</h3><span class="estado" id="estado1"></span></div>
+<textarea class="prompt-box" id="prompt1" readonly aria-label="Prompt do cartaz A4"></textarea>
+<div class="actions"><button type="button" class="secondary" onclick="copiarPrompt()">Copiar prompt do cartaz</button><span id="fb1" class="muted" role="status" aria-live="polite"></span></div></div>
+<details><summary>Dicas para usar a IA com qualidade</summary>
+<ul>
+<li><strong>Texto na imagem:</strong> alguns geradores erram letras e números. O prompt já pede que, nesse caso, a IA entregue a arte sem texto e o texto separado, para você aplicar no Canva ou PowerPoint.</li>
+<li><strong>Confira os dados:</strong> volte ao quadro da seção 04 e confirme número, ano e fonte. A IA pode errar ou inventar estatísticas.</li>
+<li><strong>Pessoas fictícias:</strong> se usar imagens realísticas, confira se ninguém lembra uma pessoa real.</li>
+<li><strong>Refine:</strong> peça ajustes (“deixe o número maior”, “use cores mais suaves”) até ficar com a sua cara.</li>
+<li><strong>A autoria é sua:</strong> a IA dá a primeira versão. As escolhas, a revisão e a reflexão final são suas.</li>
+</ul></details></section>
+
+<section class="card"><h2>06 · Confira antes de entregar</h2>
+<div class="progress"><div id="barra"></div></div>
+<p class="muted" id="contagem">0 de 9 etapas concluídas</p>
+<div class="checklist" id="checklist">
+<label><input type="checkbox"> Criei um nome e uma frase de chamada para o cartaz.</label>
+<label><input type="checkbox"> Expliquei que a Constituição de 1988 garante direitos e mostrei como eles estão 38 anos depois, com avanços e desafios.</label>
+<label><input type="checkbox"> Mostrei um dado do que já saiu do papel e um dado do que ainda falta, os dois sobre o mesmo direito.</label>
+<label><input type="checkbox"> Escrevi o ano e a fonte dos dois dados na própria arte.</label>
+<label><input type="checkbox"> Conferi os números na fonte original.</label>
+<label><input type="checkbox"> Apresentei três atitudes concretas, começando com verbos de ação.</label>
+<label><input type="checkbox"> Preparei o cartaz em A4 vertical, com margens de segurança e o convite para seguir a hashtag, comentar e deixar um recado em post-it no mural da escola.</label>
+<label><input type="checkbox"> Coloquei, pequenos no rodapé, os nomes da dupla, a turma e a escola.</label>
+<label><input type="checkbox"> Revisei a ortografia e escrevi a reflexão final com minhas palavras.</label>
+</div></section>
+
+<footer>História · 9º Ano do Ensino Fundamental · Constituição de 1988<br>Dados consultados em outubro e novembro de 2026. Órgãos de origem: IBGE, Inep/MEC, Fundação João Pinheiro, Instituto Mauro Borges (IMB-GO), Seduc-GO, Ministério da Saúde, Ministério das Cidades e INSS.<br>Fontes consultadas: <a href="https://diariodonordeste.verdesmares.com.br/negocios/taxa-de-desemprego-no-brasil-cai-e-chega-a-52-no-3-trimestre-de-2026-1.3802435" target="_blank" rel="noopener">Diário do Nordeste (PNAD 3º tri)</a> · <a href="https://www.opovo.com.br/noticias/economia/2026/07/30/desemprego-no-2-trimestre-e-54-o-menor-ja-registrado-no-periodo.html" target="_blank" rel="noopener">O Povo (PNAD 2º tri)</a> · <a href="https://ohoje.com/2026/08/16/goias-registra-queda-no-desemprego-no-segundo-trimestre-de-2026/" target="_blank" rel="noopener">O Hoje (desemprego em Goiás)</a> · <a href="https://agenciagov.ebc.com.br/noticias/202509/brasil-registra-o-menor-deficit-habitacional-da-historia" target="_blank" rel="noopener">Agência Gov (déficit habitacional)</a> · <a href="https://goias.gov.br/imb/wp-content/uploads/sites/29/2025/09/Estudo_006_2025_Deficit_habitacional_2.pdf" target="_blank" rel="noopener">IMB-GO (déficit habitacional em Goiás)</a> · <a href="https://www.cnnbrasil.com.br/educacao/brasil-atinge-marco-historico-com-queda-da-taxa-de-analfabetismo-em-49/" target="_blank" rel="noopener">CNN Brasil (analfabetismo)</a> · <a href="https://ohoje.com/2026/08/06/ideb-2025-registra-maior-nota-em-20-anos-saiba-quais-estados-se-destacaram/" target="_blank" rel="noopener">O Hoje (Ideb 2025)</a> · <a href="https://opopular.com.br/cidades/goias-mantem-indices-acima-da-media-nacional-no-ranking-do-ideb-1.3442090" target="_blank" rel="noopener">O Popular (Ideb de Goiás)</a> · <a href="https://goias.gov.br/educacao/wp-content/uploads/sites/40/2026/06/Relatorio_TCE___FINAL-2025.pdf" target="_blank" rel="noopener">Seduc-GO (Relatório de Gestão 2025)</a> · <a href="https://goias.gov.br/educacao/wp-content/uploads/sites/40/2026/05/SEI_87024063_Parecer_1__10_.pdf" target="_blank" rel="noopener">Seduc-GO (parecer do Fundeb)</a> · <a href="https://conexaoto.com.br/2026/01/02/portaria-oficializa-estimativa-de-r-370-bilhoes-para-o-fundeb-em-2026" target="_blank" rel="noopener">Conexão Tocantins (Fundeb 2026)</a> · <a href="https://agenciabrasil.ebc.com.br/saude/noticia/2025-09/sus-76-da-populacao-tem-atendimento-direto-gratuito-de-saude" target="_blank" rel="noopener">Agência Brasil (SUS)</a> · <a href="https://www.nsctotal.com.br/?p=7739876" target="_blank" rel="noopener">NSC Total (expectativa de vida, IBGE)</a> · <a href="https://www.gov.br/cidades/pt-br/acesso-a-informacao/acoes-e-programas/saneamento/sinisa/resultados-sinisa/RELATORIO_SINISA_ESGOTAMENTO_SANITARIO_2024.pdf" target="_blank" rel="noopener">SINISA (esgoto)</a> · <a href="https://ohoje.com/2024/10/14/apenas-63-da-populacao-goiana-tem-acesso-a-uma-rede-de-esgoto/" target="_blank" rel="noopener">O Hoje (esgoto em Goiás)</a> · <a href="https://agenciagov.ebc.com.br/noticias/202501/previdencia-social-comemora-aniversario-pagando-mais-de-40-4-milhoes-de-beneficios" target="_blank" rel="noopener">Agência Gov (INSS)</a> · <a href="https://tribunadoplanalto.com.br/bolsa-familia-atende-4339-mil-familias-em-goias-com-beneficio-medio-de-r-68481-em-marco/" target="_blank" rel="noopener">Tribuna do Planalto (Bolsa Família em Goiás)</a> · <a href="https://www.opovo.com.br/noticias/economia/2025/12/03/ibge-4-em-cada-10-criancas-e-adolescentes-de-ate-14-anos-viviam-em-situacao-de-pobreza-no-pais.html" target="_blank" rel="noopener">O Povo (Síntese IBGE)</a> · <a href="https://goias.gov.br/imb/wp-content/uploads/sites/29/2026/01/Estudo_001_2026_Sintese_dos_Indicadores_Sociais_2025.pdf" target="_blank" rel="noopener">IMB-GO (Síntese de Indicadores Sociais 2025)</a></footer>
+</main>
+
+<script>
+const ids=['nome','publico','hashtag','aluno1','aluno2','turma','escola','cor1','cor2','cor3','cor4','fonteT','fonteC','tipoimg','estilo','clima','elemento','direito','dadoA','dadoAexp','dadoF','dadoFexp','at1','at2','at3','at1c','at2c','at3c','cartazchamada','cena4','reflexao'];
+const boxes=[...document.querySelectorAll('#checklist input')];
+const key='cartaz-constituicao-9ano-v4';
+const $=id=>document.getElementById(id);
+
+const AREAS={trabalho:'Trabalho',moradia:'Moradia',educacao:'Educação',saude:'Saúde e saneamento',prev:'Previdência e assistência social',pobreza:'Pobreza, renda e infância'};
+const ARTS={trabalho:'art. 6º e 7º',moradia:'art. 6º',educacao:'art. 205 e 212',saude:'art. 196 e 200, IV',prev:'art. 201 e 203',pobreza:'art. 3º, III e art. 6º'};
+const D=(k,a,tp,e,l,t,f,y)=>({k,a,tp,e,l,t,f,y});
+const IBGE='IBGE, PNAD Contínua',IMB='Instituto Mauro Borges (IMB-GO), com base no CadÚnico',SIS='IBGE, Síntese de Indicadores Sociais 2025',SISGO='IMB-GO, Síntese de Indicadores Sociais 2025 (IBGE)',FJP='Fundação João Pinheiro, para o Ministério das Cidades',INSS='INSS (divulgado pela Agência Gov)';
+const DADOS=[
+D('ta1','trabalho','av','Brasil','Desemprego baixo: 5,2%','Em cada 100 pessoas que querem trabalhar, só cerca de 5 estão sem emprego (5,2%). O Brasil tem 103,6 milhões de pessoas trabalhando, o maior número já registrado.',IBGE,'3º trimestre de 2026'),
+D('ta2','trabalho','av','Goiás','Desemprego em Goiás: 4%','Em Goiás, o desemprego é de 4%, menor que a média do Brasil (5,4%).',IBGE+' (divulgada pelo jornal O Hoje)','2º trimestre de 2026'),
+D('tf1','trabalho','falta','Brasil','Informalidade: 37,4% dos trabalhadores','Mais de 1 em cada 3 trabalhadores (37,4%) está na informalidade, muitas vezes sem os direitos de quem tem carteira assinada. São 13,6 milhões de pessoas sem carteira.',IBGE,'2º trimestre de 2026'),
+D('tf2','trabalho','falta','Goiás','Informalidade em Goiás: 36,1%','Em Goiás, 36,1% dos trabalhadores também estão na informalidade.',IBGE+' (divulgada pelo jornal O Hoje)','2º trimestre de 2026'),
+D('ma1','moradia','av','Brasil','Menor falta de moradia da história: 5,97 milhões','A falta de moradia adequada é a menor já medida: 5,97 milhões de domicílios (7,6%), contra 6,21 milhões no ano anterior.',FJP,'2023'),
+D('ma2','moradia','av','Goiás','Em Goiás, a falta de moradia caiu quase 20%','Em Goiás, a falta de moradia adequada diminuiu quase 20%: de 212.323 para 171.284 famílias, de 2023 para 2024.',IMB,'2024'),
+D('mf1','moradia','falta','Brasil','Aluguel pesado: 3,66 milhões de famílias','3,66 milhões de famílias de baixa renda gastam 30% ou mais do que ganham só com o aluguel.',FJP,'2023'),
+D('mf2','moradia','falta','Goiás','171.284 famílias goianas sem moradia adequada','Em Goiás, 171.284 famílias ainda não têm moradia adequada, e 21.561 delas vivem em casas improvisadas ou precárias.',IMB,'2024'),
+D('ea1','educacao','av','Brasil','Analfabetismo abaixo de 5%','Pela primeira vez, menos de 5 em cada 100 brasileiros com 15 anos ou mais não sabem ler e escrever (4,9%). Em 2016 eram 6,7%.','IBGE, PNAD Contínua Educação','2025'),
+D('ea2','educacao','av','Goiás','Ideb de Goiás acima da média do Brasil','O Ideb, nota que mede a qualidade das escolas, é maior em Goiás do que no Brasil nas três etapas: 6,5 nos anos iniciais (Brasil: 6,3), 5,7 nos anos finais (Brasil: 5,3) e 4,8 no ensino médio (Brasil: 4,5).','Inep/MEC, Ideb (divulgado pelos jornais O Hoje e O Popular)','2025'),
+D('ea3','educacao','av','Goiás','72,7% das crianças goianas alfabetizadas no 2º ano','Em Goiás, 72,7% das crianças estavam alfabetizadas até o fim do 2º ano, o 2º lugar entre os estados.','Seduc-GO, Relatório de Gestão','2024'),
+D('ea4','educacao','av','Brasil','Fundeb: R$ 370,3 bilhões em 2026','O Fundeb, fundo que ajuda a pagar a educação pública, terá R$ 370,3 bilhões em 2026 para 39,3 milhões de matrículas.','Portaria Interministerial nº 14/2025 (MEC/FNDE)','2026'),
+D('ea5','educacao','av','Goiás','Fundeb em Goiás: 71,64% para os profissionais da educação','Em Goiás, 71,64% do dinheiro do Fundeb pagou os profissionais da educação básica, acima do mínimo exigido de 70%.','Seduc-GO, Parecer do Conselho do Fundeb (CONFUNDEB) nº 1/2026','2025'),
+D('ef1','educacao','falta','Brasil','8,4 milhões de pessoas que não sabem ler','Ainda são 8,4 milhões de pessoas com 15 anos ou mais que não sabem ler e escrever. O problema é maior no Nordeste (10,6%) do que no Sudeste (2,3%), e 58% delas são idosas.','IBGE, PNAD Contínua Educação','2025'),
+D('ef2','educacao','falta','Brasil','Ensino médio abaixo da meta','O ensino médio do Brasil tem Ideb 4,5, abaixo da meta de 5,2.','Inep/MEC, Ideb (divulgado pelo jornal O Hoje)','2025'),
+D('sa1','saude','av','Brasil','SUS atende 76% da população','Cerca de 76% da população tem no SUS o atendimento direto e gratuito de saúde.','Ministério da Saúde (divulgado pela Agência Brasil)','2025'),
+D('sa2','saude','av','Brasil','Brasileiros vivem mais: 76,6 anos','A expectativa de vida do brasileiro chegou a 76,6 anos, a maior já registrada. Em 1940 era de 45,5 anos.','IBGE, Tábua de Mortalidade','2024'),
+D('sa3','saude','av','Brasil','Menos bebês morrem','A mortalidade infantil é de 12,3 mortes de bebês com menos de 1 ano para cada mil nascidos vivos. Em 1940 era de 146,6.','IBGE, Tábua de Mortalidade','2024'),
+D('sf1','saude','falta','Brasil','Só 59,7% têm rede de esgoto','Só 59,7% dos brasileiros têm rede de esgoto. A falta de esgoto prejudica a saúde.','Ministério das Cidades, SINISA','2023'),
+D('sf2','saude','falta','Goiás','Em Goiás, 63,1% têm rede de esgoto','Em Goiás, 63,1% da população tem rede de esgoto. Mais de 1 em cada 3 goianos ainda não tem.','SNIS (divulgado pelo jornal O Hoje)','2022'),
+D('pa1','prev','av','Brasil','INSS paga 40,4 milhões de benefícios','O INSS paga 40,4 milhões de benefícios: aposentadorias, pensões e ajuda para idosos e pessoas com deficiência.',INSS,'Setembro de 2024'),
+D('pa2','prev','av','Brasil','A previdência protege os idosos da pobreza','Entre os idosos, a pobreza é de 8,3%. Sem os benefícios da previdência, ela subiria para 52,3%.',SIS,'2024'),
+D('pf1','prev','falta','Brasil','6,2 milhões de pessoas dependem do BPC','O BPC, ajuda do governo para idosos e pessoas com deficiência de baixa renda, chega a 6,2 milhões de pessoas (2,7 milhões de idosos e 3,5 milhões com deficiência). Muita gente ainda precisa desse apoio para viver.',INSS,'Setembro de 2024'),
+D('pf2','prev','falta','Goiás','433,9 mil famílias goianas no Bolsa Família','Em Goiás, 433.943 famílias recebem o Bolsa Família (benefício médio de R$ 684,81), ajuda para quem tem renda muito baixa.','Ministério do Desenvolvimento e Assistência Social (divulgado pela Tribuna do Planalto)','Março de 2026'),
+D('oa1','pobreza','av','Goiás','Menor pobreza da história em Goiás: 19,8%','A pobreza em Goiás é a menor já medida (19,8%, renda abaixo de US$ 8,30 por dia). Em 2019 eram cerca de 2,06 milhões de pessoas pobres; em 2024, cerca de 1,45 milhão.',SISGO,'2024'),
+D('oa2','pobreza','av','Goiás','Extrema pobreza em Goiás: 1,7%','Em Goiás, 1,7% da população vive em extrema pobreza, menos da metade da média do Brasil (3,5%).',SISGO,'2024'),
+D('of1','pobreza','falta','Brasil','Quase 4 em cada 10 crianças vivem na pobreza','39,7% das crianças e adolescentes de até 14 anos vivem na pobreza (renda abaixo de cerca de R$ 694 por mês por pessoa).',SIS,'2024'),
+D('of2','pobreza','falta','Brasil','A pobreza atinge mais pessoas pretas e pardas','A pobreza atinge 29,8% das pessoas pardas e 25,8% das pretas, contra 15,1% das brancas.',SIS,'2024')
+];
+const ATIT=[
+'Conhecer os direitos garantidos pela Constituição e conversar sobre eles em casa e na escola.',
+'Participar do grêmio estudantil e das reuniões da escola e da comunidade.',
+'Checar a fonte antes de compartilhar informações sobre políticas públicas.',
+'Cobrar e acompanhar o que os governantes prometem para saúde, educação e moradia.',
+'Respeitar as diferenças e defender que os direitos valem para todas as pessoas.',
+'Incentivar a família e os vizinhos a votar com consciência e a acompanhar os eleitos.',
+'Cuidar da escola, do posto de saúde e dos espaços públicos que são de todos.',
+'Denunciar violações de direitos pelos canais oficiais, com a ajuda de um adulto.',
+'Cuidar da água e do lixo do bairro, protegendo a saúde de todos.',
+'Ajudar colegas a estudar e a permanecer na escola.'
+];
+const FT=[['Montserrat','700'],['Poppins','700'],['Oswald','600'],['Bebas Neue','400'],['Playfair Display','700'],['Roboto Slab','700']];
+const FC=[['Open Sans','400'],['Lato','400'],['Roboto','400'],['Nunito','400'],['Merriweather','400'],['Source Sans 3','400']];
+
+const areaOf=k=>(DADOS.find(d=>d.k===k)||{}).a||'';
+const dadoTxt=k=>{const d=DADOS.find(x=>x.k===k);return d?`${d.t} Fonte: ${d.f}, ${d.y}.`:''};
+function fill(sel,opts,ph,cur){sel.innerHTML='';const o0=document.createElement('option');o0.value='';o0.textContent=ph;sel.appendChild(o0);
+  opts.forEach(x=>{const o=document.createElement('option');o.value=x.v;o.textContent=x.l;sel.appendChild(o)});
+  sel.value=opts.some(x=>x.v===cur)?cur:''}
+const optD=arr=>arr.map(d=>({v:d.k,l:`[${d.e}] ${d.l}`}));
+function atTxt(i){const v=$('at'+i).value;if(v==='custom')return $('at'+i+'c').value.trim();if(v==='')return '';return ATIT[+v.slice(1)]||''}
+
+function rebuild(){
+  const dir=$('direito');const curDir=dir.value;
+  fill(dir,Object.entries(AREAS).map(([k,l])=>({v:k,l})),'Escolha o direito em foco…',curDir);
+  const dA=$('dadoA'),dF=$('dadoF');
+  const cA=dA.value,cF=dF.value;
+  const ar=dir.value;
+  const todos=ar?DADOS.filter(d=>d.a===ar):[];
+  fill(dA,optD(todos.filter(d=>d.tp==='av')),ar?'Escolha o que já saiu do papel…':'Escolha antes o direito em foco…',cA);
+  fill(dF,optD(todos.filter(d=>d.tp==='falta')),ar?'Escolha o que ainda falta…':'Escolha antes o direito em foco…',cF);
+  dA.disabled=dF.disabled=!ar;
+  $('dicaA').textContent=ar?`Dados sobre ${AREAS[ar]} que mostram um avanço. [Brasil] é o país todo e [Goiás] é o nosso estado.`:'Escolha antes o direito em foco.';
+  $('dicaF').textContent=ar?`Dados sobre ${AREAS[ar]} que mostram o que ainda é um desafio.`:'Escolha antes o direito em foco.';
+  ['A','F'].forEach(i=>{$('prev'+i).textContent=dadoTxt($('dado'+i).value)});
+  const cur=[1,2,3].map(i=>$('at'+i).value);
+  [1,2,3].forEach(i=>{
+    const outros=cur.filter((_,j)=>j!==i-1);
+    const opts=ATIT.map((t,n)=>({v:'a'+n,l:t})).filter(o=>!outros.includes(o.v));
+    opts.push({v:'custom',l:'Criar a minha própria atitude…'});
+    fill($('at'+i),opts,'Escolha a atitude '+i+'…',cur[i-1]);
+    $('at'+i+'c').style.display=$('at'+i).value==='custom'?'block':'none';
+  });
+  [1,2,3,4].forEach(i=>$('hex'+i).textContent=$('cor'+i).value.toUpperCase());
+  document.querySelectorAll('.fonte-card').forEach(b=>b.setAttribute('aria-pressed',$(b.dataset.alvo).value===b.dataset.fonte?'true':'false'));
+}
+function montarFontes(){
+  [['gridT','fonteT',FT],['gridC','fonteC',FC]].forEach(([g,alvo,lista])=>{
+    lista.forEach(([nome,peso])=>{
+      const b=document.createElement('button');b.type='button';b.className='fonte-card';b.dataset.alvo=alvo;b.dataset.fonte=nome;
+      b.innerHTML=`<span class="ex" style="font-family:'${nome}',sans-serif;font-weight:${peso}">Direitos para todos</span><small>${nome}</small>`;
+      b.addEventListener('click',()=>{$(alvo).value=nome;salvar();rebuild();montarPrompt()});
+      $(g).appendChild(b);
+    });
+  });
+}
+
+function salvar(){try{localStorage.setItem(key,JSON.stringify({campos:Object.fromEntries(ids.map(id=>[id,$(id).value])),checks:boxes.map(b=>b.checked)}))}catch(e){}}
+function carregar(){
+  let d={};try{d=JSON.parse(localStorage.getItem(key)||'{}')}catch(e){}
+  const ordem=['direito','dadoA','dadoF','at1','at2','at3'];
+  const get=id=>{const x=d.campos?.[id];return (x===undefined||x===null)?($(id).defaultValue||$(id).options?.[0]?.value||''):x};
+  ids.filter(id=>!ordem.includes(id)).forEach(id=>{$(id).value=get(id)});
+  rebuild();
+  ordem.forEach(id=>{if(d.campos&&d.campos[id]!==undefined)$(id).value=d.campos[id];rebuild()});
+  boxes.forEach((b,i)=>b.checked=!!d.checks?.[i]);
+  atualizar();montarPrompt();
+}
+function atualizar(){const n=boxes.filter(b=>b.checked).length;$('barra').style.width=(n/boxes.length*100)+'%';$('contagem').textContent=`${n} de ${boxes.length} etapas concluídas`}
+ids.forEach(id=>['input','change'].forEach(ev=>$(id).addEventListener(ev,()=>{rebuild();salvar();montarPrompt()})));
+boxes.forEach(b=>b.addEventListener('change',()=>{atualizar();salvar()}));
+
+function valor(id){
+  if(/^dado[AF]$/.test(id))return dadoTxt($(id).value);
+  if(/^at[123]$/.test(id))return atTxt(id.slice(2));
+  if(/^at[123]c$/.test(id))return '';
+  if(id==='direito'){const v=$(id).value;return AREAS[v]||''}
+  if(id==='tipoimg')return $(id).options[$(id).selectedIndex].text;
+  return $(id).value;
+}
+function texto(){const labels={nome:'Nome da campanha',publico:'Público-alvo',hashtag:'Hashtag ou lema',aluno1:'Estudante 1',aluno2:'Estudante 2',turma:'Turma',escola:'Escola',cor1:'Cor de fundo',cor2:'Cor dos títulos',cor3:'Cor dos destaques',cor4:'Cor dos textos',fonteT:'Fonte dos títulos',fonteC:'Fonte dos textos',tipoimg:'Tipo de imagem',estilo:'Estilo das imagens',clima:'Sensação do cartaz',elemento:'Elemento visual',direito:'Direito em foco',dadoA:'O que já saiu do papel',dadoAexp:'Com as minhas palavras (já saiu do papel)',dadoF:'O que ainda falta',dadoFexp:'Com as minhas palavras (ainda falta)',at1:'Atitude 1',at2:'Atitude 2',at3:'Atitude 3',cartazchamada:'Frase de chamada',cena4:'Imagem principal',reflexao:'Reflexão final'};
+return 'HISTÓRIA — 9º ANO DO ENSINO FUNDAMENTAL\nCARTAZ: CONSTITUIÇÃO DE 1988, 38 ANOS DEPOIS\n\n'+Object.keys(labels).map(id=>labels[id]+':\n'+valor(id)).join('\n\n')}
+
+function montarPrompt(){
+  let faltam=new Set();
+  const v=(id,ph)=>{const t=valor(id).trim();if(t)return t;faltam.add(id);return '['+ph+']'};
+  const real=$('tipoimg').value==='realista';
+  const cena=$('cena4').value.trim()?`Cena da imagem: ${$('cena4').value.trim()}`:(real?'Cena da imagem: proponha você uma situação realista e respeitosa do cotidiano que combine com o tema.':'Cena da imagem: proponha você uma ilustração que combine com o tema.');
+  const regras=`REGRAS OBRIGATÓRIAS
+- Use SOMENTE os dados que informei acima, exatamente como escritos (número, ano e fonte). Não invente estatísticas e não mude os números.
+- Tom positivo e propositivo: mostre avanços e desafios, sem culpar pessoas ou partidos e sem cenas de violência ou sofrimento.
+${real?`- Gere pessoas FICTÍCIAS, que não se pareçam com nenhuma pessoa real ou celebridade. Sem nomes, relatos ou casos reais.
+- Telas de celular e computador devem aparecer desfocadas, sem logotipos de marcas ou redes sociais.
+- Jovens e estudantes com roupas comuns, em situações do dia a dia.`:'- Não identifique pessoas reais. Use ilustrações, formas e símbolos.'}
+- Não use símbolos de partidos políticos nem imagens de políticos.
+- Linguagem clara e respeitosa, adequada a estudantes do 9º ano.`;
+  const P=`Você é um designer gráfico especialista em cartazes educativos e comunicação escolar, com foco em cidadania e Direitos Humanos. Preciso de um CARTAZ para impressão em papel A4, para uma atividade de História do 9º ano do Ensino Fundamental. O cartaz será fixado na escola.
+
+CONTEXTO
+- Tema: os 38 anos da Constituição de 1988 (a Constituição Cidadã, promulgada em 5 de outubro de 1988, após a ditadura militar). Ela garante direitos como educação, saúde, trabalho, moradia, previdência social e assistência. O cartaz mostra, com dados oficiais simples, o que JÁ SAIU DO PAPEL e o que AINDA FALTA, e convida as pessoas a ajudar.
+- Pergunta do cartaz: depois de 38 anos, o que já saiu do papel, o que ainda falta e o que podemos fazer?
+- Nome da campanha: ${v('nome','nome da campanha')}
+- Hashtag ou lema: ${v('hashtag','hashtag ou lema')}
+- Direito em foco: ${v('direito','direito em foco')}
+- Público: estudantes, professores e funcionários da escola. Principal público a conscientizar: ${v('publico','público-alvo')}
+
+IDENTIDADE VISUAL
+- Paleta de cores (códigos hexadecimais): fundo ${$('cor1').value}, títulos ${$('cor2').value}, destaques ${$('cor3').value}, textos ${$('cor4').value}. Garanta bom contraste entre texto e fundo.
+- Fontes: títulos em ${$('fonteT').value} (negrito) e textos em ${$('fonteC').value}. Se a ferramenta não tiver essas fontes, use fontes parecidas e bem legíveis.
+- Tipo de imagem: ${real?'IMAGEM REALÍSTICA, com aparência de fotografia, mostrando uma situação do cotidiano':'ILUSTRAÇÃO'}
+- Detalhes do estilo: ${v('estilo','detalhes do estilo das imagens')}
+- Sensação a transmitir: ${v('clima','sensação do cartaz')}
+- Elemento visual que reforça o tema: ${v('elemento','elemento visual')}
+
+FORMATO PARA IMPRESSÃO
+- Papel A4 na vertical (210 x 297 mm), proporção 1:1,414. Resolução ideal: 2480 x 3508 pixels (300 dpi).
+- Margem de segurança de pelo menos 10 mm em todos os lados, sem texto ou elementos importantes nas bordas.
+- Deve ser lido de longe, no corredor: título muito grande, poucas palavras, letras grandes e alto contraste.
+- Pense na impressão: evite fundos totalmente escuros e muito extensos e evite detalhes muito finos.
+
+CONTEÚDO DO CARTAZ (de cima para baixo)
+1. FRASE DE CHAMADA em destaque: ${$('cartazchamada').value.trim()||'proponha você uma frase curta e forte, no máximo 8 palavras, ligada aos 38 anos da Constituição de 1988.'}
+2. IMAGEM PRINCIPAL. ${cena}
+3. DOIS BLOCOS DE DADOS, do mesmo tamanho, bem separados e fáceis de comparar (lado a lado ou um sobre o outro). Em cada bloco, o número principal bem grande, uma frase curta e simples e a fonte com o ano em letras pequenas e legíveis:
+   - BLOCO A, com o título "JÁ SAIU DO PAPEL" (tom positivo, use a cor de destaque): ${v('dadoA','dado do que já saiu do papel')}${$('dadoAexp').value.trim()?' Frase dos estudantes para este bloco: "'+$('dadoAexp').value.trim()+'".':''}
+   - BLOCO B, com o título "AINDA FALTA" (tom de alerta, sem assustar): ${v('dadoF','dado do que ainda falta')}${$('dadoFexp').value.trim()?' Frase dos estudantes para este bloco: "'+$('dadoFexp').value.trim()+'".':''}
+4. "O QUE PODEMOS FAZER": TRÊS ATITUDES em lista curta, cada uma começando com um verbo de ação: \n   1) ${v('at1','atitude 1')}\n   2) ${v('at2','atitude 2')}\n   3) ${v('at3','atitude 3')}
+5. COMO PARTICIPAR (use exatamente esta ideia, em frase curta e destacada): "Siga a ${v('hashtag','hashtag')} e comente. Deixe o seu recado no mural da escola com um post-it." Pode incluir o desenho de um post-it.
+6. RODAPÉ, em letras pequenas e discretas: "Criado por ${v('aluno1','estudante 1')} e ${v('aluno2','estudante 2')} · ${v('turma','turma')} · ${v('escola','escola')}". Escreva os nomes exatamente como informei.
+
+`+regras+`
+
+O QUE VOCÊ DEVE ENTREGAR
+1. A IMAGEM FINAL do cartaz em A4 vertical, com o texto aplicado e seguindo a identidade visual acima. Se a ferramenta não conseguir escrever o texto sem erros ou não gerar o formato A4, gere a arte SEM texto e na proporção mais próxima possível, e me entregue o texto separado e organizado para eu montar o cartaz no Canva ou PowerPoint.
+2. O TEXTO EXATO que aparece no cartaz, na ordem acima.
+3. Uma sugestão de onde fixar o cartaz na escola e uma pergunta de revisão para eu conferir se o cartaz está claro à distância.`;
+  $('prompt1').value=P;
+  const n=faltam.size,e=$('estado1');
+  if(n){e.textContent=n+(n===1?' campo em branco':' campos em branco');e.className='estado'}
+  else{e.textContent='Prompt completo';e.className='estado ok'}
+}
+
+async function copiarTexto(t,el,okMsg,area){
+  try{await navigator.clipboard.writeText(t);el.textContent=okMsg}
+  catch(err){
+    try{if(area){area.focus();area.select();document.execCommand('copy');el.textContent=okMsg;return}}catch(e2){}
+    el.textContent='Não foi possível copiar automaticamente. Selecione o texto e use Ctrl+C.'
+  }
+}
+function copiarPlano(){copiarTexto(texto(),$('feedback'),'Planejamento copiado!')}
+function copiarPrompt(){copiarTexto($('prompt1').value,$('fb1'),'Prompt copiado! Cole na ferramenta de IA.',$('prompt1'))}
+function renderQuadro(){
+  let h='<div class="tbl"><table class="dados"><tr><th>Dado</th><th>Onde</th><th>Ano e fonte</th></tr>';
+  Object.keys(AREAS).forEach(a=>{
+    h+=`<tr><th colspan="3">${AREAS[a]} <span class="muted">(${ARTS[a]} da Constituição)</span></th></tr>`;
+    [['av','Já saiu do papel','#e1f4ea'],['falta','Ainda falta','#fff1d9']].forEach(([tp,nm,cor])=>{
+      h+=`<tr><td colspan="3" style="background:${cor};font-weight:700">${nm}</td></tr>`;
+      DADOS.filter(d=>d.a===a&&d.tp===tp).forEach(d=>{h+=`<tr><td>${d.t}</td><td>${d.e}</td><td>${d.y}. ${d.f}</td></tr>`});
+    });
+  });
+  $('quadro').innerHTML=h+'</table></div>';
+}
+renderQuadro();montarFontes();carregar();
+</script></body></html>

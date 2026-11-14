@@ -332,6 +332,30 @@ details.prof .in{padding:0 22px 16px;font-size:16px}
 .atv-constituicao-cidada .atv-d{color:#e1eaf7}
 .atv-constituicao-cidada .atv-go{background:#c9951b;color:#fff}
 .atv-constituicao-cidada:hover .atv-go{background:#f3e2b0;color:#14305f}
+.atv-box.atv-revisao-cidadania{background:linear-gradient(110deg,#10302c,#0f766e 60%,#f5a524);border:1px solid #5fb8ad;box-shadow:0 12px 28px -16px #10302cb0;margin:20px 0 28px}
+.atv-revisao-cidadania .atv-ic{color:#ffe3a6;border-color:#8fd3c9;background:#ffffff1f}
+.atv-revisao-cidadania .atv-k{color:#ffe3a6}
+.atv-revisao-cidadania .atv-d{color:#e6f6f3}
+.atv-revisao-cidadania .atv-go{background:#10302c;color:#fff}
+.atv-revisao-cidadania:hover .atv-go{background:#fff;color:#10302c}
+.atv-box.atv-lutas-sociais{background:linear-gradient(110deg,#10302c,#0f766e 60%,#f5a524);border:1px solid #5fb8ad;box-shadow:0 12px 28px -16px #10302cb0;margin:26px 0 8px}
+.atv-lutas-sociais .atv-ic{color:#ffe3a6;border-color:#8fd3c9;background:#ffffff1f}
+.atv-lutas-sociais .atv-k{color:#ffe3a6}
+.atv-lutas-sociais .atv-d{color:#e6f6f3}
+.atv-lutas-sociais .atv-go{background:#10302c;color:#fff}
+.atv-lutas-sociais:hover .atv-go{background:#fff;color:#10302c}
+.atv-box.atv-equidade-acoes{background:linear-gradient(110deg,#4a0f31,#be185d 60%,#f472b6);border:1px solid #f06fa8;box-shadow:0 12px 28px -16px #4a0f31b0;margin:26px 0 8px}
+.atv-equidade-acoes .atv-ic{color:#fbd5e8;border-color:#f4a9cb;background:#ffffff1f}
+.atv-equidade-acoes .atv-k{color:#fbd5e8}
+.atv-equidade-acoes .atv-d{color:#fde4f1}
+.atv-equidade-acoes .atv-go{background:#4a0f31;color:#fff}
+.atv-equidade-acoes:hover .atv-go{background:#fff;color:#4a0f31}
+.atv-box.atv-participacao-social{background:linear-gradient(110deg,#2f1a4f,#7c3aed 60%,#c4a1f5);border:1px solid #a97bef;box-shadow:0 12px 28px -16px #2f1a4fb0;margin:26px 0 8px}
+.atv-participacao-social .atv-ic{color:#e6d9f9;border-color:#c9a9f2;background:#ffffff1f}
+.atv-participacao-social .atv-k{color:#e6d9f9}
+.atv-participacao-social .atv-d{color:#f3e8ff}
+.atv-participacao-social .atv-go{background:#2f1a4f;color:#fff}
+.atv-participacao-social:hover .atv-go{background:#fff;color:#2f1a4f}
 .atv-box.atv-cartaz-38{background:linear-gradient(110deg,#0a5c2e,#17803f 55%,#e3b81c);border:1px solid #4fae6a;box-shadow:0 12px 28px -16px #0a5c2eb0;margin:20px 0 28px}
 .atv-cartaz-38 .atv-ic{color:#fff3b0;border-color:#9fd8b0;background:#ffffff1f}
 .atv-cartaz-38 .atv-k{color:#fff3b0}
@@ -494,6 +518,32 @@ a.card-img-btn{text-decoration:none}
 <style>
 /* Linha do tempo dos direitos: miniatura 3D à direita do texto, abre carrossel em nova aba */
 .ld-row{display:flow-root}
+
+/* Ícones no cabeçalho do capítulo (slides em PDF e vídeo), no mesmo padrão dos ícones redondos da página */
+.ch-head.has-tools{grid-template-columns:auto 1fr auto}
+.ch-tools{display:flex;gap:10px;align-self:center;justify-self:end}
+.ch-tool{width:44px;height:44px;border-radius:50%;border:0;background:var(--navy);color:#e3b45a;display:inline-grid;place-items:center;text-decoration:none;box-shadow:0 3px 9px #12304a33;transition:background .15s,color .15s,transform .15s}
+.ch-tool:hover,.ch-tool:focus-visible{background:var(--gold);color:#fff;transform:scale(1.08);outline-offset:3px}
+@media(max-width:1000px){.ch-head.has-tools{grid-template-columns:1fr}.ch-tools{justify-self:start;margin-top:6px}}
+@media print{.ch-tools{display:none}}
+
+/* Quadrinho do Césio-137: miniatura 3D com o texto contornando */
+.cesio-float{float:right;display:block;width:clamp(150px,30%,225px);margin:5px 0 14px 23px;position:relative;border-radius:10px;transform:perspective(850px) rotateY(-7deg) rotateX(2deg);box-shadow:9px 12px 20px #12304a40,2px 3px 0 #c5bba7;transition:transform .25s,box-shadow .25s}
+.cesio-float img{display:block;width:100%;height:auto;border-radius:10px;border:2px solid #fff}
+.cesio-float:hover,.cesio-float:focus-visible{transform:perspective(850px) rotateY(0) rotateX(0) scale(1.04);box-shadow:10px 16px 26px #12304a55;outline:2px solid var(--gold);outline-offset:3px}
+@media(max-width:480px){.cesio-float{width:42%;margin-left:13px}}
+@media print{.cesio-float{transform:none;box-shadow:none}}
+
+/* Guias de estudo (capítulos 5, 6 e 7): miniatura 3D à direita do texto */
+/* Caps. 5, 6 e 7: imagem do guia de estudo ao lado direito da introdução do capítulo e do texto */
+@media(min-width:760px){#lutas>.ch-head,#equidade>.ch-head,#participacao>.ch-head{padding-right:318px}#lutas .ge-float,#equidade .ge-float,#participacao .ge-float{margin-top:var(--ge-lift,-170px);z-index:2}}
+@media print{#lutas>.ch-head,#equidade>.ch-head,#participacao>.ch-head{padding-right:0}#lutas .ge-float,#equidade .ge-float,#participacao .ge-float{margin-top:0}}
+.ge-float{float:right;display:block;width:clamp(150px,29%,215px);margin:5px 0 14px 23px;position:relative;border-radius:10px;transform:perspective(850px) rotateY(-7deg) rotateX(2deg);box-shadow:9px 12px 20px #12304a40,2px 3px 0 #c5bba7;transition:transform .25s,box-shadow .25s}
+.ge-float img{display:block;width:100%;height:auto;border-radius:10px;border:2px solid #fff}
+.ge-float:hover,.ge-float:focus-visible{transform:perspective(850px) rotateY(0) rotateX(0) scale(1.04);box-shadow:10px 16px 26px #12304a55;outline:2px solid var(--gold);outline-offset:3px}
+@media(max-width:480px){.ge-float{width:42%;margin-left:13px}}
+@media print{.ge-float{transform:none;box-shadow:none}}
+#lutas .callout,#equidade figure.fig{display:flow-root}
 </style>
 </head>
 <body>
@@ -869,13 +919,16 @@ a.card-img-btn{text-decoration:none}
 </section>
 <!-- ======================= CAPÍTULO 4 ======================= -->
 <section class="chapter" id="cesio">
-<header class="ch-head"><div class="ch-num">4</div><div>
+<header class="ch-head has-tools"><div class="ch-num">4</div><div>
 <p class="eyebrow">Goiânia · Goiás · 1987</p><h2>O acidente com o Césio-137</h2>
-<p class="deck">O maior acidente radiológico do mundo aconteceu em plena redemocratização — e revelou lacunas de fiscalização, informação e proteção.</p></div></header>
+<p class="deck">O maior acidente radiológico do mundo aconteceu em plena redemocratização — e revelou lacunas de fiscalização, informação e proteção.</p></div>
+<div class="ch-tools"><a aria-label="Abrir os slides do acidente com o Césio-137 em PDF, em nova aba" class="ch-tool" href="pdf/cesio-137-slides.pdf" rel="noopener noreferrer" target="_blank" title="Abrir os slides em PDF (nova aba)"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2.5H7A2.5 2.5 0 0 0 4.5 5v14A2.5 2.5 0 0 0 7 21.5h10a2.5 2.5 0 0 0 2.5-2.5V8z"/><path d="M14 2.5V8h5.5"/><text x="12" y="17" font-size="6.4" font-weight="800" text-anchor="middle" fill="currentColor" stroke="none" font-family="Inter,Arial,sans-serif">PDF</text></svg></a><a aria-label="Assistir ao vídeo sobre o acidente com o Césio-137 no YouTube, em nova aba" class="ch-tool" href="https://youtu.be/FMsFWQN6PWA?si=aJsSc2zoKx-4ADzn" rel="noopener noreferrer" target="_blank" title="Assistir ao vídeo no YouTube (nova aba)"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect height="14" rx="3" width="15" x="2" y="5"></rect><path d="m17 10 5-3v10l-5-3"></path><path d="m8 9 5 3-5 3z" fill="currentColor" stroke="none"></path></svg></a></div></header>
 <div class="body">
 <div class="chips"><span class="chip">GO-EF09HI22-C</span><span class="chip g">Saúde · informação · preconceito · memória</span></div>
+<a aria-label="Abrir o quadrinho Césio-137: a tragédia que Goiânia não esqueceu, em nova aba" class="cesio-float" href="img/cesio.webp" rel="noopener noreferrer" target="_blank" title="Abrir o quadrinho em nova aba"><img alt="Quadrinho em oito cenas: Césio-137, a tragédia que Goiânia não esqueceu, do abandono do aparelho em 1985 à memória das vítimas" loading="lazy" src="img/cesio.webp"/></a>
 <p>Em 13 de setembro de 1987, dois jovens de 20 e 21 anos, Wagner Mota Pereira e Roberto Santos Alves, recolheram parte de um aparelho de radioterapia abandonado nas ruínas do antigo Instituto Goiano de Radioterapia (IGR), no centro de Goiânia. Pretendiam vender a peça a um ferro-velho e removeram o lacre da cápsula. Estava iniciado o maior acidente radiológico do mundo, classificado pela Comissão Nacional de Energia Nuclear (CNEN) como <b>nível 5</b> em uma escala de 1 a 7.</p>
 <p>A cápsula continha cloreto de césio-137, um pó que emitia uma luz azulada. Fascinados, parentes, vizinhos e amigos manipularam e distribuíram fragmentos do material. Sem saber o que era, muitas pessoas se contaminaram.</p>
+<div style="clear:both"></div>
 <div aria-label="Números do acidente" class="stats">
 <div class="stat"><b>13/09</b><span>1987 — a fonte é violada em um ferro-velho</span></div>
 <div class="stat"><b>29/09</b><span>1987 — o acidente é identificado e notificado à CNEN</span></div>
@@ -916,16 +969,15 @@ a.card-img-btn{text-decoration:none}
 <p>O depósito de rejeitos de Abadia de Goiás, inaugurado em 5 de junho de 1997, recebeu cerca de 6 mil toneladas de material (tambores e caixas metálicas, entre outros recipientes) e permanece sob monitoramento. A tragédia deixou lições sobre fiscalização de fontes radioativas, comunicação de risco e atendimento integral à saúde — uma memória que, nas palavras da Secretaria de Saúde, funciona como “um memorial para a prevenção e a promoção da saúde”.</p>
 <figure class="doc"><blockquote>“Não quebrei portas ou janelas como disseram. Entrei [...] porque estava abandonada. Era final da tarde, com muito sol, e a peça era tão pesada que o carrinho entortou.”</blockquote>
 <figcaption><b>Roberto Santos Alves</b>, um dos jovens que retiraram a peça das ruínas do IGR. Depoimento na exposição <em>Mãos de Césio 137</em>, reproduzido em <em>Césio 137: 37 anos</em> (SES-GO, 2024).<br/>Observe: o que o depoimento nos permite perceber sobre a forma como as pessoas simples foram vistas e julgadas logo após o acidente? Por que é importante ouvir diferentes versões de um mesmo fato?</figcaption></figure>
-<div class="act"><header>Atividade · Estudo de caso</header><div class="in">
-<p>Complete o quadro com base no que você estudou:</p>
-<table class="tb"><tr><th>Dimensão</th><th>O que devemos observar?</th><th>Registre um exemplo</th></tr>
-<tr><td>Social</td><td>Relações entre pessoas e comunidades; preconceito e solidariedade.</td><td class="fill"></td></tr>
-<tr><td>Sanitária</td><td>Consequências para a saúde e atendimento às pessoas.</td><td class="fill"></td></tr>
-<tr><td>Ambiental</td><td>Contaminação, descontaminação e destino dos rejeitos.</td><td class="fill"></td></tr>
-<tr><td>Econômica</td><td>Impactos sobre bens, moradias e atividades.</td><td class="fill"></td></tr>
-<tr><td>Cidadania</td><td>Direitos, informação, proteção e responsabilidade pública.</td><td class="fill"></td></tr></table>
-<p><b>Questão final:</b> em sua opinião, que direitos da Constituição de 1988 teriam relação direta com o acidente? Justifique.</p>
-<div class="lines"><i></i><i></i><i></i></div></div></div>
+<a aria-label="Abrir atividade sobre o acidente com o Césio-137 em nova aba" class="atv-box" href="atv/atv-cesio-137.html" rel="noopener noreferrer" target="_blank">
+<span aria-hidden="true" class="atv-ic">✎</span>
+<span class="atv-tx">
+<span class="atv-k">Atividade · GO-EF09HI22-C</span>
+<b>Césio-137: a tragédia que Goiânia não esqueceu</b>
+<span class="atv-d">Dez questões de múltipla escolha sobre as causas, as consequências e as lições do acidente radiológico de Goiânia: fiscalização, informação, saúde, preconceito e memória.</span>
+</span>
+<span class="atv-go">Abrir atividade ↗</span>
+</a>
 </div>
 <div class="ch-end"><span>Capítulo 4 de 8</span><span>Próximo: Lutas sociais →</span></div>
 </section>
@@ -935,9 +987,11 @@ a.card-img-btn{text-decoration:none}
 <p class="eyebrow">Sociedade civil</p><h2>Lutas sociais e organização coletiva</h2>
 <p class="deck">Os direitos que hoje reconhecemos foram, em grande parte, arrancados por mobilizações coletivas.</p></div></header>
 <div class="body">
+<a aria-label="Abrir o guia de estudo em nova aba: Sociedade civil, lutas sociais e organização coletiva" class="ge-float" href="img/ge5.webp" rel="noopener noreferrer" target="_blank" title="Abrir o guia de estudo em nova aba"><img alt="Guia de estudo: Sociedade civil, lutas sociais e organização coletiva" loading="lazy" src="img/ge5.webp"/></a>
 <div class="chips"><span class="chip">GO-EF09HI26-A</span><span class="chip g">Movimentos sociais · resistência · organização</span></div>
 <p>A conquista de direitos não aconteceu apenas por decisões tomadas dentro das instituições. Em diferentes momentos, grupos sociais organizaram movimentos, campanhas, associações e sindicatos para apresentar reivindicações e disputar espaço na sociedade. Entre os grupos que historicamente enfrentaram exclusão ou violência estão negros, indígenas, mulheres, pessoas LGBTQIA+, pessoas com deficiência, camponeses e pobres.</p>
 <div class="callout teal"><span class="lab">Uma ideia importante</span><p><b>Movimentos sociais</b> são formas de organização coletiva que apresentam reivindicações, defendem interesses, questionam situações existentes e buscam transformações sociais ou políticas.</p></div>
+<div style="clear:both"></div>
 <h3>Como uma luta por direitos pode se organizar?</h3>
 <div class="flow">
 <div><b>Problema</b><span>Identificação de uma situação considerada injusta.</span></div>
@@ -959,13 +1013,15 @@ a.card-img-btn{text-decoration:none}
 </div>
 <div class="src"><b>Fontes:</b> BRAICK; BARRETO, <em>Se liga na História 9</em>; KARNAL et al., <em>Viver História 9</em> (orientações ao professor); PANAZZO; VAZ, <em>História 9</em> (Editora do Brasil). Síntese e adaptação.</div>
 </aside>
-<div class="act"><header>Atividade · Ficha de um movimento social</header><div class="in">
-<ol><li>Escolha um grupo social ou movimento.</li>
-<li>Qual problema ou desigualdade está no centro de sua atuação?</li>
-<li>Que direito está relacionado à reivindicação?</li>
-<li>Quais estratégias de organização podem ser identificadas?</li>
-<li>Que mudança social ou política foi reivindicada? Ela foi conquistada?</li></ol>
-<div class="lines"><i></i><i></i><i></i><i></i></div></div></div>
+<a aria-label="Abrir atividade sobre lutas sociais e organização coletiva em nova aba" class="atv-box atv-lutas-sociais" href="atv/atvtopico5-lutas-sociais.html" rel="noopener noreferrer" target="_blank">
+<span aria-hidden="true" class="atv-ic">✎</span>
+<span class="atv-tx">
+<span class="atv-k">Atividade · GO-EF09HI26-A</span>
+<b>Lutas sociais e organização coletiva</b>
+<span class="atv-d">Dez questões de múltipla escolha sobre movimentos sociais, as etapas de uma luta por direitos e os exemplos do movimento negro, do movimento camponês e dos povos indígenas.</span>
+</span>
+<span class="atv-go">Abrir atividade ↗</span>
+</a>
 </div>
 <div class="ch-end"><span>Capítulo 5 de 8</span><span>Próximo: Equidade e ações afirmativas →</span></div>
 </section>
@@ -975,45 +1031,14 @@ a.card-img-btn{text-decoration:none}
 <p class="eyebrow">Igualdade e justiça social</p><h2>Equidade e ações afirmativas</h2>
 <p class="deck">Tratar todos do mesmo jeito basta quando as pessoas partem de condições muito diferentes?</p></div></header>
 <div class="body">
+<a aria-label="Abrir o guia de estudo em nova aba: Equidade e ações afirmativas" class="ge-float" href="img/ge6.webp" rel="noopener noreferrer" target="_blank" title="Abrir o guia de estudo em nova aba"><img alt="Guia de estudo: Equidade e ações afirmativas" loading="lazy" src="img/ge6.webp"/></a>
 <div class="chips"><span class="chip">GO-EF09HI26-A</span><span class="chip g">Equidade · ações afirmativas · políticas públicas</span></div>
 <p>Quando observamos desigualdades históricas, surge uma questão importante: tratar todas as pessoas exatamente da mesma maneira é suficiente para produzir igualdade de oportunidades? A <b>equidade</b> parte da ideia de “igualdade de direitos de aprender”: reconhecer que as necessidades das pessoas são diferentes e que é responsabilidade coletiva garantir formas eficientes de atender a todos, “a fim de que ninguém fique para trás”.</p>
 <div class="two">
 <div class="callout teal"><span class="lab">Igualdade</span><p>As pessoas têm os mesmos direitos e são tratadas pelas mesmas normas jurídicas.</p></div>
 <div class="callout concept"><span class="lab">Equidade</span><p>Considera desigualdades e condições diferentes ao pensar medidas que ampliem oportunidades e reduzam barreiras.</p></div>
 </div>
-<figure class="fig">
-<svg aria-label="Três cenas: na primeira, todos recebem a mesma caixa e quem é mais baixo continua sem enxergar o jogo; na segunda, cada um recebe a caixa de que precisa e todos enxergam; na terceira, a barreira é removida e ninguém precisa de caixa." role="img" viewbox="0 0 720 230" width="100%">
-<g fill="#1d2731" font-family="Inter,Arial,sans-serif" font-size="13" text-anchor="middle">
-<g transform="translate(0,0)">
-<rect fill="#fff" height="190" rx="12" stroke="#dcd6c8" width="220" x="10" y="10"></rect>
-<rect fill="#c9c1ac" height="14" width="180" x="30" y="80"></rect><rect fill="#c9c1ac" height="110" width="6" x="30" y="80"></rect><rect fill="#c9c1ac" height="110" width="6" x="204" y="80"></rect>
-<rect fill="#b8842b" height="26" width="36" x="50" y="162"></rect><rect fill="#b8842b" height="26" width="36" x="104" y="162"></rect><rect fill="#b8842b" height="26" width="36" x="158" y="162"></rect>
-<circle cx="68" cy="68" fill="#1c4a6b" r="10"></circle><rect fill="#1c4a6b" height="82" opacity=".0" width="12" x="62" y="80"></rect><line stroke="#1c4a6b" stroke-linecap="round" stroke-width="10" x1="68" x2="68" y1="78" y2="162"></line>
-<circle cx="122" cy="102" fill="#1f6f78" r="10"></circle><line stroke="#1f6f78" stroke-linecap="round" stroke-width="10" x1="122" x2="122" y1="112" y2="162"></line>
-<circle cx="176" cy="120" fill="#a8472a" r="10"></circle><line stroke="#a8472a" stroke-linecap="round" stroke-width="10" x1="176" x2="176" y1="130" y2="162"></line>
-<text x="120" y="222">Igualdade: mesma caixa</text>
-</g>
-<g transform="translate(240,0)">
-<rect fill="#fff" height="190" rx="12" stroke="#dcd6c8" width="220" x="10" y="10"></rect>
-<rect fill="#c9c1ac" height="14" width="180" x="30" y="80"></rect><rect fill="#c9c1ac" height="110" width="6" x="30" y="80"></rect><rect fill="#c9c1ac" height="110" width="6" x="204" y="80"></rect>
-<rect fill="#b8842b" height="26" width="36" x="158" y="162"></rect><rect fill="#b8842b" height="52" width="36" x="104" y="136"></rect>
-<circle cx="68" cy="68" fill="#1c4a6b" r="10"></circle><line stroke="#1c4a6b" stroke-linecap="round" stroke-width="10" x1="68" x2="68" y1="78" y2="188"></line>
-<circle cx="122" cy="68" fill="#1f6f78" r="10"></circle><line stroke="#1f6f78" stroke-linecap="round" stroke-width="10" x1="122" x2="122" y1="78" y2="136"></line>
-<circle cx="176" cy="68" fill="#a8472a" r="10"></circle><line stroke="#a8472a" stroke-linecap="round" stroke-width="10" x1="176" x2="176" y1="78" y2="162"></line>
-<text x="120" y="222">Equidade: apoio sob medida</text>
-</g>
-<g transform="translate(480,0)">
-<rect fill="#fff" height="190" rx="12" stroke="#dcd6c8" width="220" x="10" y="10"></rect>
-<rect fill="#c9c1ac" height="110" opacity=".35" width="6" x="30" y="80"></rect><rect fill="#c9c1ac" height="110" opacity=".35" width="6" x="204" y="80"></rect>
-<circle cx="68" cy="102" fill="#1c4a6b" r="10"></circle><line stroke="#1c4a6b" stroke-linecap="round" stroke-width="10" x1="68" x2="68" y1="112" y2="188"></line>
-<circle cx="122" cy="120" fill="#1f6f78" r="10"></circle><line stroke="#1f6f78" stroke-linecap="round" stroke-width="10" x1="122" x2="122" y1="130" y2="188"></line>
-<circle cx="176" cy="136" fill="#a8472a" r="10"></circle><line stroke="#a8472a" stroke-linecap="round" stroke-width="10" x1="176" x2="176" y1="146" y2="188"></line>
-<text x="120" y="222">Barreira removida</text>
-</g>
-</g>
-</svg>
-<figcaption>Esquema explicativo (ilustração original deste livro). A cerca representa uma barreira social; as caixas, políticas de apoio. Atenção: o objetivo das ações afirmativas é tornar o apoio temporário, até que as barreiras sejam superadas.</figcaption>
-</figure>
+<figure class="fig"><a href="img/equidade.webp" rel="noopener noreferrer" target="_blank" title="Abrir a imagem em nova aba" style="display:block"><img alt="Quadrinho em três cenas: igualdade, com a mesma caixa para todos e nem todos enxergando a partida; equidade, com apoio sob medida para cada um; e barreira removida, com todos vendo a partida sem precisar de caixas." loading="lazy" src="img/equidade.webp" style="display:block;width:100%;height:auto;border-radius:8px"/></a></figure>
 <h3>O que são ações afirmativas?</h3>
 <p>Ações afirmativas são políticas destinadas a enfrentar desigualdades e discriminações historicamente construídas, em nome do princípio constitucional da igualdade de oportunidades. Entre os exemplos estão políticas de acesso à educação, de inclusão de pessoas com deficiência, de proteção a povos indígenas e de estímulo à participação de mulheres na política.</p>
 <aside class="support"><header><i></i>Texto de apoio · Como funciona a Lei de Cotas</header>
@@ -1029,9 +1054,15 @@ a.card-img-btn{text-decoration:none}
 <div class="card"><div class="n">Representação</div><h6>Mulheres na política</h6><p>Regras podem estimular a presença de grupos sub-representados em espaços de decisão.</p></div>
 </div>
 <div class="think"><small>Pense</small>Se duas pessoas partem de condições muito diferentes, oferecer exatamente o mesmo recurso produz necessariamente o mesmo resultado?</div>
-<div class="act"><header>Atividade · Debate escrito</header><div class="in">
-<p>Explique, com suas palavras, a diferença entre <b>igualdade</b> e <b>equidade</b>. Depois, dê um exemplo de política pública que procure reduzir uma desigualdade e identifique: (a) quem é beneficiado; (b) qual barreira se pretende superar.</p>
-<div class="lines"><i></i><i></i><i></i><i></i></div></div></div>
+<a aria-label="Abrir atividade sobre equidade e ações afirmativas em nova aba" class="atv-box atv-equidade-acoes" href="atv/atvtopico6-equidade-acoes-afirmativas.html" rel="noopener noreferrer" target="_blank">
+<span aria-hidden="true" class="atv-ic">✎</span>
+<span class="atv-tx">
+<span class="atv-k">Atividade · GO-EF09HI26-A</span>
+<b>Equidade e ações afirmativas: ninguém para trás</b>
+<span class="atv-d">Dez questões de múltipla escolha sobre igualdade e equidade, ações afirmativas e a Lei de Cotas: como as políticas públicas enfrentam desigualdades historicamente construídas.</span>
+</span>
+<span class="atv-go">Abrir atividade ↗</span>
+</a>
 </div>
 <div class="ch-end"><span>Capítulo 6 de 8</span><span>Próximo: Participação social →</span></div>
 </section>
@@ -1041,6 +1072,7 @@ a.card-img-btn{text-decoration:none}
 <p class="eyebrow">Democracia</p><h2>Participação social: a cidadania em ação</h2>
 <p class="deck">Do problema coletivo à política pública: como pessoas comuns influenciam decisões.</p></div></header>
 <div class="body">
+<a aria-label="Abrir o guia de estudo em nova aba: Participação social: a cidadania em ação" class="ge-float" href="img/ge7.webp" rel="noopener noreferrer" target="_blank" title="Abrir o guia de estudo em nova aba"><img alt="Guia de estudo: Participação social: a cidadania em ação" loading="lazy" src="img/ge7.webp"/></a>
 <div class="chips"><span class="chip">EF09HI23</span><span class="chip">GO-EF09HI26-A</span><span class="chip g">Participação · políticas públicas</span></div>
 <p>A democracia não acontece apenas no momento da eleição. A participação social também ocorre por meio de associações, movimentos, conselhos, sindicatos, organizações comunitárias, manifestações, debates públicos e outras formas de atuação coletiva. A Constituição de 1988 abriu espaço para essa participação — já na própria elaboração, com as emendas populares.</p>
 <h3>Da reivindicação à política pública</h3>
@@ -1057,10 +1089,15 @@ a.card-img-btn{text-decoration:none}
 <div class="in"><p>O caso do Césio-137 mostra a face oposta da participação: quando não há fiscalização, informação e controle social, os riscos recaem sobre quem tem menos meios de se proteger. Para a Secretaria de Saúde de Goiás, a memória do acidente é um memorial “para a prevenção e a promoção da saúde”, que permanecem como “um desafio coletivo”. Conhecer a história é parte da cidadania.</p></div>
 <div class="src"><b>Fonte:</b> GOIÁS. Secretaria de Estado da Saúde. <em>Césio 137: 37 anos</em>, 2024, “Apresentação”.</div>
 </aside>
-<div class="act"><header>Projeto · Minha comunidade, meus direitos</header><div class="in">
-<p>Em pequenos grupos, escolha um problema observado na escola ou na comunidade. Produza um pequeno plano:</p>
-<table class="tb"><tr><th>Problema</th><th>Quem é afetado?</th><th>Direito relacionado</th><th>Possível ação</th></tr>
-<tr><td class="fill"></td><td></td><td></td><td></td></tr><tr><td class="fill"></td><td></td><td></td><td></td></tr></table></div></div>
+<a aria-label="Abrir atividade sobre participação social em nova aba" class="atv-box atv-participacao-social" href="atv/atvtopico7-participacao-social.html" rel="noopener noreferrer" target="_blank">
+<span aria-hidden="true" class="atv-ic">✎</span>
+<span class="atv-tx">
+<span class="atv-k">Atividade · EF09HI23 · GO-EF09HI26-A</span>
+<b>Participação social: a cidadania em ação</b>
+<span class="atv-d">Dez questões de múltipla escolha sobre as formas de participação social, o caminho do problema coletivo à política pública e o que o caso do Césio-137 ensina sobre fiscalização, informação e controle social.</span>
+</span>
+<span class="atv-go">Abrir atividade ↗</span>
+</a>
 </div>
 <div class="ch-end"><span>Capítulo 7 de 8</span><span>Próximo: Síntese →</span></div>
 </section>
@@ -1091,28 +1128,15 @@ a.card-img-btn{text-decoration:none}
 <p class="eyebrow">Vamos revisar</p><h2>Atividades de revisão</h2>
 <p class="deck">Colégio Estadual Rodolfo de Oliveira · História · 9º ano · 2026</p></div></header>
 <div class="body">
-<div class="act"><header>Questão 1 · Organize no tempo</header><div class="in"><p>Organize os acontecimentos em ordem cronológica: <b>Constituição de 1988 · Diretas Já · Lei da Anistia · Instalação da Assembleia Constituinte · Acidente com o Césio-137</b>.</p><div class="lines"><i></i><i></i></div></div></div>
-<div class="act"><header>Questão 2 · Relacione</header><div class="in">
-<table class="tb"><tr><th>Conceito</th><th>Definição</th></tr>
-<tr><td>Direitos civis</td><td>( ) Participação na vida política.</td></tr>
-<tr><td>Direitos políticos</td><td>( ) Liberdades e garantias individuais.</td></tr>
-<tr><td>Direitos sociais</td><td>( ) Condições e serviços necessários à vida social.</td></tr>
-<tr><td>Equidade</td><td>( ) Consideração das desigualdades para ampliar oportunidades.</td></tr></table></div></div>
-<div class="act"><header>Questão 3 · Interpretação</header><div class="in">
-<p>Um grupo social identifica uma situação de discriminação e passa a organizar reuniões, campanhas e propostas de políticas públicas.</p>
-<ol><li>Que formas de participação social aparecem nessa situação?</li><li>Como essa mobilização pode se relacionar com a cidadania?</li><li>Que diferença existe entre reivindicar um direito e garantir sua efetivação?</li></ol></div></div>
-<div class="act"><header>Questão 4 · Análise de fonte</header><div class="in">
-<p>Releia o depoimento de Roberto Santos Alves (capítulo 4) e o texto do art. 231 da Constituição (capítulo 2). Para cada um: (a) quem fala? (b) em que contexto? (c) que direito está em jogo?</p><div class="lines"><i></i><i></i><i></i><i></i></div></div></div>
-<div class="act"><header>Questão 5 · Produção final</header><div class="in">
-<p>Produza um pequeno texto respondendo à frase abaixo, usando pelo menos dois conceitos do glossário:</p>
-<figure class="doc"><blockquote>“Cidadania não é apenas ter direitos escritos na lei. É também participar da sociedade e lutar para que esses direitos sejam efetivados.”</blockquote></figure>
-<div class="lines"><i></i><i></i><i></i><i></i><i></i></div></div></div>
-<details class="prof"><summary>Orientações para o professor (não impressas)</summary><div class="in">
-<p><b>Q1:</b> Lei da Anistia (1979) → Diretas Já (1983–84) → Instalação da Constituinte (1987) → Césio-137 (setembro de 1987) → Constituição (1988).</p>
-<p><b>Q2:</b> civis → liberdades e garantias individuais; políticos → participação na vida política; sociais → condições e serviços necessários à vida social; equidade → consideração das desigualdades.</p>
-<p><b>Q3:</b> esperam-se referências a reuniões, campanhas, associações e proposição de políticas públicas; a mobilização é exercício de cidadania; reivindicar é pedir o reconhecimento de um direito, efetivar é garantir, na prática, o acesso a ele.</p>
-<p><b>Q4:</b> o depoimento é de um dos jovens envolvidos no acidente (contexto: estigma e busca de responsabilização); o art. 231 reconhece direitos indígenas (contexto: Constituição de 1988; direito à diferença e às terras).</p>
-<p><b>Sugestão de uso:</b> os textos de apoio podem ser lidos em duplas com a técnica “cada um explica um parágrafo”; as fontes históricas servem para ensinar a pergunta-guia <i>quem fala, quando, para quem e com qual objetivo?</i></p></div></details>
+<a aria-label="Abrir atividade de revisão sobre Constituição, cidadania e direitos em nova aba" class="atv-box atv-revisao-cidadania" href="atv/atvrevisao-constituicao-cidadania-direitos.html" rel="noopener noreferrer" target="_blank">
+<span aria-hidden="true" class="atv-ic">✎</span>
+<span class="atv-tx">
+<span class="atv-k">Atividade de revisão · EF09HI23 · GO-EF09HI22-C · GO-EF09HI26-A</span>
+<b>Constituição de 1988: direitos no papel e na vida</b>
+<span class="atv-d">Quinze questões de múltipla escolha sobre a Constituição Cidadã, o acidente com o Césio-137 em Goiânia, as desigualdades históricas e as políticas afirmativas.</span>
+</span>
+<span class="atv-go">Abrir atividade ↗</span>
+</a>
 </div>
 </section>
 <!-- ======================= GLOSSÁRIO ======================= -->
@@ -1495,5 +1519,14 @@ d.addEventListener('click',function(e){if(e.target===d)d.close()});});})();
   });
 })();
 </script>
+<script>
+(function(){var ids=['lutas','equidade','participacao'];
+function fit(){ids.forEach(function(id){var s=document.getElementById(id);if(!s)return;var hd=s.querySelector('.ch-head'),im=s.querySelector('.ge-float');if(!hd||!im)return;
+if(window.innerWidth<760){s.style.removeProperty('--ge-lift');return}
+s.style.setProperty('--ge-lift',-(hd.offsetHeight-14)+'px')})}
+fit();window.addEventListener('resize',fit);window.addEventListener('load',fit);
+if(document.fonts&&document.fonts.ready)document.fonts.ready.then(fit)})();
+</script>
 </body>
 </html>
+
